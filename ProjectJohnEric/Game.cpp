@@ -1,15 +1,23 @@
 #include "Game.h"
 #include <iostream>
-
-
+#include "Level.h"
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
+	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
 	m_character("test")
 {
 	m_character.init();
-	m_keyHandler = m_keyHandler->GetInstance();
+	/*m_keyHandler = m_keyHandler->GetInstance();
+	if (!m_map.load("ASSETS/LEVELS/Level1.tmx")) {
+		std::cout << "ERROR: Loading map failed" << std::endl;
+	}
+	int size = m_map.getLayers().size();
+	for (int i = 0; i < size; i++) {
+		m_layers.push_back(new MapLayer(m_map, i));
+	}*/
+	std::string filename = "ASSETS/LEVELS/Level1.tmx";
+	m_level.load(filename);
 }
 
 
@@ -84,6 +92,11 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+	m_level.render(m_window);
 	m_character.render(m_window);
+	/*for (MapLayer * m : m_layers) {
+		m_window.draw(*m);
+	}*/
+	
 	m_window.display();
 }
