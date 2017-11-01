@@ -91,9 +91,9 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
+	//m_window.clear(sf::Color::White);
 	m_level.render(m_window);
-	m_character.render(m_window);
+	//m_character.render(m_window);
 	/*for (MapLayer * m : m_layers) {
 		m_window.draw(*m);
 	}*/
