@@ -8,14 +8,9 @@ Game::Game() :
 	m_character("test")
 {
 	m_character.init();
-	/*m_keyHandler = m_keyHandler->GetInstance();
-	if (!m_map.load("ASSETS/LEVELS/Level1.tmx")) {
-		std::cout << "ERROR: Loading map failed" << std::endl;
-	}
-	int size = m_map.getLayers().size();
-	for (int i = 0; i < size; i++) {
-		m_layers.push_back(new MapLayer(m_map, i));
-	}*/
+	//m_currentView.setSize(sf::Vector2f(1080, 800));
+	//m_currentView.setCenter(sf::Vector2f(540, 400));
+	//m_window.setView(m_currentView);
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename);
 }
@@ -91,12 +86,9 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	//m_window.clear(sf::Color::White);
+	m_window.clear(sf::Color::White);
 	m_level.render(m_window);
-	//m_character.render(m_window);
-	/*for (MapLayer * m : m_layers) {
-		m_window.draw(*m);
-	}*/
+	m_character.render(m_window);
 	
 	m_window.display();
 }

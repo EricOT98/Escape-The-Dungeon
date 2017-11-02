@@ -26,6 +26,7 @@ private:
 	bool m_exitGame; // control exiting game
 	Character m_character;
 	KeyboardHandler * m_keyHandler;
+	sf::View m_currentView;
 	//tmx::Map m_map;
 	//std::vector<MapLayer*> m_layers;
 	Level m_level;

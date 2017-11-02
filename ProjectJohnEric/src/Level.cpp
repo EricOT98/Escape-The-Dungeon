@@ -110,5 +110,5 @@ void Level::render(sf::RenderWindow & window)
 	for (auto & tile : m_tiles) {
 		tile->draw(window);
 	}
-	std::cout << "render cycle " << std::endl;
+	//std::cout << "render cycle " << std::endl;
 }
