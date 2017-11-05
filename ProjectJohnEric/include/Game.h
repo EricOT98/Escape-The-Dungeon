@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Character.h"
+#include "Player.h"
 #include "KeyboardHandler.h"
 #include <tmxlite\TileLayer.hpp>
 #include <tmxlite\SFMLOrthogonalLayer.hpp>
@@ -19,12 +20,16 @@ public:
 private:
 
 	void processEvents();
+	void processGameEvents(sf::Event& event);
 	void update(sf::Time t_deltaTime);
 	void render();
 
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
-	Character m_character;
+
+	//Character m_character;
+	Player m_player;
+
 	KeyboardHandler * m_keyHandler;
 	sf::View m_currentView;
 	//tmx::Map m_map;

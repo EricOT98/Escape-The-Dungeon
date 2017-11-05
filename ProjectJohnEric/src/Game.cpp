@@ -6,14 +6,12 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
-	m_character("test")
+	m_player("test")
 {
-	m_character.init();
-	//m_currentView.setSize(sf::Vector2f(1080, 800));
-	//m_currentView.setCenter(sf::Vector2f(540, 400));
-	//m_window.setView(m_currentView);
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename);
+	m_player.init();
+	m_keyHandler = m_keyHandler->GetInstance();
 }
 
 
@@ -42,6 +40,7 @@ void Game::run()
 		render(); // as many as possible
 	}
 }
+
 /// <summary>
 /// handle user and system events/ input
 /// get key presses/ mouse moves etc. from OS
@@ -64,8 +63,34 @@ void Game::processEvents()
 			}
 			if (sf::Keyboard::Return == event.key.code)
 			{
-				std::cout << m_character.getName() << std::endl;
+				std::cout << m_player.getName() << std::endl;
 			}
+		}
+
+		processGameEvents(event);
+	}
+}
+
+void Game::processGameEvents(sf::Event& event)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		m_window.close();
+	}
+
+	if (event.key.code >= 0 && event.key.code < sf::Keyboard::Key::KeyCount)
+	{
+		if (event.type == event.KeyPressed)
+		{
+			if (!KeyboardHandler::GetInstance()->m_keysUp[event.key.code])
+			{
+				KeyboardHandler::GetInstance()->m_keysDown[event.key.code] = true;
+			}
+		}
+		else if (event.type == event.KeyReleased)
+		{
+			KeyboardHandler::GetInstance()->m_keysDown[event.key.code] = false;
+			KeyboardHandler::GetInstance()->m_keysUp[event.key.code] = false;
 		}
 	}
 }
@@ -76,6 +101,7 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	m_player.update();
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -89,7 +115,6 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_level.render(m_window);
-	m_character.render(m_window);
-	
+	m_player.render(m_window);
 	m_window.display();
 }
