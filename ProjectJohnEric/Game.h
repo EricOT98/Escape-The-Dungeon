@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include "Player.h"
+#include "Camera.h"
 #include "KeyboardHandler.h"
 
 class Game
@@ -28,6 +29,11 @@ private:
 	Player m_player;
 
 	KeyboardHandler * m_keyHandler;
+
+
+	Camera m_camera;
+	sf::Texture m_testTexture;
+	sf::Sprite m_testSprite;
 };
 
 #endif // !GAME

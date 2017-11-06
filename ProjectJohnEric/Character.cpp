@@ -38,7 +38,7 @@ void Character::render(sf::RenderWindow &window)
 
 void Character::update()
 {
-
+	move();
 }
 
 void Character::init()
@@ -58,6 +58,28 @@ void Character::init()
 void Character::applyForce(sf::Vector2f direction)
 {
 	//m_acceleration = direction;
+}
+
+/// <summary>
+/// Moves the character
+/// </summary>
+void Character::move()
+{
+	// should this be a method in the parent class?
+	if (m_moving && m_moveSpeed < m_maxSpeed)
+	{
+		m_moveSpeed += m_acceleration;
+		if (m_moveSpeed > m_maxSpeed)
+			m_moveSpeed = m_maxSpeed;
+	}
+	else if (!m_moving && m_moveSpeed > 0)
+	{
+		m_moveSpeed -= m_acceleration;
+		if (m_moveSpeed < 0)
+			m_moveSpeed = 0;
+	}
+
+	m_position += m_direction * m_moveSpeed;
 }
 
 
