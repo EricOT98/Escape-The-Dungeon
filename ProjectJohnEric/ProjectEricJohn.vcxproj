@@ -19,36 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="KeyboardHandler.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Xbox360Controller.cpp" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Character.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\KeyboardHandler.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Tile.h" />
+    <ClInclude Include="include\Xbox360Controller.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="KeyboardHandler.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Xbox360Controller.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\KeyboardHandler.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Tile.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Character.h" />
-    <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\KeyboardHandler.h" />
-    <ClInclude Include="include\Level.h" />
-    <ClInclude Include="include\Tile.h" />
+    <ClCompile Include="src\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
