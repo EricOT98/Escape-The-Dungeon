@@ -6,12 +6,20 @@
 Game::Game() :
 	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
-	m_player("test")
+	m_player("test"),
+	m_camera()
 {
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename);
 	m_player.init();
 	m_keyHandler = m_keyHandler->GetInstance();
+
+	if (m_testTexture.loadFromFile("ASSETS/IMAGES/testMap.png")) {
+		m_testSprite.setTexture(m_testTexture);
+	}
+	else {
+		std::cout << "ERROR: LOADING FILENAME: " << __FILE__ << std::endl;
+	}
 }
 
 
@@ -101,7 +109,8 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-	m_player.update();
+	m_player.update(m_window);
+	m_camera.update(m_player.getPosition());
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -115,6 +124,8 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_level.render(m_window);
+	m_window.setView(m_camera.m_view);
+	m_window.draw(m_testSprite);
 	m_player.render(m_window);
 	m_window.display();
 }

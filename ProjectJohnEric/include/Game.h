@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include "Player.h"
+#include "Camera.h"
 #include "KeyboardHandler.h"
 #include <tmxlite\TileLayer.hpp>
 #include <tmxlite\SFMLOrthogonalLayer.hpp>
@@ -31,11 +32,10 @@ private:
 	Player m_player;
 
 	KeyboardHandler * m_keyHandler;
-	sf::View m_currentView;
-	//tmx::Map m_map;
-	//std::vector<MapLayer*> m_layers;
 	Level m_level;
+	Camera m_camera;
+	sf::Texture m_testTexture;
+	sf::Sprite m_testSprite;
 };
 
 #endif // !GAME
-

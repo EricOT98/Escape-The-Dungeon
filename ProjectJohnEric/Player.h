@@ -20,11 +20,10 @@ public:
 	Player();
 	Player(string name);
 
-	void update() override;
-
+	void update(sf::RenderWindow &window);
 
 protected:
-	
+	bool m_usingMouse;
 
 private:
 	KeyboardHandler * m_keyHandler;
