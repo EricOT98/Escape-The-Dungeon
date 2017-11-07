@@ -20,6 +20,16 @@ Game::Game() :
 	else {
 		std::cout << "ERROR: LOADING FILENAME: " << __FILE__ << std::endl;
 	}
+
+	m_controllers.push_back(Xbox360Controller());
+	for (auto & controller : m_controllers) {
+		if (controller.isConnected()) {
+			std::cout << "Controller Connected" << std::endl;
+		}
+	}
+	m_gameStates = GameStates::MAIN_MENU;
+	//m_menus.push_back(std::make_unique<MainMenu>());
+	m_camera.init();
 }
 
 
@@ -79,6 +89,10 @@ void Game::processEvents()
 	}
 }
 
+/// <summary>
+/// Process the current event by doing an event type comparison
+/// </summary>
+/// <param name="event">A reference to the current event being processed</param>
 void Game::processGameEvents(sf::Event& event)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -101,6 +115,7 @@ void Game::processGameEvents(sf::Event& event)
 			KeyboardHandler::GetInstance()->m_keysUp[event.key.code] = false;
 		}
 	}
+	
 }
 
 /// <summary>
@@ -109,8 +124,39 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-	m_player.update(m_window);
-	m_camera.update(m_player.getPosition());
+	switch (m_gameStates)
+	{
+	case Game::GameStates::SPLASH:
+		break;
+	case Game::GameStates::LICENSE:
+		break;
+	case Game::GameStates::MAIN_MENU:
+		m_mainMenu.update(m_controllers.at(0));
+		if(m_mainMenu.m_playPressed)
+		{
+			m_gameStates = GameStates::GAME;
+		}
+		break;
+	case Game::GameStates::GAME:
+		m_controllers.at(0).update();
+		m_player.update(m_window, m_controllers.at(0));
+		m_camera.update(m_player.getPosition());
+		for (auto & controller : m_controllers) {
+			controller.update();
+		}
+		break;
+	case Game::GameStates::OPTIONS:
+		break;
+	case Game::GameStates::PAUSE:
+		break;
+	case Game::GameStates::GAMEOVER:
+		break;
+	case Game::GameStates::CREDITS:
+		break;
+	default:
+		break;
+	}
+	
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -123,9 +169,32 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-	m_level.render(m_window);
-	m_window.setView(m_camera.m_view);
-	m_window.draw(m_testSprite);
-	m_player.render(m_window);
+	switch (m_gameStates)
+	{
+	case Game::GameStates::SPLASH:
+		break;
+	case Game::GameStates::LICENSE:
+		break;
+	case Game::GameStates::MAIN_MENU:
+		m_mainMenu.render(m_window);
+		break;
+	case Game::GameStates::GAME:
+		
+		m_window.setView(m_camera.m_view);
+		m_level.render(m_window);
+		//m_window.draw(m_testSprite);
+		m_player.render(m_window);
+		break;
+	case Game::GameStates::OPTIONS:
+		break;
+	case Game::GameStates::PAUSE:
+		break;
+	case Game::GameStates::GAMEOVER:
+		break;
+	case Game::GameStates::CREDITS:
+		break;
+	default:
+		break;
+	}
 	m_window.display();
 }

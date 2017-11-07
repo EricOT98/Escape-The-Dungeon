@@ -69,38 +69,38 @@ void Xbox360Controller::checkButtons()
 {
 	if (sf::Joystick::isButtonPressed(0, 0))
 	{
-		m_currentState.buttonA = true;
+		m_currentState.buttonSquare = true;
 	}
 	else
 	{
-		m_currentState.buttonA = false;
+		m_currentState.buttonSquare = false;
 	}
 
 	if (sf::Joystick::isButtonPressed(0, 1))
 	{
-		m_currentState.buttonB = true;
+		m_currentState.buttonCross = true;
 	}
 	else
 	{
-		m_currentState.buttonB = false;
+		m_currentState.buttonCross = false;
 	}
 
 	if (sf::Joystick::isButtonPressed(0, 2))
 	{
-		m_currentState.buttonX = true;
+		m_currentState.buttonCircle = true;
 	}
 	else
 	{
-		m_currentState.buttonX = false;
+		m_currentState.buttonCircle = false;
 	}
 
 	if (sf::Joystick::isButtonPressed(0, 3))
 	{
-		m_currentState.buttonY = true;
+		m_currentState.buttonTriangle = true;
 	}
 	else
 	{
-		m_currentState.buttonY = false;
+		m_currentState.buttonTriangle = false;
 	}
 
 	if (sf::Joystick::isButtonPressed(0, 4))
@@ -168,14 +168,15 @@ void Xbox360Controller::checkThumbsticks()
 	m_currentState.thumbstickLeft.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
 
 	//RIGHT
-	m_currentState.thumbstickRight.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::U);
+	m_currentState.thumbstickRight.x = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z);
 	m_currentState.thumbstickRight.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::R);
 
 	//ANGLE
 	m_currentState.leftAngleRAD = std::atan2(m_currentState.thumbstickLeft.y, m_currentState.thumbstickLeft.x);
 	m_currentState.rightAngleRAD = std::atan2(m_currentState.thumbstickRight.y, m_currentState.thumbstickRight.x);
-	m_currentState.leftAngleDEG = (m_currentState.leftAngleRAD * (180 / acos(-1)) - 90);
-	m_currentState.rightAngleDEG = (m_currentState.rightAngleRAD * (180 / acos(-1)) - 90);
+
+	m_currentState.leftAngleDEG = (m_currentState.leftAngleRAD * (180 / acos(-1)));
+	m_currentState.rightAngleDEG = (m_currentState.rightAngleRAD * (180 / acos(-1)));
 }
 
 /// <summary>
@@ -229,23 +230,23 @@ void Xbox360Controller::checkDPad()
 /// </summary>
 void Xbox360Controller::checkTriggers()
 {
-	// LEFT
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z) >= 0.1)
-	{
-		m_currentState.triggerLeft = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z);
-	}
-	else
-	{
-		m_currentState.triggerLeft = 0;
-	}
+	//// LEFT
+	//if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::V) >= 0.1)
+	//{
+	//	m_currentState.triggerLeft = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z);
+	//}
+	//else
+	//{
+	//	m_currentState.triggerLeft = 0;
+	//}
 
-	// RIGHT
-	if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z) <= -0.1)
-	{
-		m_currentState.triggerRight = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z);
-	}
-	else
-	{
-		m_currentState.triggerRight = 0;
-	}
+	//// RIGHT
+	//if (sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::U) <= -0.1)
+	//{
+	//	m_currentState.triggerRight = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Z);
+	//}
+	//else
+	//{
+	//	m_currentState.triggerRight = 0;
+	//}
 }

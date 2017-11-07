@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef XBOX360CONTROLLER
 #define XBOX360CONTROLLER
 
@@ -21,6 +19,11 @@ struct GamePadState
 	bool buttonB;
 	bool buttonX;
 	bool buttonY;
+
+	bool buttonCross;
+	bool buttonSquare;
+	bool buttonTriangle;
+	bool buttonCircle;
 
 	// Bumpers
 	bool bumperLeft;

@@ -49,8 +49,8 @@ void Character::init()
 	else {
 		std::cout << "ERROR: LOADING FILENAME:" << std::endl;
 	}
-	m_rect.setSize(sf::Vector2f(100, 100));
-	m_rect.setOrigin(50, 50);
+	m_rect.setSize(sf::Vector2f(16, 16));
+	m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
 	m_rect.setFillColor(sf::Color::Black);
 	m_rect.setPosition(m_position);
 }

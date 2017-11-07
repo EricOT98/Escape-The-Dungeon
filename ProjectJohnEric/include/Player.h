@@ -6,11 +6,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-//#include <iostream>
-//#include <SFML/Graphics.hpp>
-
 #include "Character.h"
 #include "KeyboardHandler.h"
+#include "Xbox360Controller.h"
 
 using namespace std;
 
@@ -20,7 +18,7 @@ public:
 	Player();
 	Player(string name);
 
-	void update(sf::RenderWindow &window);
+	void update(sf::RenderWindow &window, Xbox360Controller & controller);
 
 protected:
 	bool m_usingMouse;

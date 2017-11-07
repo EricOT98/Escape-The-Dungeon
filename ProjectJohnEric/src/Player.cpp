@@ -18,7 +18,7 @@ Player::Player(string name)
 
 }
 
-void Player::update(sf::RenderWindow &window)
+void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 {
 	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Space))
 	{
@@ -63,6 +63,26 @@ void Player::update(sf::RenderWindow &window)
 		m_direction.y += 1;
 		m_moving = true;
 	}
+
+	if (controller.m_currentState.thumbstickLeft.x >= 20) {
+		m_direction.x -= -1;
+		m_moving = true;
+	}
+	else if (controller.m_currentState.thumbstickLeft.x <= -20) {
+		m_direction.x += -1;
+		m_moving = true;
+	}
+
+	if (controller.m_currentState.thumbstickLeft.y >= 20) {
+		
+		m_direction.y -= -1;
+		m_moving = true;
+	}
+	else if (controller.m_currentState.thumbstickLeft.y <= -20) {
+		m_direction.y += -1;
+		m_moving = true;
+	}
+
 	move();
 
 #pragma endregion
@@ -98,7 +118,12 @@ void Player::update(sf::RenderWindow &window)
 			if (m_rotation < 0)
 				m_rotation += 360;
 		}
+
+		m_rotation =controller.m_currentState.rightAngleDEG;
+		//cout << m_rotation << endl;
+		//cout << controller.m_currentState.thumbstickRight.x << ", " << controller.m_currentState.thumbstickRight.y << endl;
 	}
+	
 
 #pragma endregion
 
