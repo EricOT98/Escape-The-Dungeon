@@ -13,8 +13,8 @@ Character::Character()
 /// <param name="name">Name of the character for testing</param>
 Character::Character(string name)
 	: m_name(name),
-	m_acceleration(0.5),
-	m_maxSpeed(10),
+	m_acceleration(0.2),
+	m_maxSpeed(2),
 	m_spinSpeed(0.7)
 {
 

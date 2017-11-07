@@ -91,17 +91,18 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 	if (m_usingMouse)
 	{
-		sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(window));
-		//m_direction = sf::Vector2f(sf::Mouse::getPosition());
-		//m_rotation = std::atan2((sf::Mouse::getPosition(window).x - m_position.x), (sf::Mouse::getPosition(window).y - m_position.y)) * ((180 / acos(-1)) - 90);
+		//sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(window));
+		////m_direction = sf::Vector2f(sf::Mouse::getPosition());
+		////m_rotation = std::atan2((sf::Mouse::getPosition(window).x - m_position.x), (sf::Mouse::getPosition(window).y - m_position.y)) * ((180 / acos(-1)) - 90);
 
-		//double n1 = sqrt(m_position.x*m_position.x + m_position.y*m_position.y);
-		//double n2 = sqrt(mouse.x*mouse.x + mouse.y*mouse.y);
-		//m_rotation = acos((m_position.x*mouse.x + m_position.y*mouse.y / (n1*n2)) * (180 / acos(-1)) - 90);
+		////double n1 = sqrt(m_position.x*m_position.x + m_position.y*m_position.y);
+		////double n2 = sqrt(mouse.x*mouse.x + mouse.y*mouse.y);
+		////m_rotation = acos((m_position.x*mouse.x + m_position.y*mouse.y / (n1*n2)) * (180 / acos(-1)) - 90);
 
-		float dot = m_position.x*mouse.x + m_position.y*mouse.y;
-		float det = m_position.x*mouse.y - m_position.y*mouse.x;
-		m_rotation = atan2(det, dot) * (180 / acos(-1)) - 90;
+		//float dot = m_position.x*mouse.x + m_position.y*mouse.y;
+		//float det = m_position.x*mouse.y - m_position.y*mouse.x;
+		//m_rotation = atan2(det, dot) * (180 / acos(-1)) - 90;
+		m_rotation = controller.m_currentState.rightAngleDEG;
 	}
 	
 	else
@@ -119,7 +120,6 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 				m_rotation += 360;
 		}
 
-		m_rotation =controller.m_currentState.rightAngleDEG;
 		//cout << m_rotation << endl;
 		//cout << controller.m_currentState.thumbstickRight.x << ", " << controller.m_currentState.thumbstickRight.y << endl;
 	}
