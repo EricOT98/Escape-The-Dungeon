@@ -36,6 +36,7 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Tile.h" />
     <ClInclude Include="include\Xbox360Controller.h" />
+    <ClInclude Include="PS4Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI\Button.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="GUI\Slider.cpp" />
     <ClCompile Include="GUI\Widget.cpp" />
     <ClCompile Include="include\Object.cpp" />
+    <ClCompile Include="PS4Controller.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />

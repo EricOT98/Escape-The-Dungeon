@@ -22,6 +22,12 @@
     <Filter Include="Resource Files\ASSETS\IMAGES">
       <UniqueIdentifier>{1d793ccc-0d22-4eea-8d0e-c5b5a5270a40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{5001ab60-ec7e-44e3-8db2-026fba1fdcd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\INPUT">
+      <UniqueIdentifier>{d78fc4aa-bc1f-42e8-94a4-21d498bee66b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -31,9 +37,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\KeyboardHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Level.cpp">
@@ -48,8 +51,14 @@
     <ClCompile Include="src\Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\KeyboardHandler.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
     <ClCompile Include="src\Xbox360Controller.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PS4Controller.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="GUI\Button.cpp">
       <Filter>Source Files</Filter>
@@ -89,9 +98,6 @@
     <ClInclude Include="include\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\KeyboardHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,9 +107,16 @@
     <ClInclude Include="include\Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Xbox360Controller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\KeyboardHandler.h">
+      <Filter>Header Files\INPUT</Filter>
     </ClInclude>
+    <ClInclude Include="include\Xbox360Controller.h">
+      <Filter>Header Files\INPUT</Filter>
+    </ClInclude>
+    <ClInclude Include="PS4Controller.h">
+      <Filter>Header Files\INPUT</Filter>
+    </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="GUI\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -131,5 +144,7 @@
     <ClInclude Include="include\Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> Remapped class for PS4 controller
   </ItemGroup>
 </Project>

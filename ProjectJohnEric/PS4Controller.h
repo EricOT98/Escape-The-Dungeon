@@ -1,12 +1,11 @@
-#ifndef XBOX360CONTROLLER
-#define XBOX360CONTROLLER
+#ifndef PS4CONTROLLER
+#define PS4CONTROLLER
 
 #include <SFML/Graphics.hpp>
 
 /// <summary>
 /// @author John O' Meara
-/// @date Feb 2017
-/// @version 1,0
+/// @date NOV 2017
 /// </summary>
 
 /// <summary>
@@ -14,31 +13,30 @@
 /// </summary>
 struct GamePadState
 {
-	// Coloured Buttons
-	bool buttonA;
-	bool buttonB;
-	bool buttonX;
-	bool buttonY;
-
-	bool buttonCross;
-	bool buttonSquare;
-	bool buttonTriangle;
-	bool buttonCircle;
+	// Face Buttons
+	bool buttonSquare;		// 0
+	bool buttonCross;		// 1
+	bool buttonCircle;		// 2
+	bool buttonTriangle;	// 3
 
 	// Bumpers
-	bool bumperLeft;
-	bool bumperRight;
+	bool bumperLeft;	// 4
+	bool bumperRight;	// 5
 
-	// Start/Back
-	bool Back;
-	bool Start;
+	// Share/Options
+	bool share;		// 8
+	bool options;	// 9
 
 	// Thumbsticks
-	bool thumbstickLeftClick;
-	bool thumbstickRightClick;
+	bool thumbstickLeftClick;	// 10
+	bool thumbstickRightClick;	// 11
 
-	sf::Vector2f thumbstickLeft;
-	sf::Vector2f thumbstickRight;
+	// PlayStation Specific
+	bool playStationButton;	//12
+	bool touchPad;			// 13
+
+	sf::Vector2f thumbstickLeft;	// (X, Y)
+	sf::Vector2f thumbstickRight;	// (Z, R)
 
 	float leftAngleRAD;
 	float rightAngleRAD;
@@ -47,43 +45,49 @@ struct GamePadState
 	float rightAngleDEG;
 
 	// D-Pad
-	bool dpadUp;
-	bool dpadDown;
-	bool dpadLeft;
-	bool dpadRight;
+	bool dpadUp;	// -100 <= PovX < 0
+	bool dpadDown;	// -100 <= PovY < 0
+	bool dpadLeft;	// 0 < PovX <= +100
+	bool dpadRight;	// 0 < PovY <= +100
 
 	// Triggers
-	float triggerLeft;
-	float triggerRight;
+	bool triggerLeftPressed;	// 6
+	bool triggerRightPressed;	// 7
+	float triggerLeft;			// V-axis
+	float triggerRight;			// U-axis
 };
 
 // Easy list to assign names to buttons
 const std::string m_buttonNames[] =
 {
-	"A",
-	"B",
-	"X",
-	"Y",
-
-	"LB",
-	"RB",
-
-	"Back",
-	"Start",
-
-	"L",
-	"R"
+	"SQUARE",	// 0
+	"CROSS",	// 1
+	"CIRCLE",	// 2
+	"TRIANGLE",	// 3
+	"L1",		// 4
+	"R1",		// 5
+	"L2",		// 6 
+	"R2",		// 7
+	"SHARE",	// 8
+	"OPTIONS",	// 9
+	"L3",		// 10
+	"R3",		// 11
+	"PSBUTTON", // 12
+	"TOUCHPAD"  // 13
 };
 
 /// <summary>
 /// Xbox controller class to query current state of controller
 /// to mimic the controller states like XNA
 /// </summary>
-class Xbox360Controller
+class PS4Controller
 {
 private:
 	// Deadzone for the dpad
 	const int dpadThreshold = 50;
+
+	// Controller image
+	sf::Texture m_ControllerImage;
 
 	// index of last pressed button
 	int m_lastPressed = -1;
@@ -96,10 +100,10 @@ public:
 	// The previous state to use th echeck for the moment a button is pressed
 	GamePadState m_previousState;
 
-	Xbox360Controller();
-	~Xbox360Controller();
+	PS4Controller();
+	~PS4Controller();
 
-	void Xbox360Controller::update();
+	void PS4Controller::update();
 
 	//returns true/false
 	bool isConnected();
@@ -121,4 +125,4 @@ public:
 };
 
 
-#endif // !XBOX360CONTROLLER
+#endif // !PS4CONTROLLER

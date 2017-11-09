@@ -12,8 +12,9 @@
 /// </summary>
 Xbox360Controller::Xbox360Controller()
 {
-
 }
+
+
 
 /// <summary>
 /// Destructer
