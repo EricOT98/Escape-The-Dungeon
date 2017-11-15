@@ -6,6 +6,7 @@
 /// <summary>
 /// @author John O' Meara
 /// @date NOV 2017
+/// Test merging
 /// </summary>
 
 /// <summary>
