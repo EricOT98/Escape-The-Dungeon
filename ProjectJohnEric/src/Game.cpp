@@ -27,7 +27,7 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
-	m_gameStates = GameStates::MAIN_MENU;
+	m_gameStates = GameStates::GAME;
 	//m_menus.push_back(std::make_unique<MainMenu>());
 	m_camera.init();
 }

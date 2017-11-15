@@ -32,6 +32,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\KeyboardHandler.h" />
     <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\Object.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Tile.h" />
     <ClInclude Include="include\Xbox360Controller.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="GUI\Menu.cpp" />
     <ClCompile Include="GUI\Slider.cpp" />
     <ClCompile Include="GUI\Widget.cpp" />
+    <ClCompile Include="include\Object.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />
