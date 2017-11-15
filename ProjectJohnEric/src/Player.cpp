@@ -97,7 +97,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 		float dot = m_position.x*mouse.x + m_position.y*mouse.y;
 		float det = m_position.x*mouse.y - m_position.y*mouse.x;
-		m_rotation = atan2(det, dot) * (180 / acos(-1)) - 90;
+		m_rotation = atan2(det, dot) * (180 / acos(-1));
 	}
 
 	else

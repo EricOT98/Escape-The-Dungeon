@@ -115,7 +115,7 @@ void Game::processGameEvents(sf::Event& event)
 			KeyboardHandler::GetInstance()->m_keysUp[event.key.code] = false;
 		}
 	}
-	
+
 }
 
 /// <summary>
@@ -156,7 +156,7 @@ void Game::update(sf::Time t_deltaTime)
 	default:
 		break;
 	}
-	
+
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -179,7 +179,7 @@ void Game::render()
 		m_mainMenu.render(m_window);
 		break;
 	case Game::GameStates::GAME:
-		
+
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
 		//m_window.draw(m_testSprite);
