@@ -89,12 +89,14 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
 	//std::cout << "Got all tiles" << std::endl;
 
 	//For every tile at poistion do something
+	int count = 0;
 	for (auto y = 0; y < m_rows; ++y) {
 		for (auto x = 0; x < m_cols; ++x) {
 			int tile_index = x + (y * m_cols);
 
 			//get the gid of the current tile
-			uint32_t cur_gid = layer_tiles[tile_index].ID;
+			int cur_gid = layer_tiles[tile_index].ID ;
+			//std::cout << "cur_gid: " << cur_gid << std::endl;
 			//@debug
 			//std::cout << "Gid of tile:" << cur_gid << std::endl;
 
@@ -107,14 +109,12 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
 			for (auto & ts : m_tilesets) {
 				if (ts.first <= cur_gid) {
 					tset_gid = ts.first;
-					break;
 				}
 			}
 
 			//if not valid skip the tile
 			if (tset_gid == -1)
 				continue;
-
 			//Normalize the GID(converts it to a 1 to n range instead of an n to m range)
 			cur_gid -= tset_gid;
 			//@debug
