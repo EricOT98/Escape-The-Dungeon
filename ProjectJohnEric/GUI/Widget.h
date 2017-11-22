@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
-#include "XBOX360CONTROLLER.h"
+#include "../Input/Xbox360Controller.h"
 
 using namespace std;
 
