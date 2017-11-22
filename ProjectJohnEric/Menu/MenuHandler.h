@@ -2,7 +2,7 @@
 #define MENUHANDLER_H
 
 #include <iostream>
-#include "Menu.h"
+#include "../Menu/Menu.h"
 #include <memory>
 #include <SFML\Graphics.hpp>
 
