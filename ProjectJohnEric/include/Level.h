@@ -6,16 +6,19 @@
 #include <SFML\Graphics.hpp>
 #include "Tile.h"
 #include "Object.h"
+#include "Player.h"
 
 class Level {
 public:
 	Level();
-	bool load(std::string & filepath);
+	bool load(std::string & filepath, Player* player);
 
 	void render(sf::RenderWindow & window);
 
 
 protected:
+	Player * m_player;
+
 	tmx::Map m_map;
 	std::map<uint32_t, sf::Texture *> m_tilesets;
 	std::vector<sf::Texture *> m_tileset_textures;
@@ -32,6 +35,7 @@ protected:
 	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer);
 	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer);
 
+	bool checkCollisions(Tile* t, Character* c);
 };
 
 #endif //!LEVEL

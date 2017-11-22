@@ -15,7 +15,8 @@ Character::Character(string name)
 	: m_name(name),
 	m_acceleration(0.2),
 	m_maxSpeed(2),
-	m_spinSpeed(0.7)
+	m_spinSpeed(0.7),
+	m_collisionRadius(10)
 {
 
 }
@@ -29,11 +30,20 @@ string Character::getName()
 	return m_name;
 }
 
+float Character::getRadius()
+{
+	return m_collisionRadius;
+}
+
 void Character::render(sf::RenderWindow &window)
 {
 	m_rect.setPosition(m_position);
 	m_rect.setRotation(m_rotation);
+
+	m_DEBUGCIRCLE.setPosition(m_position);
+
 	window.draw(m_rect);
+	window.draw(m_DEBUGCIRCLE);
 }
 
 void Character::update()
@@ -53,6 +63,10 @@ void Character::init()
 	m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
 	m_rect.setFillColor(sf::Color::Black);
 	m_rect.setPosition(m_position);
+
+	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
+	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
+	m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 150));
 }
 
 void Character::applyForce(sf::Vector2f direction)

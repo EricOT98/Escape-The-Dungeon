@@ -10,7 +10,7 @@ Game::Game() :
 	m_camera()
 {
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
-	m_level.load(filename);
+	m_level.load(filename, &m_player);
 	m_player.init();
 	m_keyHandler = m_keyHandler->GetInstance();
 
@@ -168,7 +168,7 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
+	m_window.clear(sf::Color::Black);
 	switch (m_gameStates)
 	{
 	case Game::GameStates::SPLASH:

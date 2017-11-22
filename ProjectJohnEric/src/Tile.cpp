@@ -1,7 +1,9 @@
 #include "Tile.h"
 
-Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h)
-	: m_x(x), m_y(y), m_tx(tx), m_ty(ty), m_w(w), m_h(h)
+#include <iostream>
+
+Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gid)
+	: m_x(x), m_y(y), m_tx(tx), m_ty(ty), m_w(w), m_h(h), m_gid(gid)
 {
 	{
 		m_texture = tex;
@@ -24,6 +26,7 @@ void Tile::draw(sf::RenderWindow & window)
 	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
 		//window.draw(rect);
 		window.draw(m_sprite);
+		std::cout << m_gid << std::endl;
 	//}
 }
 

@@ -22,7 +22,7 @@ public:
 	sf::Sprite  m_sprite;
 	sf::RectangleShape rect;
 	sf::Vector2f size;
-	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h);
+	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid);
 
 	void draw(sf::RenderWindow & window);
 

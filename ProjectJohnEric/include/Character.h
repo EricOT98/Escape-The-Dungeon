@@ -18,6 +18,7 @@ public:
 	Character(string name);
 
 	virtual string getName();
+	virtual float getRadius();
 
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
@@ -25,6 +26,7 @@ public:
 
 	virtual void applyForce(sf::Vector2f direction); // needed?
 	virtual void move();
+	//virtual void push(sf::);
 
 	sf::Vector2f getPosition(){
 		return m_position;
@@ -48,6 +50,9 @@ protected:
 	float m_acceleration;
 	float m_moveSpeed;
 	float m_maxSpeed;
+
+	float m_collisionRadius;
+	sf::CircleShape m_DEBUGCIRCLE;
 };
 
 #endif !CHARACTER

@@ -4,11 +4,12 @@
 
 Level::Level()
 {
-	
+
 }
 
-bool Level::load(std::string & filepath)
+bool Level::load(std::string & filepath, Player* player)
 {
+	m_player = player;
 	if (m_map.load(filepath)) {
 		m_tileCount = m_map.getTileCount();
 		m_rows = m_tileCount.x;
@@ -66,13 +67,14 @@ bool Level::load(std::string & filepath)
 void Level::render(sf::RenderWindow & window)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(window);
+		if(checkCollisions(tile, m_player))
+			tile->draw(window);
 	}
 	for (auto obj : m_levelObjects) {
 		obj->render(window);
 		//std::cout << "Draw objects" << std::endl;
 	}
-	//std::cout << "render cycle " << std::endl;
+	std::cout << "render cycle " << std::endl;
 }
 
 void Level::parseTMXMap(tmx::Map & map)
@@ -133,7 +135,7 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
 
 			//Finally actually adding the finished tile
 			Tile * t = new Tile(m_tilesets.at(tset_gid), x_pos, y_pos,
-				region_x, region_y, m_tileWidth, m_tileHeight);
+				region_x, region_y, m_tileWidth, m_tileHeight, cur_gid);
 			m_tiles.push_back(t);
 			//@debug
 			//std::cout << "added tile to the level tiles" << std::endl;
@@ -157,4 +159,37 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer)
 		Object * o = new Object(pos, rect, true, trigger);
 		m_levelObjects.push_back(o);
 	}
+}
+
+
+
+bool Level::checkCollisions(Tile* t, Character* c)
+{
+	// P will be the vertex on the tile that's closest to the collision.
+	sf::Vector2f p = c->getPosition();
+	// Centre of the cicle, cached for later
+	sf::Vector2f cen = p;
+
+
+	if (p.x < t->m_x) {
+		p.x = t->m_x;
+	}
+	else if (p.x > t->m_x + t->m_w) {
+		p.x = t->m_x + t->m_w;
+	}
+
+	if (p.y < t->m_y) {
+		p.y = t->m_y;
+	}
+	else if (p.y > t->m_y + t->m_h) {
+		p.y = t->m_y + t->m_h;
+	}
+
+	float dist = sqrt((p.x - cen.x)*(p.x - cen.x) + (p.y - cen.y)*(p.y - cen.y));
+
+	if (abs(dist) < c->getRadius())
+	{
+		return true;
+	}
+	return false;
 }
