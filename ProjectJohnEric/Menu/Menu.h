@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
-#include "GUI.h"
+#include "../GUI/GUI.h"
 
 class Menu
 {

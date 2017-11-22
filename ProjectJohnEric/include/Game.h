@@ -9,8 +9,8 @@
 #include <tmxlite\TileLayer.hpp>
 #include <tmxlite\SFMLOrthogonalLayer.hpp>
 #include "Level.h"
-#include "Xbox360Controller.h"
-#include "../GUI//MainMenu.h"
+#include "../Input/Xbox360Controller.h"
+#include "../Menu//MainMenu.h"
 
 class Game
 {

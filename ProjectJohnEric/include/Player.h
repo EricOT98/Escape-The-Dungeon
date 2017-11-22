@@ -8,7 +8,7 @@
 
 #include "Character.h"
 #include "KeyboardHandler.h"
-#include "Xbox360Controller.h"
+#include "../Input/Xbox360Controller.h"
 
 using namespace std;
 
