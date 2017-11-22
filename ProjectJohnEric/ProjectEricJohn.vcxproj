@@ -23,8 +23,6 @@
     <ClInclude Include="GUI\Checkbox.h" />
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="GUI\Label.h" />
-    <ClInclude Include="GUI\MainMenu.h" />
-    <ClInclude Include="GUI\Menu.h" />
     <ClInclude Include="GUI\Slider.h" />
     <ClInclude Include="GUI\Widget.h" />
     <ClInclude Include="include\Camera.h" />
@@ -36,19 +34,25 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Tile.h" />
     <ClInclude Include="include\Xbox360Controller.h" />
-    <ClInclude Include="PS4Controller.h" />
+    <ClInclude Include="Input\PS4Controller.h" />
+    <ClInclude Include="Input\Xbox360Controller.h" />
+    <ClInclude Include="Menu\MainMenu.h" />
+    <ClInclude Include="Menu\Menu.h" />
+    <ClInclude Include="Menu\MenuHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\Checkbox.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="GUI\Label.cpp" />
-    <ClCompile Include="GUI\MainMenu.cpp" />
-    <ClCompile Include="GUI\Menu.cpp" />
     <ClCompile Include="GUI\Slider.cpp" />
     <ClCompile Include="GUI\Widget.cpp" />
     <ClCompile Include="include\Object.cpp" />
-    <ClCompile Include="PS4Controller.cpp" />
+    <ClCompile Include="Input\PS4Controller.cpp" />
+    <ClCompile Include="Input\Xbox360Controller.cpp" />
+    <ClCompile Include="Menu\MainMenu.cpp" />
+    <ClCompile Include="Menu\Menu.cpp" />
+    <ClCompile Include="Menu\MenuHandler.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -57,7 +61,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Tile.cpp" />
-    <ClCompile Include="src\Xbox360Controller.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
