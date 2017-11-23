@@ -138,7 +138,9 @@ void Game::update(sf::Time t_deltaTime)
 		}
 		break;
 	case Game::GameStates::GAME:
+		m_level.update();
 		m_controllers.at(0).update();
+		//TODO: PUT THESE INTO THE LEVEL
 		m_player.update(m_window, m_controllers.at(0));
 		m_camera.update(m_player.getPosition());
 		for (auto & controller : m_controllers) {

@@ -11,6 +11,8 @@ public:
 	int m_tx, m_ty;
 	//width and height of the tile
 	int m_w, m_h;
+	//Layer of the tile
+	int m_layer;
 
 	//The tiles gid in the tilesheet
 	int m_gid;	//@TODO: Eric use this for tile comparisons for game events
@@ -22,7 +24,7 @@ public:
 	sf::Sprite  m_sprite;
 	sf::RectangleShape rect;
 	sf::Vector2f size;
-	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid);
+	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid,int layer);
 
 	void draw(sf::RenderWindow & window);
 

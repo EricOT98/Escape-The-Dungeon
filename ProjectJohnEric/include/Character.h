@@ -14,6 +14,9 @@ using namespace std;
 class Character
 {
 public:
+
+	sf::CircleShape m_DEBUGCIRCLE;
+
 	Character();
 	Character(string name);
 
@@ -26,7 +29,7 @@ public:
 
 	virtual void applyForce(sf::Vector2f direction); // needed?
 	virtual void move();
-	//virtual void push(sf::);
+	//virtual void push();
 
 	sf::Vector2f getPosition(){
 		return m_position;
@@ -52,7 +55,6 @@ protected:
 	float m_maxSpeed;
 
 	float m_collisionRadius;
-	sf::CircleShape m_DEBUGCIRCLE;
 };
 
 #endif !CHARACTER

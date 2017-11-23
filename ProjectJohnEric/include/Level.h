@@ -14,7 +14,7 @@ public:
 	bool load(std::string & filepath, Player* player);
 
 	void render(sf::RenderWindow & window);
-
+	void update();
 
 protected:
 	Player * m_player;
@@ -32,8 +32,8 @@ protected:
 	int m_tileWidth, m_tileHeight;
 
 	void parseTMXMap(tmx::Map & map);
-	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer);
-	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer);
+	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
+	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 
 	bool checkCollisions(Tile* t, Character* c);
 };

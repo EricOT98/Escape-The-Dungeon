@@ -36,23 +36,23 @@ bool Level::load(std::string & filepath, Player* player)
 
 		auto & map_layers = m_map.getLayers();
 
-		int layerCount = -1;
+		int layerNum = -1;
 		for (auto & layer : map_layers) {
-			layerCount += 1;
+			layerNum += 1;
 			switch (layer->getType()) {
 				case tmx::Layer::Type::Tile:
-					std::cout << "Tile Layer: " << layerCount << std::endl;
-					parseTMXTileLayer(layer);
+					std::cout << "Tile Layer: " << layerNum << std::endl;
+					parseTMXTileLayer(layer, layerNum);
 					continue;
 				case tmx::Layer::Type::Object:
-					std::cout << "Object Layer: " << layerCount << std::endl;
-					parseTMXObjectLayer(layer);
+					std::cout << "Object Layer: " << layerNum << std::endl;
+					parseTMXObjectLayer(layer, layerNum);
 					continue;
 				case tmx::Layer::Type::Image:
-					std::cout << "Image Layer" << layerCount++ << std::endl;
+					std::cout << "Image Layer" << layerNum++ << std::endl;
 					continue;
 				default:
-					std::cout << "ERROR: FAILED TO LOAD A VALID LAYER AT LAYER: " << layerCount << std::endl;
+					std::cout << "ERROR: FAILED TO LOAD A VALID LAYER AT LAYER: " << layerNum << std::endl;
 					continue;
 			}
 			
@@ -67,21 +67,29 @@ bool Level::load(std::string & filepath, Player* player)
 void Level::render(sf::RenderWindow & window)
 {
 	for (auto tile : m_tiles) {
-		if(checkCollisions(tile, m_player))
-			tile->draw(window);
+		tile->draw(window);
 	}
 	for (auto obj : m_levelObjects) {
 		obj->render(window);
 		//std::cout << "Draw objects" << std::endl;
 	}
-	std::cout << "render cycle " << std::endl;
+	//std::cout << "render cycle " << std::endl;
+}
+
+void Level::update()
+{
+	for (auto tile : m_tiles) {
+		if (tile->m_layer == 1) {
+			checkCollisions(tile, m_player);
+		}
+	}
 }
 
 void Level::parseTMXMap(tmx::Map & map)
 {
 }
 
-void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
+void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum)
 {
 	auto* tile_layer = dynamic_cast<const tmx::TileLayer*>(layer.get());
 
@@ -135,7 +143,7 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
 
 			//Finally actually adding the finished tile
 			Tile * t = new Tile(m_tilesets.at(tset_gid), x_pos, y_pos,
-				region_x, region_y, m_tileWidth, m_tileHeight, cur_gid);
+				region_x, region_y, m_tileWidth, m_tileHeight, cur_gid, layerNum);
 			m_tiles.push_back(t);
 			//@debug
 			//std::cout << "added tile to the level tiles" << std::endl;
@@ -143,7 +151,7 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer)
 	}
 }
 
-void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer)
+void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum)
 {
 	auto* object_layer = dynamic_cast<const tmx::ObjectGroup*>(layer.get());
 	auto & layer_objects = object_layer->getObjects();
@@ -162,7 +170,12 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer)
 }
 
 
-
+/// <summary>
+/// Checks collisions between a Character and a Tile
+/// </summary>
+/// <param name="t">Tile, AABB</param>
+/// <param name="c">Character, circle</param>
+/// <returns></returns>
 bool Level::checkCollisions(Tile* t, Character* c)
 {
 	// P will be the vertex on the tile that's closest to the collision.
@@ -170,26 +183,35 @@ bool Level::checkCollisions(Tile* t, Character* c)
 	// Centre of the cicle, cached for later
 	sf::Vector2f cen = p;
 
-
+	// Finds closest vertex to the possible collision
 	if (p.x < t->m_x) {
 		p.x = t->m_x;
+		// LEFT
 	}
 	else if (p.x > t->m_x + t->m_w) {
 		p.x = t->m_x + t->m_w;
+		// RIGHT
 	}
 
 	if (p.y < t->m_y) {
 		p.y = t->m_y;
+		// TOP
 	}
 	else if (p.y > t->m_y + t->m_h) {
 		p.y = t->m_y + t->m_h;
+		// BOTTOM
 	}
 
+	// Distance between the circle's centre and the point of collision.
 	float dist = sqrt((p.x - cen.x)*(p.x - cen.x) + (p.y - cen.y)*(p.y - cen.y));
 
 	if (abs(dist) < c->getRadius())
 	{
+		std::cout << "COL" << std::endl;
+		sf::Color test = c->m_DEBUGCIRCLE.getFillColor();
+		c->m_DEBUGCIRCLE.setFillColor(sf::Color(test.r + 10, test.g + 10, test.b + 10));
 		return true;
 	}
+	//c->m_DEBUGCIRCLE.setFillColor(sf::Color::Blue);
 	return false;
 }
