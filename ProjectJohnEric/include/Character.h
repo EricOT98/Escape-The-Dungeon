@@ -27,9 +27,8 @@ public:
 	virtual void update();
 	virtual void init();
 
-	virtual void applyForce(sf::Vector2f direction); // needed?
+	virtual void applyForce(sf::Vector2f direction);
 	virtual void move();
-	//virtual void push();
 
 	sf::Vector2f getPosition(){
 		return m_position;

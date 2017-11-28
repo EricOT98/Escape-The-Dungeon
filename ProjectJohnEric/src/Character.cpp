@@ -16,7 +16,8 @@ Character::Character(string name)
 	m_acceleration(0.2),
 	m_maxSpeed(2),
 	m_spinSpeed(0.7),
-	m_collisionRadius(10)
+	m_collisionRadius(10),
+	m_position(50,50)
 {
 
 }
@@ -71,7 +72,7 @@ void Character::init()
 
 void Character::applyForce(sf::Vector2f direction)
 {
-	//m_acceleration = direction;
+	m_position -= direction;
 }
 
 /// <summary>

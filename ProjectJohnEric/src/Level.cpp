@@ -62,12 +62,13 @@ bool Level::load(std::string & filepath, Player* player)
 	return false;
 }
 
-
-
 void Level::render(sf::RenderWindow & window)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(window);
+		if (checkCollisions(tile, m_player))
+			tile->draw(window, 1);
+		else
+			tile->draw(window);
 	}
 	for (auto obj : m_levelObjects) {
 		obj->render(window);
@@ -80,7 +81,9 @@ void Level::update()
 {
 	for (auto tile : m_tiles) {
 		if (tile->m_layer == 1) {
-			checkCollisions(tile, m_player);
+			if (checkCollisions(tile, m_player)) {
+
+			}
 		}
 	}
 }
@@ -175,15 +178,15 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int l
 /// </summary>
 /// <param name="t">Tile, AABB</param>
 /// <param name="c">Character, circle</param>
-/// <returns></returns>
+/// <returns>Penetration Vector</returns>
 bool Level::checkCollisions(Tile* t, Character* c)
 {
-	// P will be the vertex on the tile that's closest to the collision.
+	// P will be the point on the tile that's closest to the collision.
 	sf::Vector2f p = c->getPosition();
 	// Centre of the cicle, cached for later
 	sf::Vector2f cen = p;
 
-	// Finds closest vertex to the possible collision
+	// Finds closest point to the possible collision
 	if (p.x < t->m_x) {
 		p.x = t->m_x;
 		// LEFT
@@ -208,10 +211,24 @@ bool Level::checkCollisions(Tile* t, Character* c)
 	if (abs(dist) < c->getRadius())
 	{
 		std::cout << "COL" << std::endl;
-		sf::Color test = c->m_DEBUGCIRCLE.getFillColor();
-		c->m_DEBUGCIRCLE.setFillColor(sf::Color(test.r + 10, test.g + 10, test.b + 10));
+
+		if (t->m_layer == 1) {
+			float penDist = c->getRadius() - abs(dist);
+			float penAngle = atan2(p.y - cen.y, p.x - cen.x);
+
+			sf::Vector2f edge;
+			edge.x = cen.x + c->getRadius() * cos(penAngle);
+			edge.y = cen.y + c->getRadius() * sin(penAngle);
+
+			sf::Vector2f penVec;
+			penVec.x = edge.x + penDist * cos(penAngle);
+			penVec.y = edge.y + penDist * sin(penAngle);
+
+			c->applyForce(penVec - edge);
+		}
+
 		return true;
 	}
-	//c->m_DEBUGCIRCLE.setFillColor(sf::Color::Blue);
+
 	return false;
 }

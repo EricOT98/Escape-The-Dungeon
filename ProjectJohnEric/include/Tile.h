@@ -20,6 +20,8 @@ public:
 	//Used for controlled culling of the tiles
 	bool m_onScreen;
 
+	
+
 	sf::Texture * m_texture;
 	sf::Sprite  m_sprite;
 	sf::RectangleShape rect;
@@ -27,6 +29,7 @@ public:
 	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid,int layer);
 
 	void draw(sf::RenderWindow & window);
+	void draw(sf::RenderWindow & window, int i);
 
 	bool withinViewBounds(const sf::FloatRect & bounds);
 

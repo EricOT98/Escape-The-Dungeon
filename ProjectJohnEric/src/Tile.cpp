@@ -12,11 +12,11 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 		m_sprite.setTextureRect(sf::IntRect(m_tx, m_ty, m_w, m_h));
 		m_sprite.setPosition(m_x, m_y);
 
-		size = sf::Vector2f(m_x, m_y);
+		size = sf::Vector2f(m_w, m_h);
 		rect.setSize(size);
 		rect.setPosition(m_x, m_y);
-		rect.setOutlineThickness(2);
-		rect.setFillColor(sf::Color::Red);
+		//rect.setOutlineThickness(2);
+		rect.setFillColor(sf::Color(255,0,0,50));
 		rect.setOutlineColor(sf::Color::Yellow);
 	}
 }
@@ -24,9 +24,19 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 void Tile::draw(sf::RenderWindow & window)
 {
 	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
-		//window.draw(rect);
+		
 		window.draw(m_sprite);
+		//window.draw(rect);
 		//std::cout << m_gid << std::endl;
+	//}
+}
+void Tile::draw(sf::RenderWindow & window, int i)
+{
+	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
+
+	window.draw(m_sprite);
+	window.draw(rect);
+	//std::cout << m_gid << std::endl;
 	//}
 }
 
