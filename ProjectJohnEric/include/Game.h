@@ -47,7 +47,6 @@ private:
 	sf::Texture m_testTexture;
 	sf::Sprite m_testSprite;
 	std::vector<Xbox360Controller> m_controllers;
-	
 	MenuStates m_menuStates;
 	MenuHandler m_menuHandler;
 

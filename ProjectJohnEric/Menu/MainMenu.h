@@ -22,8 +22,11 @@ public:
 	void update(Xbox360Controller & controller) override;
 	void render(sf::RenderWindow & window) override;
 	void play();
+<<<<<<< HEAD
 	void options();
 	void quit();
+=======
+>>>>>>> Button callbacks implemented not changing menu states yet
 	bool m_playPressed;
 	bool m_optionsPressed;
 	bool m_quitPressed;

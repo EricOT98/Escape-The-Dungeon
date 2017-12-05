@@ -68,26 +68,6 @@ bool MenuHandler::setActive(MenuStates state)
 }
 
 /// <summary>
-/// Allows the mewnu handler tyo assign the current menu
-/// </summary>
-/// <param name="state">The menu state to travel to</param>
-/// <returns>Boolean value if the menu has been found</returns>
-bool MenuHandler::goToMenu(MenuStates state)
-{
-	for (int i = 0; i < m_menus.size(); i++)
-	{
-		if (state == m_menus.at(i)->getMenuState())
-		{
-			m_menuState = state;
-			m_nextState = m_menus.at(i)->getNextState();
-			m_menus.at(i)->setActive(true);
-			return true;
-		}
-	}
-	return false;
-}
-
-/// <summary>
 /// Return if the menu vector is empty
 /// </summary>
 /// <returns>THe empty state of menu vector

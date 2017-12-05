@@ -29,7 +29,15 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
+<<<<<<< HEAD
 	initialiseMenus();
+=======
+	m_menuStates = MenuStates::MAIN_MENU;
+	m_menus.push_back(std::make_unique<MainMenu>());
+	for (auto  & menu : m_menus) {
+		m_menuHandler.addMenu(m_menuStates, menu);
+	}
+>>>>>>> Button callbacks implemented not changing menu states yet
 	m_camera.init();
 }
 
