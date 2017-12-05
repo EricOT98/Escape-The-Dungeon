@@ -19,7 +19,6 @@ Character::Character(string name)
 	m_collisionRadius(10),
 	m_position(50,50)
 {
-
 }
 
 /// <summary>
@@ -41,7 +40,15 @@ void Character::render(sf::RenderWindow &window)
 	m_rect.setPosition(m_position);
 	m_rect.setRotation(m_rotation);
 
+	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
+	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
 	m_DEBUGCIRCLE.setPosition(m_position);
+	if (m_collisionRadius < 0)
+	{
+		m_DEBUGCIRCLE.setFillColor(sf::Color(255, 0, 0, 150));
+	}
+	else
+		m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 150));
 
 	window.draw(m_rect);
 	window.draw(m_DEBUGCIRCLE);

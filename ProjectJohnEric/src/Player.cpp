@@ -105,12 +105,14 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Left))
 		{
 			m_rotation += m_spinSpeed;
+			m_collisionRadius--;
 			if (m_rotation >= 360)
 				m_rotation -= 360;
 		}
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Right))
 		{
 			m_rotation -= m_spinSpeed;
+			m_collisionRadius++;
 			if (m_rotation < 0)
 				m_rotation += 360;
 		}
