@@ -13,6 +13,17 @@
 #include <SFML\Graphics.hpp>
 #include "../GUI/GUI.h"
 
+enum class MenuStates {
+	SPLASH,
+	LICENSE,
+	MAIN_MENU,
+	GAME,
+	OPTIONS,
+	PAUSE,
+	GAMEOVER,
+	CREDITS
+};
+
 class Menu
 {
 public:
@@ -22,11 +33,17 @@ public:
 	virtual void update(Xbox360Controller & controller);
 	virtual void render(sf::RenderWindow & window);
 	void processInput(Xbox360Controller & controller);
+	void setMenuState(MenuStates & state);
+	MenuStates & getMenuState();
+	void setActive(bool active);
+	bool getActive();
 protected:
 	virtual void initialise();
 	virtual void initGUIObjects();
 
 	GUI m_gui;
+	MenuStates m_currentState;
+	bool m_active;
 };
 
 #endif // !MENU_H

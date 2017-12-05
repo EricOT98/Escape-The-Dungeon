@@ -12,6 +12,7 @@ Button::Button(Widget * parent)
 	m_type = typeid(Button).name();	//Set the type of the button
 	rect.setFillColor(m_fillColor);
 	rect.setOutlineColor(m_outlineColor);
+	
 }
 
 /// <summary>
@@ -80,6 +81,7 @@ void Button::processInput(Xbox360Controller & controller)
 	if (currentState.buttonCross && !previousState.buttonCross)
 	{
 		isPressed = true;
+		select();
 	}
 }
 

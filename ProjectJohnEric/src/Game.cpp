@@ -27,8 +27,11 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
-	m_gameStates = GameStates::GAME;
-	//m_menus.push_back(std::make_unique<MainMenu>());
+	m_menuStates = MenuStates::MAIN_MENU;
+	m_menus.push_back(std::make_unique<MainMenu>());
+	for (auto  & menu : m_menus) {
+		m_menuHandler.addMenu(m_menuStates, menu);
+	}
 	m_camera.init();
 }
 
@@ -124,20 +127,20 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-	switch (m_gameStates)
+	switch (m_menuStates)
 	{
-	case Game::GameStates::SPLASH:
+	case MenuStates::SPLASH:
 		break;
-	case Game::GameStates::LICENSE:
+	case MenuStates::LICENSE:
 		break;
-	case Game::GameStates::MAIN_MENU:
-		m_mainMenu.update(m_controllers.at(0));
+	case MenuStates::MAIN_MENU:
+		m_menuHandler.update(m_controllers.at(0));
 		if(m_mainMenu.m_playPressed)
 		{
-			m_gameStates = GameStates::GAME;
+			m_menuStates = MenuStates::GAME;
 		}
 		break;
-	case Game::GameStates::GAME:
+	case MenuStates::GAME:
 		m_controllers.at(0).update();
 		m_player.update(m_window, m_controllers.at(0));
 		m_camera.update(m_player.getPosition());
@@ -145,13 +148,13 @@ void Game::update(sf::Time t_deltaTime)
 			controller.update();
 		}
 		break;
-	case Game::GameStates::OPTIONS:
+	case MenuStates::OPTIONS:
 		break;
-	case Game::GameStates::PAUSE:
+	case MenuStates::PAUSE:
 		break;
-	case Game::GameStates::GAMEOVER:
+	case MenuStates::GAMEOVER:
 		break;
-	case Game::GameStates::CREDITS:
+	case MenuStates::CREDITS:
 		break;
 	default:
 		break;
@@ -169,29 +172,29 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
-	switch (m_gameStates)
+	switch (m_menuStates)
 	{
-	case Game::GameStates::SPLASH:
+	case MenuStates::SPLASH:
 		break;
-	case Game::GameStates::LICENSE:
+	case MenuStates::LICENSE:
 		break;
-	case Game::GameStates::MAIN_MENU:
-		m_mainMenu.render(m_window);
+	case MenuStates::MAIN_MENU:
+		m_menuHandler.render(m_window);
 		break;
-	case Game::GameStates::GAME:
+	case MenuStates::GAME:
 
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
 		//m_window.draw(m_testSprite);
 		m_player.render(m_window);
 		break;
-	case Game::GameStates::OPTIONS:
+	case MenuStates::OPTIONS:
 		break;
-	case Game::GameStates::PAUSE:
+	case MenuStates::PAUSE:
 		break;
-	case Game::GameStates::GAMEOVER:
+	case MenuStates::GAMEOVER:
 		break;
-	case Game::GameStates::CREDITS:
+	case MenuStates::CREDITS:
 		break;
 	default:
 		break;

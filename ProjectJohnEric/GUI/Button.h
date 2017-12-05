@@ -6,6 +6,7 @@
 #include <SFML\Graphics.hpp>
 #include "Widget.h"
 #include "Label.h"
+#include <functional>
 
 class Button : public Widget
 {
@@ -26,6 +27,8 @@ public:
 
 	void resetPressed();
 	bool getPressed();
+	typedef std::function<void()> Callback;
+	Callback select;
 protected:
 
 private:
