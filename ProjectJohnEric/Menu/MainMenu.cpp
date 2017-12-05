@@ -31,9 +31,15 @@ void MainMenu::render(sf::RenderWindow & window)
 	window.draw(m_gui); //Draw gui components
 }
 
+void MainMenu::play()
+{
+	m_playPressed = true;
+}
+
 void MainMenu::initialise()
 {
 	initGUIObjects();
+	m_play->select =  std::bind(&MainMenu::play, this);
 }
 
 void MainMenu::initGUIObjects()
@@ -46,6 +52,7 @@ void MainMenu::initGUIObjects()
 	m_gui.addButton(m_play, "Play", sf::Vector2f(100, 400), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_quit, "Quit", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
+	
 	//selected, unselected, fill ,outline
 	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
 }
