@@ -60,3 +60,23 @@ void Menu::processInput(Xbox360Controller & controller)
 {
 	m_gui.processInput(controller);
 }
+
+void Menu::setMenuState(MenuStates & state)
+{
+	m_currentState = state;
+}
+
+MenuStates & Menu::getMenuState()
+{
+	return m_currentState;
+}
+
+void Menu::setActive(bool active)
+{
+	m_active = active;
+}
+
+bool Menu::getActive()
+{
+	return m_active;
+}

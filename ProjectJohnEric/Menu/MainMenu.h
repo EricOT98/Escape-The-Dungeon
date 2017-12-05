@@ -11,6 +11,7 @@ public:
 
 	void update(Xbox360Controller & controller) override;
 	void render(sf::RenderWindow & window) override;
+	void play();
 	bool m_playPressed;
 	bool m_optionsPressed;
 	bool m_quitPressed;
@@ -22,8 +23,5 @@ protected:
 	Button * m_play;
 	Button * m_options;
 	Button * m_quit;
-
-	
-
 };
 #endif //!menu

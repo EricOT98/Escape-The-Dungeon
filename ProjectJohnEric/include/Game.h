@@ -11,6 +11,7 @@
 #include "Level.h"
 #include "../Input/Xbox360Controller.h"
 #include "../Menu//MainMenu.h"
+#include "../Menu/MenuHandler.h"
 
 class Game
 {
@@ -52,8 +53,10 @@ private:
 		CREDITS
 	};
 
-	GameStates m_gameStates;
+	MenuStates m_menuStates;
 	std::vector<std::unique_ptr<Menu>> m_menus;
+	MenuHandler m_menuHandler;
+
 
 };
 
