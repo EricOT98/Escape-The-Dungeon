@@ -210,7 +210,6 @@ bool Level::checkCollisions(Tile* t, Character* c)
 
 	if (abs(dist) < c->getRadius())
 	{
-		std::cout << "COL" << std::endl;
 
 		if (t->m_layer == 1) {
 			float penDist = c->getRadius() - abs(dist);

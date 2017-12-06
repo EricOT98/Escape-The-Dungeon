@@ -25,6 +25,9 @@ protected:
 
 private:
 	KeyboardHandler * m_keyHandler;
+
+	
+
 	Xbox360Controller controller;
 };
 

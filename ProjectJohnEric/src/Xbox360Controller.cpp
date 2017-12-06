@@ -173,8 +173,10 @@ void Xbox360Controller::checkThumbsticks()
 	m_currentState.thumbstickRight.y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::R);
 
 	//ANGLE
-	m_currentState.leftAngleRAD = std::atan2(m_currentState.thumbstickLeft.y, m_currentState.thumbstickLeft.x);
-	m_currentState.rightAngleRAD = std::atan2(m_currentState.thumbstickRight.y, m_currentState.thumbstickRight.x);
+	if (abs(m_currentState.thumbstickLeft.x) > 10 || abs(m_currentState.thumbstickLeft.y) > 10)
+		m_currentState.leftAngleRAD = std::atan2(m_currentState.thumbstickLeft.y, m_currentState.thumbstickLeft.x);
+	if (abs(m_currentState.thumbstickRight.x) > 10 || abs(m_currentState.thumbstickRight.y) > 10)
+		m_currentState.rightAngleRAD = std::atan2(m_currentState.thumbstickRight.y, m_currentState.thumbstickRight.x);
 
 	m_currentState.leftAngleDEG = (m_currentState.leftAngleRAD * (180 / acos(-1)));
 	m_currentState.rightAngleDEG = (m_currentState.rightAngleRAD * (180 / acos(-1)));

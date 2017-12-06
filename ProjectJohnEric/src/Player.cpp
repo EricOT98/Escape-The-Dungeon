@@ -45,6 +45,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	// accelerating. Worth fixing?
 	m_moving = false;
 
+
 	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::A))
 	{
 		m_direction.x += -1;
@@ -93,11 +94,10 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 	if (m_usingMouse)
 	{
-		sf::Vector2f mouse = sf::Vector2f(sf::Mouse::getPosition(window));
+		sf::Vector2f mouse = sf::Vector2f(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
-		float dot = m_position.x*mouse.x + m_position.y*mouse.y;
-		float det = m_position.x*mouse.y - m_position.y*mouse.x;
-		m_rotation = atan2(det, dot) * (180 / acos(-1));
+		sf::Vector2f d = mouse - m_position;
+		m_rotation = atan2(d.y, d.x) * (180 / acos(-1));
 	}
 
 	else
@@ -105,20 +105,17 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Left))
 		{
 			m_rotation += m_spinSpeed;
-			m_collisionRadius--;
 			if (m_rotation >= 360)
 				m_rotation -= 360;
 		}
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Right))
 		{
 			m_rotation -= m_spinSpeed;
-			m_collisionRadius++;
 			if (m_rotation < 0)
 				m_rotation += 360;
 		}
 
-		//cout << m_rotation << endl;
-		//cout << controller.m_currentState.thumbstickRight.x << ", " << controller.m_currentState.thumbstickRight.y << endl;
+		m_rotation = controller.m_currentState.rightAngleDEG;
 	}
 
 
