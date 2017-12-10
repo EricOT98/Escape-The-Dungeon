@@ -9,14 +9,16 @@
 class MenuHandler {
 public:
 	MenuHandler();
-	void addMenu(MenuStates & state,std::unique_ptr<Menu> &m);
+	void addMenu(std::unique_ptr<Menu> &m);
 	void update(Xbox360Controller & controller);
 	void render(sf::RenderWindow & window);
-	void goToNext();
-	bool goToMenu(MenuStates & state);
+	bool setActive(MenuStates state);
+	bool goToMenu(MenuStates state);
 	MenuStates getMenuState();
 protected:
 	std::vector<std::unique_ptr<Menu>> m_menus;
-	MenuStates m_menuStates;
+	MenuStates m_menuState;
+	MenuStates m_nextState;
+	int m_currentMenu;
 };
 #endif //!MENUHANDLER_H

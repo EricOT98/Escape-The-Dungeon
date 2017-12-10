@@ -30,8 +30,10 @@ Game::Game() :
 	m_menuStates = MenuStates::MAIN_MENU;
 	m_menus.push_back(std::make_unique<MainMenu>());
 	for (auto  & menu : m_menus) {
-		m_menuHandler.addMenu(m_menuStates, menu);
+		m_menuHandler.addMenu(menu);
 	}
+	m_menuHandler.setActive(MenuStates::MAIN_MENU);
+	m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
 	m_camera.init();
 }
 
@@ -127,6 +129,7 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	m_menuStates = m_menuHandler.getMenuState();
 	switch (m_menuStates)
 	{
 	case MenuStates::SPLASH:
@@ -175,29 +178,14 @@ void Game::render()
 	m_window.clear(sf::Color::White);
 	switch (m_menuStates)
 	{
-	case MenuStates::SPLASH:
-		break;
-	case MenuStates::LICENSE:
-		break;
-	case MenuStates::MAIN_MENU:
-		m_menuHandler.render(m_window);
-		break;
 	case MenuStates::GAME:
-
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
 		//m_window.draw(m_testSprite);
 		m_player.render(m_window);
 		break;
-	case MenuStates::OPTIONS:
-		break;
-	case MenuStates::PAUSE:
-		break;
-	case MenuStates::GAMEOVER:
-		break;
-	case MenuStates::CREDITS:
-		break;
 	default:
+		m_menuHandler.render(m_window);
 		break;
 	}
 	m_window.display();
