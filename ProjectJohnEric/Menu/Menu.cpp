@@ -5,7 +5,9 @@
 /// Menu constructor
 /// </summary>
 /// <param name="window"></param>
-Menu::Menu()
+Menu::Menu(MenuStates stateIn) :
+	m_currentState(stateIn),
+	m_nextState(stateIn)
 {
 	std::cout << "Menu created" << std::endl; //Debug message
 	initialise(); //Call initialise method
@@ -61,14 +63,20 @@ void Menu::processInput(Xbox360Controller & controller)
 	m_gui.processInput(controller);
 }
 
-void Menu::setMenuState(MenuStates & state)
+void Menu::setMenuState(MenuStates & state, MenuStates & nextState)
 {
 	m_currentState = state;
+	m_nextState = nextState;
 }
 
 MenuStates & Menu::getMenuState()
 {
 	return m_currentState;
+}
+
+MenuStates & Menu::getNextState()
+{
+	return m_nextState;
 }
 
 void Menu::setActive(bool active)
@@ -79,4 +87,15 @@ void Menu::setActive(bool active)
 bool Menu::getActive()
 {
 	return m_active;
+}
+
+void Menu::resetNextGameState()
+{
+	m_nextState = m_currentState;
+}
+
+void Menu::goToMenu(MenuStates state)
+{
+	m_nextState = state; // Change the next game state
+	//reset(); // Reset the current menu
 }

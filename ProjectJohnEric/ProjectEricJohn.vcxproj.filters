@@ -55,11 +55,14 @@
       <Filter>Source Files\Input</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <ClCompile Include="src\Xbox360Controller.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
 >>>>>>> Project layout restructuring
+=======
+>>>>>>> Menu FUnctionality implemented using callbacks
     <ClCompile Include="GUI\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -79,6 +82,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="include\Object.cpp">
+<<<<<<< HEAD
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menu\MainMenu.cpp">
@@ -94,6 +98,8 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Input\Xbox360Controller.cpp">
+=======
+>>>>>>> Menu FUnctionality implemented using callbacks
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menu\MainMenu.cpp">
@@ -156,6 +162,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Object.h">
+<<<<<<< HEAD
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu\MainMenu.h">
@@ -171,6 +178,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Input\Xbox360Controller.h">
+=======
+>>>>>>> Menu FUnctionality implemented using callbacks
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu\MainMenu.h">

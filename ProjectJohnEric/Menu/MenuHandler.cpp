@@ -67,6 +67,20 @@ bool MenuHandler::setActive(MenuStates state)
 	return false;
 }
 
+bool MenuHandler::goToMenu(MenuStates state)
+{
+	for (int i = 0; i < m_menus.size(); i++)
+	{
+		if (state == m_menus.at(i)->getMenuState())
+		{
+			m_menuState = state;
+			m_nextState = m_menus.at(i)->getNextState();
+			m_menus.at(i)->setActive(true);
+		}
+	}
+	return false;
+}
+
 /// <summary>
 /// Return if the menu vector is empty
 /// </summary>
