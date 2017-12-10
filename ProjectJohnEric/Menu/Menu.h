@@ -27,22 +27,27 @@ enum class MenuStates {
 class Menu
 {
 public:
-	Menu();
+	Menu(MenuStates stateIn);
 	~Menu();
 
 	virtual void update(Xbox360Controller & controller);
 	virtual void render(sf::RenderWindow & window);
 	void processInput(Xbox360Controller & controller);
-	void setMenuState(MenuStates & state);
+	void setMenuState(MenuStates & state, MenuStates & nextState);
 	MenuStates & getMenuState();
+	MenuStates & getNextState();
 	void setActive(bool active);
 	bool getActive();
+	void resetNextGameState();
+
+	void goToMenu(MenuStates state);
 protected:
 	virtual void initialise();
 	virtual void initGUIObjects();
 
 	GUI m_gui;
 	MenuStates m_currentState;
+	MenuStates m_nextState;
 	bool m_active;
 };
 

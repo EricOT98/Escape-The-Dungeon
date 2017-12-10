@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu()
+MainMenu::MainMenu() :
+	Menu(MenuStates::MAIN_MENU)
 {
 	initialise();
 }
@@ -13,7 +14,7 @@ void MainMenu::update(Xbox360Controller & controller)
 {
 	m_gui.processInput(controller);
 	
-	if (m_play->getPressed())
+	/*if (m_play->getPressed())
 	{
 		std::cout << "Play pressed " << std::endl;
 		m_playPressed = true;
@@ -22,6 +23,10 @@ void MainMenu::update(Xbox360Controller & controller)
 	else
 	{
 		m_playPressed = false;
+	}*/
+	if (m_playPressed)
+	{
+		goToMenu(MenuStates::GAME);
 	}
 	m_gui.update();
 }
