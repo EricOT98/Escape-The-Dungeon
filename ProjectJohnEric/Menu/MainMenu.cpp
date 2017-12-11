@@ -29,6 +29,10 @@ void MainMenu::update(Xbox360Controller & controller)
 	{
 		goToMenu(MenuStates::GAME);
 	}
+	if (m_optionsPressed)
+	{
+		goToMenu(MenuStates::OPTIONS);
+	}
 	m_gui.update();
 }
 
@@ -51,7 +55,7 @@ void MainMenu::play()
 
 /// <summary>
 /// Funbction callback for options button pressed
-/// </summary>
+/// </summary>/
 void MainMenu::options()
 {
 	m_optionsPressed = true;
@@ -72,6 +76,8 @@ void MainMenu::initialise()
 {
 	initGUIObjects();
 	m_play->select =  std::bind(&MainMenu::play, this);
+	m_options->select = std::bind(&MainMenu::options, this);
+	m_quit->select = std::bind(&MainMenu::quit, this);
 }
 
 /// <summary>
@@ -90,4 +96,17 @@ void MainMenu::initGUIObjects()
 	
 	//selected, unselected, fill ,outline
 	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
+}
+
+void MainMenu::goToMenu(MenuStates state)
+{
+	m_nextState = state;
+	reset();
+}
+
+void MainMenu::reset()
+{
+	m_playPressed = false;
+	m_optionsPressed = false;
+	m_quitPressed = false;
 }

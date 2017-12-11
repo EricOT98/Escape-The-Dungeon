@@ -21,7 +21,7 @@ void MenuHandler::update(Xbox360Controller & controller)
 {
 	for (m_currentMenu = 0; m_currentMenu < m_menus.size(); ++m_currentMenu)
 	{
-		if (m_menus.at(m_currentMenu)->getMenuState() == m_menuState)
+		if (m_menus.at(m_currentMenu)->getMenuState() == m_menuState)	//Check if th ecurrent menu is to be updated
 		{
 			m_menus.at(m_currentMenu)->update(controller); //update current menu
 			if (m_nextState == m_menuState)
@@ -103,4 +103,16 @@ bool MenuHandler::isEmpty()
 MenuStates MenuHandler::getMenuState()
 {
 	return m_menuState;
+}
+
+std::unique_ptr<Menu> MenuHandler::getMenuFromState(MenuStates state)
+{
+	for (int i = 0; i < m_menus.size(); i++)
+	{
+		if (state == m_menus.at(i)->getMenuState())
+		{
+			return std::move( m_menus.at(i));
+		}
+	}
+	return std::unique_ptr<Menu>();
 }

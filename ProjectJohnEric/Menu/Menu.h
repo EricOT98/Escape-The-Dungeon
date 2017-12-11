@@ -44,7 +44,7 @@ public:
 	bool getActive();
 	void resetNextGameState();
 
-	void goToMenu(MenuStates state);
+	virtual void goToMenu(MenuStates state);
 protected:
 	virtual void initialise();
 	virtual void initGUIObjects();
