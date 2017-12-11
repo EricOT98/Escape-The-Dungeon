@@ -29,20 +29,7 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
-<<<<<<< HEAD
 	initialiseMenus();
-=======
-	m_menuStates = MenuStates::MAIN_MENU;
-	m_menus.push_back(std::make_unique<MainMenu>());
-	for (auto  & menu : m_menus) {
-		m_menuHandler.addMenu(menu);
-	}
-<<<<<<< HEAD
->>>>>>> Button callbacks implemented not changing menu states yet
-=======
-	m_menuHandler.setActive(MenuStates::MAIN_MENU);
-	m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
->>>>>>> Menu FUnctionality implemented using callbacks
 	m_camera.init();
 }
 
@@ -141,10 +128,7 @@ void Game::processGameEvents(sf::Event& event)
 void Game::update(sf::Time t_deltaTime)
 {
 	m_menuStates = m_menuHandler.getMenuState();
-<<<<<<< HEAD
 	//Using a switch statement allows us to specify certain conditions for certain menus
-=======
->>>>>>> Menu FUnctionality implemented using callbacks
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
