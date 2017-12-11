@@ -1,9 +1,12 @@
 /// <summary>
-/// Author: James Pierce, Eric O' Toole:
-/// Description: The main menu of the game
+/// Author: Eric O' Toole:
+/// A menu base class that contains both a gui and a state
+/// in order to allow game and menu based state changes to take place
+/// through gui objects
 /// 
-/// Time Taken: 2hours
-/// Known Errors: Stack overflow on destruction
+/// Time Taken: 6 hours
+/// Known Errors: Possible memory leaks 
+/// TODO: Eric: check for memory allocatin erros
 /// </summary>
 
 #ifndef MENU_H
@@ -13,6 +16,7 @@
 #include <SFML\Graphics.hpp>
 #include "../GUI/GUI.h"
 
+//Enum assigned here to allow modifciation of game states
 enum class MenuStates {
 	SPLASH,
 	LICENSE,
@@ -33,7 +37,7 @@ public:
 	virtual void update(Xbox360Controller & controller);
 	virtual void render(sf::RenderWindow & window);
 	void processInput(Xbox360Controller & controller);
-	void setMenuState(MenuStates & state, MenuStates & nextState);
+	void setMenuState(MenuStates state, MenuStates nextState);
 	MenuStates & getMenuState();
 	MenuStates & getNextState();
 	void setActive(bool active);
