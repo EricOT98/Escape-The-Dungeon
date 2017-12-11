@@ -3,7 +3,7 @@
 #include "Level.h"
 
 /// <summary>
-/// Degfault game constructor
+/// Default game constructor
 /// </summary>
 Game::Game() :
 	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
