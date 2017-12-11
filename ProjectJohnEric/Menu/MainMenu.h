@@ -31,6 +31,8 @@ public:
 protected:
 	void initialise() override;
 	void initGUIObjects() override;
+	void goToMenu(MenuStates state) override;
+	void reset();
 	Label * m_title;
 	Button * m_play;
 	Button * m_options;

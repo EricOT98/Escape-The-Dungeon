@@ -17,6 +17,7 @@ public:
 
 	bool isEmpty();
 	MenuStates getMenuState();
+	std::unique_ptr<Menu> getMenuFromState(MenuStates state);
 protected:
 	std::vector<std::unique_ptr<Menu>> m_menus;
 	MenuStates m_menuState;

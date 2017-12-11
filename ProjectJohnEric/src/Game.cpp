@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "Level.h"
+#include "../Menu/OptionsMenu.h"
 
 /// <summary>
 /// Default game constructor
@@ -185,6 +186,7 @@ bool Game::initialiseMenus()
 	{
 		std::vector<std::unique_ptr<Menu>> menus;
 		menus.push_back(std::make_unique<MainMenu>());
+		menus.push_back(std::make_unique<OptionsMenu>());
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}
