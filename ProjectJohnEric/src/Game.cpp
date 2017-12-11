@@ -1,8 +1,10 @@
 #include "Game.h"
 #include <iostream>
 #include "Level.h"
-//Merge Commit
 
+/// <summary>
+/// Degfault game constructor
+/// </summary>
 Game::Game() :
 	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
@@ -27,13 +29,7 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
-	m_menuStates = MenuStates::MAIN_MENU;
-	m_menus.push_back(std::make_unique<MainMenu>());
-	for (auto  & menu : m_menus) {
-		m_menuHandler.addMenu(menu);
-	}
-	m_menuHandler.setActive(MenuStates::MAIN_MENU);
-	m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
+	initialiseMenus();
 	m_camera.init();
 }
 
@@ -44,7 +40,9 @@ Game::~Game()
 	delete m_keyHandler;
 }
 
-
+/// <summary>
+/// Start the game loop
+/// </summary>
 void Game::run()
 {
 	sf::Clock clock;
@@ -130,19 +128,9 @@ void Game::processGameEvents(sf::Event& event)
 void Game::update(sf::Time t_deltaTime)
 {
 	m_menuStates = m_menuHandler.getMenuState();
+	//Using a switch statement allows us to specify certain conditions for certain menus
 	switch (m_menuStates)
 	{
-	case MenuStates::SPLASH:
-		break;
-	case MenuStates::LICENSE:
-		break;
-	case MenuStates::MAIN_MENU:
-		m_menuHandler.update(m_controllers.at(0));
-		if(m_mainMenu.m_playPressed)
-		{
-			m_menuStates = MenuStates::GAME;
-		}
-		break;
 	case MenuStates::GAME:
 		m_controllers.at(0).update();
 		//TODO: PUT THESE INTO THE LEVEL
@@ -153,15 +141,8 @@ void Game::update(sf::Time t_deltaTime)
 			controller.update();
 		}
 		break;
-	case MenuStates::OPTIONS:
-		break;
-	case MenuStates::PAUSE:
-		break;
-	case MenuStates::GAMEOVER:
-		break;
-	case MenuStates::CREDITS:
-		break;
 	default:
+		m_menuHandler.update(m_controllers.at(0));
 		break;
 	}
 
@@ -177,6 +158,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::Black);
+	//Using a switch statement allows us to specify certain conditions for certain menus
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
@@ -191,4 +173,27 @@ void Game::render()
 		break;
 	}
 	m_window.display();
+}
+
+/// <summary>
+/// Initialise the menu objects of the game
+/// </summary>
+/// <returns>Returns succes if menu objects can be successully created</returns>
+bool Game::initialiseMenus()
+{
+	//NB : if using this check it would be best to have a different execution on not empty state
+	//To avoid overwriting data
+	//check if menu list is empty
+	if (m_menuHandler.isEmpty())
+	{
+		std::vector<std::unique_ptr<Menu>> menus;
+		menus.push_back(std::make_unique<MainMenu>());
+		for (auto & menu : menus) {
+			m_menuHandler.addMenu(menu);
+		}
+		m_menuHandler.setActive(MenuStates::MAIN_MENU);
+		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
+		return true;
+	}
+	return false;
 }
