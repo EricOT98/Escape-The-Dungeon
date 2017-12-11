@@ -1,3 +1,10 @@
+/// <summary>
+/// @author Eric O' Toole, John O' Meara
+/// @desc The core functionality of the game
+/// timetaken: 3o hours(very rough approximaion)
+/// 
+/// </summary>
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -7,7 +14,6 @@
 #include "Camera.h"
 #include "KeyboardHandler.h"
 #include <tmxlite\TileLayer.hpp>
-#include <tmxlite\SFMLOrthogonalLayer.hpp>
 #include "Level.h"
 #include "../Input/Xbox360Controller.h"
 #include "../Menu//MainMenu.h"
@@ -28,6 +34,8 @@ private:
 	void update(sf::Time t_deltaTime);
 	void render();
 
+	bool initialiseMenus();
+
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
 
@@ -39,25 +47,11 @@ private:
 	sf::Texture m_testTexture;
 	sf::Sprite m_testSprite;
 	std::vector<Xbox360Controller> m_controllers;
-	MainMenu m_mainMenu;
-
-	enum class GameStates
-	{
-		SPLASH,
-		LICENSE,
-		MAIN_MENU,
-		GAME,
-		OPTIONS,
-		PAUSE,
-		GAMEOVER,
-		CREDITS
-	};
-
+	
 	MenuStates m_menuStates;
-	std::vector<std::unique_ptr<Menu>> m_menus;
 	MenuHandler m_menuHandler;
 
-
+	//Menu objects if using predefined menus to be stroed in header
 };
 
 #endif // !GAME

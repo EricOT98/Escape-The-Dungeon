@@ -4,11 +4,19 @@ MenuHandler::MenuHandler()
 {
 }
 
+/// <summary>
+/// Add a menu object onto the vector of menus
+/// </summary>
+/// <param name="m">The menu object to be added</param>
 void MenuHandler::addMenu(std::unique_ptr<Menu> &m)
 {
 	m_menus.push_back(std::move(m));
 }
 
+/// <summary>
+/// Update the current menu
+/// </summary>
+/// <param name="controller">The current connected controller</param>
 void MenuHandler::update(Xbox360Controller & controller)
 {
 	for (m_currentMenu = 0; m_currentMenu < m_menus.size(); ++m_currentMenu)
@@ -30,16 +38,13 @@ void MenuHandler::update(Xbox360Controller & controller)
 	}
 }
 
+/// <summary>
+/// Render the current menu
+/// </summary>
+/// <param name="window">The current render window</param>
 void MenuHandler::render(sf::RenderWindow & window)
 {
-	/*for (int i = 0; i < m_menus.size(); ++i)
-	{
-		if (m_menuState == m_menus.at(i)->getMenuState() && 
-			m_menus.at(i)->getActive())
-		{
-			m_menus.at(i)->render(window);
-		}
-	}*/
+	//Only render the currently used menu
 	if (m_currentMenu < m_menus.size())
 	{
 		m_menus.at(m_currentMenu)->render(window);
@@ -62,17 +67,13 @@ bool MenuHandler::setActive(MenuStates state)
 	return false;
 }
 
-
+/// <summary>
+/// Allows the mewnu handler tyo assign the current menu
+/// </summary>
+/// <param name="state">The menu state to travel to</param>
+/// <returns>Boolean value if the menu has been found</returns>
 bool MenuHandler::goToMenu(MenuStates state)
 {
-	/*if (nullptr != m_menus.at(static_cast<int>(state)) )
-	{
-		m_menus.at(static_cast<int>(state))->setActive(true);
-		m_menus.at(static_cast<int>(m_menuState))->setActive(false);
-		return true;
-	}
-	return false;*/
-
 	for (int i = 0; i < m_menus.size(); i++)
 	{
 		if (state == m_menus.at(i)->getMenuState())
@@ -80,11 +81,25 @@ bool MenuHandler::goToMenu(MenuStates state)
 			m_menuState = state;
 			m_nextState = m_menus.at(i)->getNextState();
 			m_menus.at(i)->setActive(true);
+			return true;
 		}
 	}
 	return false;
 }
 
+/// <summary>
+/// Return if the menu vector is empty
+/// </summary>
+/// <returns>THe empty state of menu vector
+bool MenuHandler::isEmpty()
+{
+	return m_menus.empty();
+}
+
+/// <summary>
+/// Returns the menu handlers state
+/// </summary>
+/// <returns>The menu state of the menu handler</returns>
 MenuStates MenuHandler::getMenuState()
 {
 	return m_menuState;

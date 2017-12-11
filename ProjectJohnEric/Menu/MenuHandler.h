@@ -14,6 +14,8 @@ public:
 	void render(sf::RenderWindow & window);
 	bool setActive(MenuStates state);
 	bool goToMenu(MenuStates state);
+
+	bool isEmpty();
 	MenuStates getMenuState();
 protected:
 	std::vector<std::unique_ptr<Menu>> m_menus;
