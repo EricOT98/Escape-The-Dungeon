@@ -36,10 +36,12 @@
     <ClInclude Include="include\Xbox360Controller.h" />
     <ClInclude Include="Input\PS4Controller.h" />
     <ClInclude Include="Input\Xbox360Controller.h" />
+    <ClInclude Include="Menu\GameOver.h" />
     <ClInclude Include="Menu\MainMenu.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\MenuHandler.h" />
     <ClInclude Include="Menu\OptionsMenu.h" />
+    <ClInclude Include="Menu\SoundOptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI\Button.cpp" />
@@ -51,10 +53,12 @@
     <ClCompile Include="include\Object.cpp" />
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
+    <ClCompile Include="Menu\GameOver.cpp" />
     <ClCompile Include="Menu\MainMenu.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\MenuHandler.cpp" />
     <ClCompile Include="Menu\OptionsMenu.cpp" />
+    <ClCompile Include="Menu\SoundOptions.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -127,6 +131,12 @@
       <AdditionalLibraryDirectories>$(SFML_SDK)\lib;tmxlite\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtmxlite-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /E /Y "$(SolutionDir)\dlls\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy DLL's</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

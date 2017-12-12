@@ -41,7 +41,7 @@ void Slider::update()
 	else
 	{
 		bar.setOutlineColor(m_unselectedColor);
-		tab.setFillColor(m_fillColor);
+		tab.setFillColor(m_unselectedColor);
 		m_label->setColour(m_unselectedColor);
 	}
 	tab.setPosition(bar.getPosition().x + tabPosition, bar.getPosition().y );
@@ -98,6 +98,7 @@ void Slider::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void Slider::setSize(int width, int height)
 {
 	bar.setSize(sf::Vector2f(width, height));
+	setLength(width);
 
 	tab.setSize(sf::Vector2f(10, height));
 }
@@ -109,7 +110,7 @@ void Slider::setSize(int width, int height)
 void Slider::setPosition(sf::Vector2f pos)
 {
 	bar.setPosition(pos);
-	m_label->setPosition(sf::Vector2f(pos.x, pos.y));
+	m_label->setPosition(sf::Vector2f(pos.x, pos.y - (m_label->getSize().height +20)));
 }
 
 /// <summary>
@@ -119,7 +120,7 @@ void Slider::setPosition(sf::Vector2f pos)
 void Slider::setLength(int length)
 {
 	m_length = length;
-	m_increment = (m_length +2) / 100.0f;	//+2 is to avoid gaps in the end of the slider
+	m_increment = (m_length - tab.getSize().x) / 100.0f;	//+2 is to avoid gaps in the end of the slider
 }
 
 void Slider::setLabel(sf::String s)
@@ -174,7 +175,7 @@ void Slider::setColors(sf::Color selectedColor, sf::Color unselectedColor, sf::C
 
 	bar.setFillColor(m_fillColor);
 	bar.setOutlineColor(m_outlineColor);
-	tab.setFillColor(m_fillColor);
+	tab.setFillColor(m_outlineColor);
 	tab.setOutlineThickness(4);
 	tab.setOutlineColor(m_outlineColor);
 
@@ -196,6 +197,7 @@ void Slider::increase()
 	if (m_value < 100)
 	{
 		tabPosition += m_increment;
+		std::cout << "pos" << tabPosition << std::endl;
 		m_value++;
 	}
 }

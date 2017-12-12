@@ -1,3 +1,8 @@
+/// <summary>
+/// @author: Eric O' Toole
+/// @desc: Options menu class deesigned to allow players to toggle varying options
+/// </summary>
+
 #ifndef OPTIONSMENU_H
 #define OPTIONSMENU_H
 
@@ -13,9 +18,11 @@ public:
 	void render(sf::RenderWindow & window) override;
 
 	void sound();
+	void display();
 	void back();
 
 	bool m_soundPressed;
+	bool m_displayPressed;
 	bool m_backPressed;
 
 protected:
@@ -26,9 +33,8 @@ protected:
 
 	Label * m_title;
 	Button * m_sound;
+	//Button * m_display;
 	Button * m_back;
-
-	MenuStates m_previousMenu;
 };
 
 #endif //!OPTIONS_MENU

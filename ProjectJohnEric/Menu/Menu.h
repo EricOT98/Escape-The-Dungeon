@@ -25,7 +25,8 @@ enum class MenuStates {
 	OPTIONS,
 	PAUSE,
 	GAMEOVER,
-	CREDITS
+	CREDITS,
+	SOUNDOPTIONS
 };
 
 class Menu
@@ -48,6 +49,7 @@ public:
 protected:
 	virtual void initialise();
 	virtual void initGUIObjects();
+	virtual void reset() = 0; //Pure virtaul must be overridden
 
 	GUI m_gui;
 	MenuStates m_currentState;

@@ -4,8 +4,9 @@
 /// Default constructor for main menu which creates a menu
 /// with base state MAinMenu
 /// </summary>
-MainMenu::MainMenu() :
-	Menu(MenuStates::MAIN_MENU)
+MainMenu::MainMenu(bool & _quit) :
+	Menu(MenuStates::MAIN_MENU),
+	exit(_quit)
 {
 	initialise();
 }
@@ -32,6 +33,10 @@ void MainMenu::update(Xbox360Controller & controller)
 	if (m_optionsPressed)
 	{
 		goToMenu(MenuStates::OPTIONS);
+	}
+	if (m_quitPressed)
+	{
+		exit = true;
 	}
 	m_gui.update();
 }

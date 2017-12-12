@@ -120,6 +120,12 @@
     <ClCompile Include="Menu\OptionsMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Menu\SoundOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\GameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Camera.h">
@@ -201,6 +207,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu\OptionsMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\SoundOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

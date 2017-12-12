@@ -16,7 +16,7 @@
 class MainMenu : public Menu
 {
 public:
-	MainMenu();
+	MainMenu(bool & quit);
 	~MainMenu();
 
 	void update(Xbox360Controller & controller) override;
@@ -27,7 +27,7 @@ public:
 	bool m_playPressed;
 	bool m_optionsPressed;
 	bool m_quitPressed;
-
+	bool & exit;
 protected:
 	void initialise() override;
 	void initGUIObjects() override;

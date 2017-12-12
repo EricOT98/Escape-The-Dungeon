@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Level.h"
 #include "../Menu/OptionsMenu.h"
+#include "../Menu/SoundOptions.h"
 
 /// <summary>
 /// Default game constructor
@@ -188,8 +189,9 @@ bool Game::initialiseMenus()
 	if (m_menuHandler.isEmpty())
 	{
 		std::vector<std::unique_ptr<Menu>> menus;
-		menus.push_back(std::make_unique<MainMenu>());
+		menus.push_back(std::make_unique<MainMenu>(m_exitGame));
 		menus.push_back(std::make_unique<OptionsMenu>());
+		menus.push_back(std::make_unique<SoundOptions>());
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}
