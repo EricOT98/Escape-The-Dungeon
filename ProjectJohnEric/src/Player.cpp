@@ -13,9 +13,16 @@ Player::Player()
 /// </summary>
 /// <param name="name">Name of the character for testing</param>
 Player::Player(string name)
-	: Character(name)
+	: Character(name),
+	m_visionRange(100)
 {
+	m_TESTPOINTER.setSize(sf::Vector2f(0.5, m_visionRange));
+	m_TESTPOINTER.setOrigin(1, 0);
 
+	m_TESTLEFT.setSize(sf::Vector2f(0.5, m_visionRange));
+	m_TESTLEFT.setOrigin(1, 0);
+	m_TESTRIGHT.setSize(sf::Vector2f(0.5, m_visionRange));
+	m_TESTRIGHT.setOrigin(1, 0);
 }
 
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
@@ -97,7 +104,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		sf::Vector2f mouse = sf::Vector2f(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
 		sf::Vector2f d = mouse - m_position;
-		m_rotation = atan2(d.y, d.x) * (180 / acos(-1));
+		m_rotation = (atan2(d.y, d.x) * (180 / acos(-1)))-90;
 	}
 
 	else
@@ -123,10 +130,12 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 
 #pragma region UPDATE_DEBUG
-	//cout << "(" << m_position.x << "," << m_position.y << ")" << endl;
-	//cout << "(" << sf::Mouse::getPosition(window).x << "," << sf::Mouse::getPosition(window).y << ")" << endl;
-	//cout << m_moveSpeed << endl;
-	//cout << m_rotation << endl;
+	m_TESTPOINTER.setRotation(m_rotation);
+	m_TESTPOINTER.setPosition(m_position);
+	m_TESTLEFT.setRotation(m_rotation - 20);
+	m_TESTLEFT.setPosition(m_position);
+	m_TESTRIGHT.setRotation(m_rotation + 20);
+	m_TESTRIGHT.setPosition(m_position);
 #pragma endregion
 
 }

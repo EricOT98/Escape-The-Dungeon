@@ -20,12 +20,14 @@ public:
 
 	void update(sf::RenderWindow &window, Xbox360Controller & controller);
 
+	//sf::RectangleShape m_TESTPOINTER;
+
 protected:
 	bool m_usingMouse;
 
 private:
 	KeyboardHandler * m_keyHandler;
-
+	float m_visionRange;
 	
 
 	Xbox360Controller controller;

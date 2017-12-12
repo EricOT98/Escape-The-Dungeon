@@ -52,6 +52,9 @@ void Character::render(sf::RenderWindow &window)
 
 	window.draw(m_rect);
 	window.draw(m_DEBUGCIRCLE);
+	window.draw(m_TESTPOINTER);
+	window.draw(m_TESTLEFT);
+	window.draw(m_TESTRIGHT);
 }
 
 void Character::update()
