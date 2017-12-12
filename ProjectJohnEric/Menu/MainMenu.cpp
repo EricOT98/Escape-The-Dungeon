@@ -98,9 +98,8 @@ void MainMenu::initGUIObjects()
 	m_gui.addButton(m_play, "Play", sf::Vector2f(100, 400), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_quit, "Quit", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
-	
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);
 }
 
 void MainMenu::goToMenu(MenuStates state)

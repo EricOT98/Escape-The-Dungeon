@@ -86,6 +86,7 @@ void GameOver::initGUIObjects()
 
 	//selected, unselected, fill ,outline
 	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
+	m_title->setColour(sf::Color::White);
 }
 
 /// <summary>
