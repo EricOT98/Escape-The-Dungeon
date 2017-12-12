@@ -3,9 +3,9 @@
 /// A menu base class that contains both a gui and a state
 /// in order to allow game and menu based state changes to take place
 /// through gui objects
-/// 
+///
 /// Time Taken: 6 hours
-/// Known Errors: Possible memory leaks 
+/// Known Errors: Possible memory leaks
 /// TODO: Eric: check for memory allocatin erros
 /// </summary>
 

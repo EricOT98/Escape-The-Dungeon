@@ -2,7 +2,7 @@
 /// @author Eric O' Toole, John O' Meara
 /// @desc The core functionality of the game
 /// timetaken: 3o hours(very rough approximaion)
-/// 
+///
 /// </summary>
 
 #ifndef GAME_H

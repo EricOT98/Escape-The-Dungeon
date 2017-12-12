@@ -1,6 +1,6 @@
 /// <summary>
 /// @author: Eric O' Toole
-/// @desc: A main menu class designed to allow the player 
+/// @desc: A main menu class designed to allow the player
 /// to access other menus as well as gameplay
 /// Time Taken: 2 hours
 /// Known Errors: Buttons must have a callback function
