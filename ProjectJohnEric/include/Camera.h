@@ -13,9 +13,11 @@ public:
 	void update(sf::Vector2f playerPos);
 
 	sf::View m_view;
+	sf::CircleShape m_TESTCAMERAZONE;
+	void render(sf::RenderWindow &window);
 
 private:
-	
+	int m_zone;
 
 	sf::Vector2f m_position;
 

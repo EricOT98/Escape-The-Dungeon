@@ -184,6 +184,7 @@ void Game::render()
 
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
+		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
 		//m_window.draw(m_testSprite);
 		m_player.render(m_window);
 		break;

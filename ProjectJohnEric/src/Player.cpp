@@ -104,7 +104,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		sf::Vector2f mouse = sf::Vector2f(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
 
 		sf::Vector2f d = mouse - m_position;
-		m_rotation = (atan2(d.y, d.x) * (180 / acos(-1)))-90;
+		m_rotation = (atan2(d.y, d.x) * (180 / acos(-1)));
 	}
 
 	else
@@ -130,11 +130,11 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 
 #pragma region UPDATE_DEBUG
-	m_TESTPOINTER.setRotation(m_rotation);
+	m_TESTPOINTER.setRotation(m_rotation - 90);
 	m_TESTPOINTER.setPosition(m_position);
-	m_TESTLEFT.setRotation(m_rotation - 20);
+	m_TESTLEFT.setRotation(m_rotation - 20 - 90);
 	m_TESTLEFT.setPosition(m_position);
-	m_TESTRIGHT.setRotation(m_rotation + 20);
+	m_TESTRIGHT.setRotation(m_rotation + 20 - 90);
 	m_TESTRIGHT.setPosition(m_position);
 #pragma endregion
 
