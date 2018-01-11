@@ -47,6 +47,8 @@ void MainMenu::update(Xbox360Controller & controller)
 /// <param name="window">The current render window</param>
 void MainMenu::render(sf::RenderWindow & window)
 {
+	//@debug
+	std::cout << "Rendering Menu" << std::endl;
 	window.draw(m_gui); //Draw gui components
 }
 

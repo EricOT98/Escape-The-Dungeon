@@ -11,9 +11,9 @@ GUI::GUI(Widget * parent)
 	labelIdCheck = typeid(Label).name();
 	buttonIdCheck = typeid(Button).name();
 	sliderIdCheck = typeid(Slider).name();
-	std::cout << labelIdCheck << std::endl;
-	std::cout << buttonIdCheck << std::endl;
-	std::cout << sliderIdCheck << std::endl;
+	//std::cout << labelIdCheck << std::endl;
+	//std::cout << buttonIdCheck << std::endl;
+	//std::cout << sliderIdCheck << std::endl;
 }
 
 /// <summary>
@@ -114,7 +114,7 @@ void GUI::order()
 		{
 			widget->getFocus();
 			startWidgetFound = true;
-			std::cout << "Start widget is : " << typeid(*widget).name() << std::endl;
+			//std::cout << "Start widget is : " << typeid(*widget).name() << std::endl;
 		}
 
 		index++;

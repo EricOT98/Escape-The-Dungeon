@@ -17,7 +17,7 @@ Widget::~Widget()
 	m_next = nullptr;
 	m_previous = nullptr;
 	m_parent = nullptr;
-	std::cout << "Widget Destroyed" << std::endl;
+	//std::cout << "Widget Destroyed" << std::endl;
 }
 
 /// <summary>
@@ -62,11 +62,11 @@ void Widget::processInput(Xbox360Controller & controller)
 {
 	GamePadState currentState = controller.m_currentState;
 	GamePadState previousState = controller.m_previousState;
-	if (currentState.dpadUp && !previousState.dpadUp)
+	if ((currentState.dpadUp && !previousState.dpadUp) || KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::W))
 	{
 		goToPrevious();
 	}
-	else if (currentState.dpadDown && !previousState.dpadDown)
+	else if ((currentState.dpadDown && !previousState.dpadDown) || KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::S))
 	{
 		goToNext();
 	}

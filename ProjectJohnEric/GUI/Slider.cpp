@@ -6,7 +6,7 @@
 /// <param name="parent"></param>
 Slider::Slider(Widget * parent)
 {
-	std::cout << "Slider created" << std::endl; //Debug msg
+	//std::cout << "Slider created" << std::endl; //Debug msg
 	m_label = new Label(this); //Initialise new label with pointer to widget(Slider)
 	m_label->setColour(m_unselectedColor); //Set colour of label text
 	m_label->setSize(30); //Set character size of label text
@@ -24,7 +24,7 @@ Slider::Slider(Widget * parent)
 /// </summary>
 Slider::~Slider()
 {
-	std::cout << "Slider destroyed" << std::endl;
+	//std::cout << "Slider destroyed" << std::endl;
 }
 
 /// <summary>
@@ -146,11 +146,11 @@ void Slider::processInput(Xbox360Controller & controller)
 	Widget::processInput(controller);
 	GamePadState currentState = controller.m_currentState;
 	GamePadState previousState = controller.m_previousState;
-	if (currentState.dpadLeft)
+	if (currentState.dpadLeft || KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::A))
 	{
 		decrease();
 	}
-	else if (currentState.dpadRight)
+	else if (currentState.dpadRight || KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::D))
 	{
 		increase();
 	}
@@ -197,7 +197,7 @@ void Slider::increase()
 	if (m_value < 100)
 	{
 		tabPosition += m_increment;
-		std::cout << "pos" << tabPosition << std::endl;
+		//std::cout << "pos" << tabPosition << std::endl;
 		m_value++;
 	}
 }

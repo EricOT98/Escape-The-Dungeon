@@ -4,6 +4,12 @@
 #include "../Menu/OptionsMenu.h"
 #include "../Menu/SoundOptions.h"
 
+#ifdef _DEBUG
+#	define debugMSG(x) x
+#else
+#	define debugMSG(x)
+#endif // DEBUG
+
 /// <summary>
 /// Default game constructor
 /// </summary>
@@ -32,6 +38,7 @@ Game::Game() :
 		}
 	}
 	initialiseMenus();
+	//m_menuStates = MenuStates::GAME;
 	m_camera.init();
 }
 
@@ -83,10 +90,6 @@ void Game::processEvents()
 			if (sf::Keyboard::Escape == event.key.code)
 			{
 				m_exitGame = true;
-			}
-			if (sf::Keyboard::Return == event.key.code)
-			{
-				std::cout << m_player.getName() << std::endl;
 			}
 		}
 
@@ -195,8 +198,17 @@ bool Game::initialiseMenus()
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}
-		m_menuHandler.setActive(MenuStates::MAIN_MENU);
-		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
+		/*if (m_menuHandler.setActive(MenuStates::MAIN_MENU))
+		{
+			std::cout << "Menu" << std::endl;
+			debugMSG(cout << "Menu at " << static_cast<int>(MenuStates::GAME) << std::endl);
+		}
+		else {
+			debugMSG(cout << "ERROR: Menu at " << static_cast<int>(MenuStates::MAIN_MENU) << " does not exist."
+				<< "Error Line: 209" << std::endl);
+		}
+		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);*/
+		m_menuHandler.goToGame();
 		return true;
 	}
 	return false;

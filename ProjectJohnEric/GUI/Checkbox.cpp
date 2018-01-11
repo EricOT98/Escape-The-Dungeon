@@ -6,7 +6,7 @@
 /// <param name="parent"></param>
 Checkbox::Checkbox(Widget * parent) 
 {
-	std::cout << "Checkbox created" << std::endl;
+	//std::cout << "Checkbox created" << std::endl;
 	m_selectedColor = sf::Color::Blue; //Sets highlight colour of checkbox box
 	m_unselectedColor = sf::Color::Black; //Sets default colour of checkbox box
 	m_label = new Label(this); //Initialise label with pointer to widget(Checkbox)

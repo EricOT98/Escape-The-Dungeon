@@ -6,7 +6,7 @@
 /// <param name="parent"></param>
 Label::Label(Widget * parent)
 {
-	std::cout << "Label created" << std::endl;
+	//std::cout << "Label created" << std::endl;
 
 	if (!m_font.loadFromFile("ASSETS/FONTS/ariblk.TTF"))
 	{

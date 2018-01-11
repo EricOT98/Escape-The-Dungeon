@@ -5,7 +5,7 @@
 /// </summary>
 Button::Button(Widget * parent)
 {
-	std::cout << "Button created" << std::endl; //Debug msg
+	//std::cout << "Button created" << std::endl; //Debug msg
 	m_label = new Label(this); //Initialise label with pointer to widget(button)
 	m_label->setColour(m_unselectedColor); //Set colour of label text
 	m_label->setSize(30); //Set character size of label text	
@@ -20,7 +20,7 @@ Button::Button(Widget * parent)
 /// </summary>
 Button::~Button()
 {
-	std::cout << "Button destroyed" << std::endl; //Debug msg
+	//std::cout << "Button destroyed" << std::endl; //Debug msg
 }
 
 /// <summary>
@@ -78,7 +78,7 @@ void Button::processInput(Xbox360Controller & controller)
 	GamePadState currentState = controller.m_currentState;
 	GamePadState previousState = controller.m_previousState;
 	Widget::processInput(controller);
-	if (currentState.buttonCross && !previousState.buttonCross)
+	if ((currentState.buttonCross && !previousState.buttonCross) || KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
 	{
 		isPressed = true;
 		select();

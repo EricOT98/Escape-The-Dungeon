@@ -50,7 +50,6 @@
     <ClCompile Include="GUI\Label.cpp" />
     <ClCompile Include="GUI\Slider.cpp" />
     <ClCompile Include="GUI\Widget.cpp" />
-    <ClCompile Include="include\Object.cpp" />
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
     <ClCompile Include="Menu\GameOver.cpp" />
@@ -65,6 +64,7 @@
     <ClCompile Include="src\KeyboardHandler.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Object.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>

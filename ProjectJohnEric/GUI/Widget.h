@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SFML\Graphics.hpp>
 #include "../Input/Xbox360Controller.h"
+#include "../include/KeyboardHandler.h"
 
 using namespace std;
 

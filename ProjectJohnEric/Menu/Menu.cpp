@@ -9,7 +9,7 @@ Menu::Menu(MenuStates stateIn) :
 	m_currentState(stateIn),
 	m_nextState(stateIn)
 {
-	std::cout << "Menu created" << std::endl; //Debug message
+	//std::cout << "Menu created" << std::endl; //Debug message
 	initialise(); //Call initialise method
 }
 
