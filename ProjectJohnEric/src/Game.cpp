@@ -38,7 +38,7 @@ Game::Game() :
 		}
 	}
 	initialiseMenus();
-	//m_menuStates = MenuStates::GAME;
+	//m_menuStates = MenuStates::MAIN_MENU;
 	m_camera.init();
 }
 
@@ -206,9 +206,12 @@ bool Game::initialiseMenus()
 		else {
 			debugMSG(cout << "ERROR: Menu at " << static_cast<int>(MenuStates::MAIN_MENU) << " does not exist."
 				<< "Error Line: 209" << std::endl);
-		}
-		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);*/
-		m_menuHandler.goToGame();
+		}*/
+		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
+		//NB: pass in current game state to avoid the 2 update buffer where a menu is still processing
+		//changing the menu
+		//@todo: Eric - Implement a possible fix for the frame buffer
+		m_menuHandler.goToGame(m_menuStates);
 		return true;
 	}
 	return false;

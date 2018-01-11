@@ -16,7 +16,7 @@ public:
 	bool goToMenu(MenuStates state);
 
 	bool isEmpty();
-	void goToGame();
+	void goToGame(MenuStates & game_state);
 	MenuStates getMenuState();
 	std::unique_ptr<Menu> getMenuFromState(MenuStates state);
 protected:

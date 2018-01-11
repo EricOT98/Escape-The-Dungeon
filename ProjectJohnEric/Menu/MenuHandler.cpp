@@ -21,7 +21,7 @@ void MenuHandler::addMenu(std::unique_ptr<Menu> &m)
 void MenuHandler::update(Xbox360Controller & controller)
 {
 	//@debug
-	std::cout << "Menu HAndler Update" << std::endl;
+	//std::cout << "Menu HAndler Update" << std::endl;
 	for (m_currentMenu = 0; m_currentMenu < m_menus.size(); ++m_currentMenu)
 	{
 		if (m_menus.at(m_currentMenu)->getMenuState() == m_menuState)	//Check if the current menu is to be updated
@@ -39,7 +39,7 @@ void MenuHandler::update(Xbox360Controller & controller)
 			break;
 		}
 	}
-	if (m_currentMenu > m_menus.size())
+	if (m_currentMenu >= m_menus.size())
 	{
 		m_currentMenu = -1;
 	}
@@ -52,7 +52,7 @@ void MenuHandler::update(Xbox360Controller & controller)
 void MenuHandler::render(sf::RenderWindow & window)
 {
 	//Only render the currently used menu
-	if (m_currentMenu < m_menus.size() && m_currentMenu > 0)
+	if (m_currentMenu < m_menus.size() && m_currentMenu >= 0)
 	{
 		m_menus.at(m_currentMenu)->render(window);
 	}
@@ -88,9 +88,11 @@ bool MenuHandler::goToMenu(MenuStates state)
 			m_menuState = state;
 			m_nextState = m_menus.at(i)->getNextState();
 			m_menus.at(i)->setActive(true);
+			m_currentMenu = i;
 			return true;
 		}
 	}
+	//m_currentMenu = -1;
 	return false;
 }
 
@@ -103,7 +105,7 @@ bool MenuHandler::isEmpty()
 	return m_menus.empty();
 }
 
-void MenuHandler::goToGame()
+void MenuHandler::goToGame(MenuStates & game_state)
 {
 	for (int i = 0; i < m_menus.size(); i++)
 	{
@@ -114,6 +116,7 @@ void MenuHandler::goToGame()
 	}
 	m_menuState = MenuStates::GAME;
 	m_nextState = MenuStates::GAME;
+	game_state = MenuStates::GAME;
 }
 
 /// <summary>
