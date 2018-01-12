@@ -36,6 +36,9 @@ public:
 	sf::Vector2f getPosition(){
 		return m_position;
 	}
+	float getRotation() {
+		return m_rotation;
+	}
 
 protected:
 	string m_name;

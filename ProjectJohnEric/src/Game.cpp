@@ -17,7 +17,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 1080, 720, 32 }, "SFML Game" },
 	m_exitGame{false}, //when true game will exit
 	m_player("test"),
-	m_camera()
+	m_camera(&m_player)
 {
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename, &m_player);
@@ -39,7 +39,6 @@ Game::Game() :
 	}
 	initialiseMenus();
 	//m_menuStates = MenuStates::MAIN_MENU;
-	m_camera.init();
 }
 
 
@@ -141,7 +140,7 @@ void Game::update(sf::Time t_deltaTime)
 		//TODO: PUT THESE INTO THE LEVEL
 		m_level.update();
 		m_player.update(m_window, m_controllers.at(0));
-		m_camera.update(m_player.getPosition());
+		m_camera.update();
 		for (auto & controller : m_controllers) {
 			controller.update();
 		}
