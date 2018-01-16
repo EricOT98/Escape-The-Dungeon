@@ -103,5 +103,5 @@ void Label::setString(sf::String s)
 
 sf::FloatRect Label::getSize()
 {
-	return m_text.getLocalBounds();
+	return m_text.getGlobalBounds();
 }
