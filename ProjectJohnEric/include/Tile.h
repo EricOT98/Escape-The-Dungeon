@@ -19,7 +19,6 @@ public:
 
 	//Used for controlled culling of the tiles
 	bool m_onScreen;
-
 	
 
 	sf::Texture * m_texture;

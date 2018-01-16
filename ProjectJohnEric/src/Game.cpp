@@ -172,6 +172,14 @@ void Game::render()
 		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
 		//m_window.draw(m_testSprite);
 		m_player.render(m_window);
+
+		m_window.setView(m_camera.m_miniMap);
+		//m_level.render(m_window);
+		//m_player.render(m_window);
+		m_level.renderMiniMap(m_window);
+		m_player.renderMiniMap(m_window);
+
+		m_window.setView(m_camera.m_view);
 		break;
 	default:
 		m_menuHandler.render(m_window);

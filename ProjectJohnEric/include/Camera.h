@@ -17,6 +17,7 @@ public:
 	void update();
 
 	sf::View m_view;
+	sf::View m_miniMap;
 
 	void render(sf::RenderWindow &window);
 

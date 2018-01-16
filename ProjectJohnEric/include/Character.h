@@ -27,6 +27,7 @@ public:
 	virtual float getRadius();
 
 	virtual void render(sf::RenderWindow &window);
+	virtual void renderMiniMap(sf::RenderWindow &window);
 	virtual void update();
 	virtual void init();
 
@@ -45,6 +46,8 @@ protected:
 	sf::RectangleShape m_rect;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
+
+	sf::CircleShape m_minimapIcon;
 
 	float m_rotation;
 	float m_spinSpeed;

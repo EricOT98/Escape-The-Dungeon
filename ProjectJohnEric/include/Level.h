@@ -14,6 +14,7 @@ public:
 	bool load(std::string & filepath, Player* player);
 
 	void render(sf::RenderWindow & window);
+	void renderMiniMap(sf::RenderWindow & window);
 	void update();
 
 protected:

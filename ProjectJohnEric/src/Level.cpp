@@ -65,16 +65,20 @@ bool Level::load(std::string & filepath, Player* player)
 void Level::render(sf::RenderWindow & window)
 {
 	for (auto tile : m_tiles) {
-		if (checkCollisions(tile, m_player))
-			tile->draw(window, 1);
-		else
-			tile->draw(window);
+		tile->draw(window);
 	}
 	for (auto obj : m_levelObjects) {
 		obj->render(window);
 		//std::cout << "Draw objects" << std::endl;
 	}
 	//std::cout << "render cycle " << std::endl;
+}
+
+void Level::renderMiniMap(sf::RenderWindow & window)
+{
+	for (auto tile : m_tiles) {
+		tile->draw(window, 1);
+	}
 }
 
 void Level::update()

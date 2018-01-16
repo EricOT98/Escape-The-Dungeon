@@ -57,6 +57,12 @@ void Character::render(sf::RenderWindow &window)
 	window.draw(m_TESTRIGHT);
 }
 
+void Character::renderMiniMap(sf::RenderWindow & window)
+{
+	m_minimapIcon.setPosition(m_position);
+	window.draw(m_minimapIcon);
+}
+
 void Character::update()
 {
 	move();
@@ -74,6 +80,10 @@ void Character::init()
 	m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
 	m_rect.setFillColor(sf::Color::Black);
 	m_rect.setPosition(m_position);
+
+	m_minimapIcon.setRadius(m_collisionRadius*1.5);
+	m_minimapIcon.setOrigin(m_collisionRadius*1.5, m_collisionRadius*1.5);
+	m_minimapIcon.setFillColor(sf::Color(255, 255, 255));
 
 	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
 	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
