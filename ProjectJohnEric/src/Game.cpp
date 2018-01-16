@@ -166,6 +166,7 @@ void Game::render()
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
+
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
 		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!

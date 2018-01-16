@@ -43,6 +43,14 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		}
 	}
 
+	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::LShift))
+	{
+		m_viewForward = true;
+	}
+	else {
+		m_viewForward = false;
+	}
+
 
 #pragma region MOVEMENT_LOGIC
 	m_direction = sf::Vector2f(0, 0);

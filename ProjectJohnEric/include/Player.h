@@ -20,10 +20,13 @@ public:
 
 	void update(sf::RenderWindow &window, Xbox360Controller & controller);
 
-	//sf::RectangleShape m_TESTPOINTER;
+	bool getViewForward() {
+		return m_viewForward;
+	}
 
 protected:
 	bool m_usingMouse;
+	bool m_viewForward;
 
 private:
 	KeyboardHandler * m_keyHandler;
