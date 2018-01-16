@@ -1,8 +1,10 @@
 #include "Game.h"
 #include <iostream>
 #include "Level.h"
+#include "../Menu/MainMenu.h"
 #include "../Menu/OptionsMenu.h"
 #include "../Menu/SoundOptions.h"
+#include "../Menu/DisplayOptions.h"
 
 #ifdef _DEBUG
 #	define debugMSG(x) x
@@ -195,10 +197,11 @@ bool Game::initialiseMenus()
 		menus.push_back(std::make_unique<MainMenu>(m_exitGame));
 		menus.push_back(std::make_unique<OptionsMenu>());
 		menus.push_back(std::make_unique<SoundOptions>());
+		menus.push_back(std::make_unique<DisplayOptions>());
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}
-		/*if (m_menuHandler.setActive(MenuStates::MAIN_MENU))
+		if (m_menuHandler.setActive(MenuStates::MAIN_MENU))
 		{
 			std::cout << "Menu" << std::endl;
 			debugMSG(cout << "Menu at " << static_cast<int>(MenuStates::GAME) << std::endl);
@@ -206,12 +209,12 @@ bool Game::initialiseMenus()
 		else {
 			debugMSG(cout << "ERROR: Menu at " << static_cast<int>(MenuStates::MAIN_MENU) << " does not exist."
 				<< "Error Line: 209" << std::endl);
-		}*/
+		}
 		m_menuHandler.goToMenu(MenuStates::MAIN_MENU);
 		//NB: pass in current game state to avoid the 2 update buffer where a menu is still processing
 		//changing the menu
-		//@todo: Eric - Implement a possible fix for the frame buffer
-		m_menuHandler.goToGame(m_menuStates);
+		//TODO: Eric - Implement a possible fix for the frame buffer
+		//m_menuHandler.goToGame(m_menuStates);
 		return true;
 	}
 	return false;

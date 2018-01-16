@@ -1,30 +1,30 @@
 /// <summary>
 /// @author: Eric O' Toole
-/// @desc: Options menu class deesigned to allow players to toggle varying options
+/// @desc: Display Options menu class for toggling shaders + camera shake
 /// </summary>
 
-#ifndef OPTIONSMENU_H
+#ifndef DISPLAYOPTIONS_H
 #define OPTIONSMENU_H
 
 #include "Menu.h"
 
-class OptionsMenu : public Menu
+class DisplayOptions : public Menu
 {
 public:
-	OptionsMenu();
-	~OptionsMenu();
+	DisplayOptions();
+	~DisplayOptions();
 
 	void update(Xbox360Controller & controller) override;
 	void render(sf::RenderWindow & window) override;
 
-	void sound();
-	void display();
+	void shader();
+	void cameraShake();
 	void back();
-
-	bool m_soundPressed;
-	bool m_displayPressed;
+	
+	bool m_shaderPressed;
+	bool m_shakePressed;
 	bool m_backPressed;
-
+	
 protected:
 	void initialise() override;
 	void initGUIObjects() override;
@@ -32,9 +32,9 @@ protected:
 	void reset();
 
 	Label * m_title;
-	Button * m_sound;
-	Button * m_display;
+	Checkbox * m_shader;
+	Checkbox * m_shake;
 	Button * m_back;
 };
 
-#endif //!OPTIONS_MENU
+#endif //!OPTIONSMENU_H

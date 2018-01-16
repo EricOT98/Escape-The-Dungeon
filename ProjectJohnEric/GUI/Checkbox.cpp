@@ -51,27 +51,28 @@ void Checkbox::update()
 void Checkbox::updateShape()
 {
 	sf::FloatRect labelSize = m_label->getSize();
-	int width = 0, height = 0;
-	if (labelSize.width > m_boxRect.getLocalBounds().width)
-	{
-		width = labelSize.width + 40;
-	}
-	if (labelSize.height > m_boxRect.getLocalBounds().height)
-	{
-		height = labelSize.height + 40;
-	}
-	if (width != 0 && height != 0)
-	{
-		setSize(width, height);
-	}
-	else if (width != 0)
-	{
-		setSize(width, m_boxRect.getLocalBounds().height);
-	}
-	else if (height != 0)
-	{
-		setSize(m_boxRect.getLocalBounds().width, height);
-	}
+	//int width = 0, height = 0;
+	//if (labelSize.width > m_boxRect.getLocalBounds().width)
+	//{
+	//	width = labelSize.width + 2;
+	//}
+	//if (labelSize.height > m_boxRect.getLocalBounds().height)
+	//{
+	//	height = labelSize.height + 2;
+	//}
+	//if (width != 0 && height != 0)
+	//{
+	//	setSize(width, height);
+	//}
+	//else if (width != 0)
+	//{
+	//	setSize(width, m_boxRect.getLocalBounds().height);
+	//}
+	//else if (height != 0)
+	//{
+	//	setSize(m_boxRect.getLocalBounds().width, height);
+	//}
+	setSize(labelSize.height, labelSize.height);
 }
 
 /// <summary>
@@ -134,7 +135,7 @@ void Checkbox::setSize(int width, int height)
 void Checkbox::setPosition(sf::Vector2f pos)
 {
 	m_boxRect.setPosition(pos);
-	m_label->setPosition(sf::Vector2f(pos.x + 2, pos.y));
+	m_label->setPosition(sf::Vector2f(pos.x + m_boxRect.getLocalBounds().width + 1, pos.y));
 }
 
 /// <summary>

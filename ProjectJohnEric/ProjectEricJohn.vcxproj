@@ -36,6 +36,7 @@
     <ClInclude Include="include\Xbox360Controller.h" />
     <ClInclude Include="Input\PS4Controller.h" />
     <ClInclude Include="Input\Xbox360Controller.h" />
+    <ClInclude Include="Menu\DisplayOptions.h" />
     <ClInclude Include="Menu\GameOver.h" />
     <ClInclude Include="Menu\MainMenu.h" />
     <ClInclude Include="Menu\Menu.h" />
@@ -52,6 +53,7 @@
     <ClCompile Include="GUI\Widget.cpp" />
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
+    <ClCompile Include="Menu\DisplayOptions.cpp" />
     <ClCompile Include="Menu\GameOver.cpp" />
     <ClCompile Include="Menu\MainMenu.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />

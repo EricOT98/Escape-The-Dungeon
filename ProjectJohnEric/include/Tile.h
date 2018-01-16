@@ -15,7 +15,7 @@ public:
 	int m_layer;
 
 	//The tiles gid in the tilesheet
-	int m_gid;	//@TODO: Eric use this for tile comparisons for game events
+	int m_gid;	//TODO: Eric use this for tile comparisons for game events
 
 	//Used for controlled culling of the tiles
 	bool m_onScreen;

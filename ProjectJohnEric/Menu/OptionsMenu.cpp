@@ -34,6 +34,13 @@ void OptionsMenu::update(Xbox360Controller & controller)
 		goToMenu(MenuStates::SOUNDOPTIONS);
 		reset();
 	}
+	if (m_displayPressed)
+	{
+		//TODO: Eric - implement display options menu State
+		goToMenu(MenuStates::DISPLAYOPTIONS);
+		reset();
+	}
+
 	m_gui.update();
 }
 
@@ -78,7 +85,7 @@ void OptionsMenu::initialise()
 	initGUIObjects();
 	m_sound->select = std::bind(&OptionsMenu::sound, this);
 	m_back->select = std::bind(&OptionsMenu::back, this);
-	//m_display->select = std::bind(&OptionsMenu::display, this);
+	m_display->select = std::bind(&OptionsMenu::display, this);
 }
 
 /// <summary>
@@ -88,11 +95,11 @@ void OptionsMenu::initGUIObjects()
 {
 	m_title = new Label(nullptr);
 	m_sound = new Button(nullptr);
-	//m_display = new Button(nullptr);
+	m_display = new Button(nullptr);
 	m_back = new Button(nullptr);
 	m_gui.addLabel(m_title, "Options", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addButton(m_sound, "Sound Options", sf::Vector2f(100, 200), sf::Vector2i(200, 50), sf::Color::Green);
-	//m_gui.addButton(m_display, "Display Options", sf::Vector2f(100, 300), sf::Vector2i(200, 50), sf::Color::Green);
+	m_gui.addButton(m_display, "Display Options", sf::Vector2f(100, 300), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_back, "<- Back", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 
 	//selected, unselected, fill ,outline

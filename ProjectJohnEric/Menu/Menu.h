@@ -26,7 +26,8 @@ enum class MenuStates {
 	PAUSE,
 	GAMEOVER,
 	CREDITS,
-	SOUNDOPTIONS
+	SOUNDOPTIONS,
+	DISPLAYOPTIONS
 };
 
 class Menu
