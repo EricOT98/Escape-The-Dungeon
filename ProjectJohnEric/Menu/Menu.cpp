@@ -122,6 +122,16 @@ void Menu::resetNextGameState()
 	m_nextState = m_currentState;
 }
 
+MenuStates & Menu::getPreviousMenu()
+{
+	return m_previousMenu;
+}
+
+void Menu::setPreviousMenu(MenuStates state)
+{
+	m_previousMenu = state;
+}
+
 /// <summary>
 /// Set the menus next state to be the corresponding menu
 /// This allows the update to change the menu state

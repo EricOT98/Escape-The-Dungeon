@@ -14,12 +14,13 @@ public:
 	Camera(Player* player);
 
 	void init();
-	void update();
-
+	void update(sf::Vector2f playerPos);
+	sf::View m_menuView;
 	sf::View m_view;
 	sf::View m_miniMap;
 
 	void render(sf::RenderWindow &window);
+	void pauseTransition();
 
 private:
 	KeyboardHandler* m_keyHandler;

@@ -4,10 +4,9 @@
 
 Level::Level()
 {
-
 }
 
-bool Level::load(std::string & filepath, Player* player)
+bool Level::load(std::string & filepath, Player* player, LightEngine & le)
 {
 	m_player = player;
 	if (m_map.load(filepath)) {
@@ -57,6 +56,7 @@ bool Level::load(std::string & filepath, Player* player)
 			}
 			
 		}
+		setLightBlockingTile(le);
 		return true;
 	}
 	return false;
@@ -173,6 +173,15 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int l
 		if (object.getType() == "Trigger") { trigger = true; }
 		Object * o = new Object(pos, rect, true, trigger);
 		m_levelObjects.push_back(o);
+	}
+}
+
+void Level::setLightBlockingTile(LightEngine & le)
+{
+	for (auto & tile : m_tiles) {
+		if (tile->m_layer == 1) {
+			tile->m_block.setAllowed(true);
+		}
 	}
 }
 

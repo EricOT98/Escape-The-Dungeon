@@ -5,6 +5,7 @@
 #include "../Menu/OptionsMenu.h"
 #include "../Menu/SoundOptions.h"
 #include "../Menu/DisplayOptions.h"
+#include "../Menu/Pause.h"
 
 #ifdef _DEBUG
 #	define debugMSG(x) x
@@ -22,8 +23,7 @@ Game::Game() :
 	m_camera(&m_player)
 {
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
-	m_level.load(filename, &m_player);
-	m_player.init();
+	m_level.load(filename, &m_player, m_lightEngine);
 	m_keyHandler = m_keyHandler->GetInstance();
 
 	if (m_testTexture.loadFromFile("ASSETS/IMAGES/testMap.png")) {
@@ -39,6 +39,27 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
+
+	//m_debug.setRadius(5);
+	//m_debug.setOrigin(sf::Vector2f(m_debug.getRadius(), m_debug.getRadius()));
+	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
+	
+	m_debug.setFillColor(sf::Color(255, 0, 0, 128));
+	////TODO: Eric Lights
+	//light.radius = 60;
+
+	//light.angleSpread = 50;
+
+	//light.position = sf::Vector2f(100, 150);
+
+	//le.Lights.push_back(light);
+	//block.fRect = sf::FloatRect(0, 0, 16, 16);
+	//block.setSize(sf::Vector2f(32,32));
+	//block.setAllowed(true);
+	//le.Blocks.push_back(block);
+	
+	//Lights
+	m_player.init(m_lightEngine);
 	initialiseMenus();
 	//m_menuStates = MenuStates::MAIN_MENU;
 }
@@ -142,10 +163,19 @@ void Game::update(sf::Time t_deltaTime)
 		//TODO: PUT THESE INTO THE LEVEL
 		m_level.update();
 		m_player.update(m_window, m_controllers.at(0));
-		m_camera.update();
+		m_camera.update(m_player.getPosition());
+
+		//TODO Lights Test
+		/*le.Blocks[0].fRect.left = m_player.m_DEBUGCIRCLE.getPosition().x - m_player.m_DEBUGCIRCLE.getRadius();
+		le.Blocks[0].fRect.top = m_player.m_DEBUGCIRCLE.getPosition().y - m_player.m_DEBUGCIRCLE.getRadius();
+		*/
+		if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
+		{
+			m_menuHandler.goToMenu(MenuStates::PAUSE);
+		}
 		for (auto & controller : m_controllers) {
 			controller.update();
-		}
+		}	
 		break;
 	default:
 		m_menuHandler.update(m_controllers.at(0));
@@ -171,6 +201,7 @@ void Game::render()
 
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
+		
 		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
 		m_player.render(m_window);
 
@@ -179,8 +210,24 @@ void Game::render()
 		m_player.renderMiniMap(m_window);
 
 		m_window.setView(m_camera.m_view);
+		
+		m_window.draw(m_debug);
+		m_lightEngine.Step(m_window);
+		//TODOD Light Testing
+		/*le.Step(m_window);*/
+		m_lightEngine.Step(m_window);
+		break;
+	case MenuStates::PAUSE:
+		m_window.setView(m_camera.m_menuView);
+		m_level.render(m_window);
+		//m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
+										   //m_window.draw(m_testSprite);
+		m_player.render(m_window);
+		m_menuHandler.render(m_window);
 		break;
 	default:
+		//m_camera.resetView();
+		m_window.setView(m_camera.m_menuView);
 		m_menuHandler.render(m_window);
 		break;
 	}
@@ -203,6 +250,7 @@ bool Game::initialiseMenus()
 		menus.push_back(std::make_unique<OptionsMenu>());
 		menus.push_back(std::make_unique<SoundOptions>());
 		menus.push_back(std::make_unique<DisplayOptions>());
+		menus.push_back(std::make_unique<Pause>());
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}

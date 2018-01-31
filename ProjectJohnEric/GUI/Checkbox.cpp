@@ -7,14 +7,15 @@
 Checkbox::Checkbox(Widget * parent) 
 {
 	//std::cout << "Checkbox created" << std::endl;
-	m_selectedColor = sf::Color::Blue; //Sets highlight colour of checkbox box
-	m_unselectedColor = sf::Color::Black; //Sets default colour of checkbox box
+	//m_selectedColor = sf::Color::Blue; //Sets highlight colour of checkbox box
+	//m_unselectedColor = sf::Color::Black; //Sets default colour of checkbox box
 	m_label = new Label(this); //Initialise label with pointer to widget(Checkbox)
-	m_label->setColour(m_unselectedColor); //Sets colour of label text
+	//m_label->setColour(m_unselectedColor); //Sets colour of label text
 	m_label->setSize(30); //Sets character size of label text
 	m_on = false;
 	m_translucent = sf::Color(0, 0, 0, 0);	//Off color for the checkbox
 	m_tickRect.setFillColor(m_translucent);	//Sets the tick to be off in color
+	m_boxRect.setFillColor(m_translucent);
 	m_type = typeid(Checkbox).name();
 }
 
@@ -81,30 +82,33 @@ void Checkbox::updateShape()
 /// <param name="controller"></param>
 void Checkbox::processInput(Xbox360Controller & controller)
 {
-	Button::processInput(controller);
-	bool pressed = getPressed();
-	if (pressed && m_on)
+	Widget::processInput(controller);
+	if ((controller.m_currentState.buttonCross && !controller.m_previousState.buttonCross) ||
+		KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
 	{
-		m_on = false;
-		m_tickRect.setFillColor(m_translucent);
-	}
-	else if (pressed && !m_on)
-	{
-		m_on = true;
-		m_tickRect.setFillColor(m_fillColor);
+		m_on = !m_on;
+		if (m_on) {
+			m_tickRect.setFillColor(m_fillColor);
+			std::cout << "On" << std::endl;
+		}
+		else {
+			m_tickRect.setFillColor(m_translucent);
+			std::cout << "Off" << std::endl;
+		}
 	}
 }
 void Checkbox::setColors(sf::Color selectedColor, sf::Color unselectedColor, sf::Color fillColor, sf::Color outlineColor)
 {
 	m_selectedColor = selectedColor;
-	m_unselectedColor = m_unselectedColor;
+	m_unselectedColor = unselectedColor;
 	m_fillColor = fillColor;
 	m_outlineColor = outlineColor;
 
-	m_boxRect.setFillColor(fillColor);
+	//m_boxRect.setFillColor(fillColor);
 	m_boxRect.setOutlineColor(outlineColor);
 	m_tickRect.setFillColor(m_translucent);
-	m_tickRect.setOutlineColor(m_outlineColor);
+	//m_tickRect.setOutlineColor(outlineColor);
+	m_label->setColors(selectedColor, unselectedColor, fillColor, outlineColor);
 }
 /// <summary>
 /// Draws checkbox objects here
@@ -126,6 +130,7 @@ void Checkbox::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void Checkbox::setSize(int width, int height)
 {
 	m_boxRect.setSize(sf::Vector2f(width, height));
+	m_tickRect.setSize(sf::Vector2f(width - m_boxRect.getOutlineThickness(), height - m_boxRect.getOutlineThickness()));
 }
 
 /// <summary>
@@ -135,6 +140,7 @@ void Checkbox::setSize(int width, int height)
 void Checkbox::setPosition(sf::Vector2f pos)
 {
 	m_boxRect.setPosition(pos);
+	m_tickRect.setPosition(pos + sf::Vector2f(m_boxRect.getOutlineThickness(), m_boxRect.getOutlineThickness()));
 	m_label->setPosition(sf::Vector2f(pos.x + m_boxRect.getLocalBounds().width + 1, pos.y));
 }
 

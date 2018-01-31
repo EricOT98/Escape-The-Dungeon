@@ -10,7 +10,7 @@ Button::Button(Widget * parent)
 	m_label->setColour(m_unselectedColor); //Set colour of label text
 	m_label->setSize(30); //Set character size of label text	
 	m_type = typeid(Button).name();	//Set the type of the button
-	rect.setFillColor(m_fillColor);
+	//rect.setFillColor(m_fillColor);
 	rect.setOutlineColor(m_outlineColor);
 	
 }
@@ -128,8 +128,12 @@ void Button::update()
 	}
 	else
 	{
+		rect.setOutlineThickness(0);
 		rect.setOutlineColor(m_unselectedColor);
 		m_label->setColour(m_unselectedColor);
+		//std::cout << "Button: " << m_label->getString() << ":" << m_unselectedColor << std::endl;
+
+
 	}
 }
 

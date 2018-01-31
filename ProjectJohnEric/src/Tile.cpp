@@ -26,6 +26,12 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 		}
 		else if (m_layer == 2) {
 			rect.setFillColor(sf::Color(200, 200, 200));
+		m_block.fRect.left = m_x;
+		m_block.fRect.top = m_y;
+
+		m_block.setSize(rect.getSize());
+		if (m_layer == 1) {
+			m_block.setAllowed(true);
 		}
 	}
 }
@@ -33,7 +39,7 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 void Tile::draw(sf::RenderWindow & window)
 {
 	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
-		
+
 		window.draw(m_sprite);
 		//window.draw(rect);
 		//std::cout << m_gid << std::endl;

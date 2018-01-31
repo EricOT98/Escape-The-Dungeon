@@ -35,6 +35,7 @@ protected:
 	Button * m_sound;
 	Button * m_display;
 	Button * m_back;
+	MenuStates m_previousMenu;
 };
 
 #endif //!OPTIONS_MENU

@@ -26,6 +26,10 @@ void MenuHandler::update(Xbox360Controller & controller)
 	{
 		if (m_menus.at(m_currentMenu)->getMenuState() == m_menuState)	//Check if the current menu is to be updated
 		{
+			/*if (m_menuChanged) {
+				m_menus.at(m_currentMenu)->setPreviousMenu(m_previousMenu);
+				m_menuChanged = false;
+			}*/
 			m_menus.at(m_currentMenu)->update(controller); //update current menu
 			if (m_nextState == m_menuState)
 			{
@@ -33,8 +37,11 @@ void MenuHandler::update(Xbox360Controller & controller)
 			}
 			else
 			{
+				//m_menus.at(m_currentMenu)->setPreviousMenu(m_menuState);
+				//m_previousMenu = m_menuState;
 				m_menuState = m_nextState;
 				m_menus.at(m_currentMenu)->resetNextGameState();
+				/*m_menuChanged = true;*/
 			}
 			break;
 		}
@@ -85,10 +92,14 @@ bool MenuHandler::goToMenu(MenuStates state)
 	{
 		if (state == m_menus.at(i)->getMenuState())
 		{
+			//Set previous menu to current menu before we change menu
+			m_menus.at(i)->setPreviousMenu(m_menuState);
+
 			m_menuState = state;
 			m_nextState = m_menus.at(i)->getNextState();
 			m_menus.at(i)->setActive(true);
 			m_currentMenu = i;
+			
 			return true;
 		}
 	}

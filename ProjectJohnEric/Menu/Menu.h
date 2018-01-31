@@ -46,6 +46,10 @@ public:
 	bool getActive();
 	void resetNextGameState();
 
+	MenuStates & getPreviousMenu();
+	void setPreviousMenu(MenuStates state);
+
+
 	virtual void goToMenu(MenuStates state);
 protected:
 	virtual void initialise();
@@ -55,6 +59,7 @@ protected:
 	GUI m_gui;
 	MenuStates m_currentState;
 	MenuStates m_nextState;
+	MenuStates m_previousMenu;
 	bool m_active;
 };
 

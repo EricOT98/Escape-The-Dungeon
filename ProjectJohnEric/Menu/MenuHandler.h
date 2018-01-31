@@ -23,6 +23,8 @@ protected:
 	std::vector<std::unique_ptr<Menu>> m_menus;
 	MenuStates m_menuState;
 	MenuStates m_nextState;
+	MenuStates m_previousMenu;
+	bool m_menuChanged;
 	int m_currentMenu;
 };
 #endif //!MENUHANDLER_H

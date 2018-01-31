@@ -36,12 +36,16 @@
     <ClInclude Include="include\Xbox360Controller.h" />
     <ClInclude Include="Input\PS4Controller.h" />
     <ClInclude Include="Input\Xbox360Controller.h" />
+    <ClInclude Include="Lights\Block.h" />
+    <ClInclude Include="Lights\Light.h" />
+    <ClInclude Include="Lights\LightEngine.h" />
     <ClInclude Include="Menu\DisplayOptions.h" />
     <ClInclude Include="Menu\GameOver.h" />
     <ClInclude Include="Menu\MainMenu.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="Menu\MenuHandler.h" />
     <ClInclude Include="Menu\OptionsMenu.h" />
+    <ClInclude Include="Menu\Pause.h" />
     <ClInclude Include="Menu\SoundOptions.h" />
   </ItemGroup>
   <ItemGroup>
@@ -53,12 +57,15 @@
     <ClCompile Include="GUI\Widget.cpp" />
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
+    <ClCompile Include="Lights\Block.cpp" />
+    <ClCompile Include="Lights\LightEngine.cpp" />
     <ClCompile Include="Menu\DisplayOptions.cpp" />
     <ClCompile Include="Menu\GameOver.cpp" />
     <ClCompile Include="Menu\MainMenu.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="Menu\MenuHandler.cpp" />
     <ClCompile Include="Menu\OptionsMenu.cpp" />
+    <ClCompile Include="Menu\Pause.cpp" />
     <ClCompile Include="Menu\SoundOptions.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
@@ -127,11 +134,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SFML_SDK)/include;tmxlite\include;.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SFML_SDK)/include;tmxlite\include;.\include;.\LTBL2\source;C:\Users\gameuser\Desktop\project3-john-eric\ProjectJohnEric\LTBL2\source"C:\Users\gameuser\Desktop\project3-john-eric\ProjectJohnEric\LTBL2\source"</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SFML_SDK)\lib;tmxlite\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libtmxlite-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libtmxlite-s-d.lib;tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /E /Y "$(SolutionDir)\dlls\*.dll" "$(OutDir)"</Command>
@@ -154,13 +161,20 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SFML_SDK)/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SFML_SDK)/include;.\include;tmxlite\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SFML_SDK)\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SFML_SDK)\lib;tmxlite\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tmxlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /E /Y "$(SolutionDir)\dlls\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy DLL's</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
