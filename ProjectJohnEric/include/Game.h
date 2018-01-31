@@ -17,6 +17,7 @@
 #include "Level.h"
 #include "../Input/Xbox360Controller.h"
 #include "../Menu/MenuHandler.h"
+#include "../Lights/LightEngine.h"
 
 class Game
 {
@@ -48,8 +49,15 @@ private:
 	std::vector<Xbox360Controller> m_controllers;
 	MenuStates m_menuStates;
 	MenuHandler m_menuHandler;
-
 	//Menu objects if using predefined menus to be stroed in header
+
+	sf::CircleShape m_debug;
+
+	////TODO: Eric Lights
+	LightEngine m_lightEngine;
+	//LightEngine le;
+	Block block;
+	Light light;
 };
 
 #endif // !GAME

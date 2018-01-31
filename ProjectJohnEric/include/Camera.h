@@ -11,10 +11,11 @@ public:
 
 	void init();
 	void update(sf::Vector2f playerPos);
-
+	sf::View m_menuView;
 	sf::View m_view;
 	sf::CircleShape m_TESTCAMERAZONE;
 	void render(sf::RenderWindow &window);
+	void pauseTransition();
 
 private:
 	int m_zone;

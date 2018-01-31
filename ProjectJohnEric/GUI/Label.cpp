@@ -101,6 +101,11 @@ void Label::setString(sf::String s)
 	m_text.setString(s);
 }
 
+std::string Label::getString()
+{
+	return m_text.getString();
+}
+
 sf::FloatRect Label::getSize()
 {
 	return m_text.getGlobalBounds();

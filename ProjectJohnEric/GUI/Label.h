@@ -28,6 +28,7 @@ public:
 	void setColour(sf::Color c);
 	void setColors(sf::Color selectedColor, sf::Color unselectedColor, sf::Color fillColor, sf::Color outlineColor) override;
 	void setString(sf::String s);
+	std::string getString();
 	sf::FloatRect getSize();
 
 protected:

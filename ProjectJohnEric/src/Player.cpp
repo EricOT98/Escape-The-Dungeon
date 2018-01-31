@@ -25,6 +25,16 @@ Player::Player(string name)
 	m_TESTRIGHT.setOrigin(1, 0);
 }
 
+void Player::init(LightEngine & engine)
+{
+	m_light = new Light();
+	m_light->position = m_position;
+	m_light->radius = 45;
+	m_light->angleSpread = 45;
+	m_light->angle = m_rotation;
+	engine.Lights.push_back(m_light);
+}
+
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 {
 	controller.update();
@@ -128,6 +138,9 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 #pragma endregion
 
+#pragma region
+	m_light->position = m_position;
+	m_light->angle = m_rotation;
 
 #pragma region UPDATE_DEBUG
 	m_TESTPOINTER.setRotation(m_rotation - 90);

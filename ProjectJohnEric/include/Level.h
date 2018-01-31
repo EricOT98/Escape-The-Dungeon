@@ -7,11 +7,12 @@
 #include "Tile.h"
 #include "Object.h"
 #include "Player.h"
+#include "../Lights/LightEngine.h"
 
 class Level {
 public:
 	Level();
-	bool load(std::string & filepath, Player* player);
+	bool load(std::string & filepath, Player* player, LightEngine & le);
 
 	void render(sf::RenderWindow & window);
 	void update();
@@ -34,7 +35,7 @@ protected:
 	void parseTMXMap(tmx::Map & map);
 	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
-
+	void setLightBlockingTile(LightEngine & le);
 	bool checkCollisions(Tile* t, Character* c);
 };
 

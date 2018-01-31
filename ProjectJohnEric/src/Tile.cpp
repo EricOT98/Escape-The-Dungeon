@@ -18,6 +18,14 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 		//rect.setOutlineThickness(2);
 		rect.setFillColor(sf::Color(255,0,0,50));
 		rect.setOutlineColor(sf::Color::Yellow);
+
+		m_block.fRect.left = m_x;
+		m_block.fRect.top = m_y;
+
+		m_block.setSize(rect.getSize());
+		if (m_layer == 1) {
+			m_block.setAllowed(true);
+		}
 	}
 }
 

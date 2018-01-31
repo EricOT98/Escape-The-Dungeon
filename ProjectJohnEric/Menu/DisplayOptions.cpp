@@ -23,7 +23,7 @@ void DisplayOptions::update(Xbox360Controller & controller)
 
 	if (m_backPressed)
 	{
-		goToMenu(MenuStates::OPTIONS);
+		goToMenu(m_previousMenu);
 		reset();
 	}
 

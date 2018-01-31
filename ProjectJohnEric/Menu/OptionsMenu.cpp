@@ -26,7 +26,7 @@ void OptionsMenu::update(Xbox360Controller & controller)
 	//Menu functionality for a button press
 	if (m_backPressed)
 	{
-		goToMenu(MenuStates::MAIN_MENU);
+		goToMenu(m_previousMenu);
 		reset();
 	}
 	if (m_soundPressed)

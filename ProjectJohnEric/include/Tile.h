@@ -2,6 +2,7 @@
 #define TILE_H
 #include <SFML\Graphics.hpp>
 #include <tmxlite\TileLayer.hpp>
+#include "../Lights/Block.h"
 
 class Tile {
 public:
@@ -21,7 +22,7 @@ public:
 	bool m_onScreen;
 
 	
-
+	Block m_block;
 	sf::Texture * m_texture;
 	sf::Sprite  m_sprite;
 	sf::RectangleShape rect;
