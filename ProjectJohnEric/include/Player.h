@@ -30,7 +30,9 @@ protected:
 
 private:
 	KeyboardHandler * m_keyHandler;
+
 	float m_visionRange;
+	float m_fieldOfVision;
 	
 
 	Xbox360Controller controller;

@@ -177,6 +177,23 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int l
 }
 
 
+
+void Level::raycast()
+{
+	//sf::Vector2f pPos = m_player->getPosition();
+	//float pRot = m_player->getRotation();
+	//
+	//sf::Vector2f 
+	//
+	//for (auto tile : m_tiles)
+	//{
+	//	if (tile->m_layer == 1)
+	//	{
+	//		
+	//	}
+	//}
+}
+
 /// <summary>
 /// Checks collisions between a Character and a Tile
 /// </summary>

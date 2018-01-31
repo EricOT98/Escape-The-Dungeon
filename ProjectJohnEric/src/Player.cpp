@@ -14,7 +14,8 @@ Player::Player()
 /// <param name="name">Name of the character for testing</param>
 Player::Player(string name)
 	: Character(name),
-	m_visionRange(100)
+	m_visionRange(100),
+	m_fieldOfVision(90)
 {
 	m_TESTPOINTER.setSize(sf::Vector2f(0.5, m_visionRange));
 	m_TESTPOINTER.setOrigin(1, 0);
@@ -43,11 +44,13 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 		}
 	}
 
-	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::LShift))
+	if ((KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::LShift))
+		|| controller.m_currentState.thumbstickRightClick)
 	{
 		m_viewForward = true;
 	}
-	else {
+	else 
+	{
 		m_viewForward = false;
 	}
 
@@ -60,7 +63,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	// accelerating. Worth fixing?
 	m_moving = false;
 
-
+	// @TODO: Fix the analogue movement so that it's not just 8-directional
 	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::A))
 	{
 		m_direction.x += -1;
@@ -140,9 +143,9 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 #pragma region UPDATE_DEBUG
 	m_TESTPOINTER.setRotation(m_rotation - 90);
 	m_TESTPOINTER.setPosition(m_position);
-	m_TESTLEFT.setRotation(m_rotation - 20 - 90);
+	m_TESTLEFT.setRotation(m_rotation - m_fieldOfVision/2 -90);
 	m_TESTLEFT.setPosition(m_position);
-	m_TESTRIGHT.setRotation(m_rotation + 20 - 90);
+	m_TESTRIGHT.setRotation(m_rotation + m_fieldOfVision / 2 - 90);
 	m_TESTRIGHT.setPosition(m_position);
 #pragma endregion
 

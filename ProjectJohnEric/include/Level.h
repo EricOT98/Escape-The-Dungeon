@@ -36,6 +36,7 @@ protected:
 	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 
+	void raycast();
 	bool checkCollisions(Tile* t, Character* c);
 };
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="25">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="78">
  <tileset firstgid="1" name="LevelSet" tilewidth="16" tileheight="16" tilecount="247" columns="19">
   <image source="sheet.png" width="304" height="208"/>
  </tileset>
- <layer name="Tile Layer 1" width="50" height="50">
+ <layer name="Tile Layer 1" width="50" height="50" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48,9,27,68,47,51,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45,26,30,27,0,0,
@@ -111,7 +111,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,79,79,80,80,81,81,80,81,81,81,80,79,79,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="Tile Layer 3" width="50" height="50">
+ <layer name="Tile Layer 3" width="50" height="50" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,73,171,0,0,128,128,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,73,0,0,0,0,
@@ -165,7 +165,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" visible="0">
   <object id="1" x="706.5" y="17" width="25.5" height="29.5"/>
   <object id="2" x="480" y="144" width="45" height="14"/>
   <object id="3" x="482" y="157.5" width="30" height="17"/>
@@ -186,5 +186,39 @@
   <object id="22" x="322.5" y="17" width="28.5" height="27.5"/>
   <object id="23" x="128" y="158" width="17.5" height="50.5"/>
   <object id="24" x="399" y="16.5" width="32.5" height="14"/>
+ </objectgroup>
+ <objectgroup name="Occlusion">
+  <object id="40" x="32" y="0" width="272" height="32"/>
+  <object id="44" x="0" y="32" width="32" height="144"/>
+  <object id="45" x="0" y="288" width="128" height="144"/>
+  <object id="46" x="128" y="432" width="240" height="96"/>
+  <object id="48" x="208" y="288" width="16" height="16"/>
+  <object id="49" x="320" y="288" width="16" height="16"/>
+  <object id="50" x="208" y="368" width="16" height="16"/>
+  <object id="52" x="320" y="368" width="16" height="16"/>
+  <object id="53" x="320" y="288" width="16" height="16"/>
+  <object id="54" x="128" y="687.667" width="143.667" height="110"/>
+  <object id="55" x="192" y="592" width="174.667" height="96"/>
+  <object id="56" x="128.333" y="527.667" width="15" height="159.667"/>
+  <object id="57" x="432" y="592.333" width="128" height="95.3333"/>
+  <object id="58" x="512.333" y="688.667" width="48" height="111.333"/>
+  <object id="59" x="560.333" y="656.667" width="192" height="31.3333"/>
+  <object id="60" x="751.667" y="496" width="32.6667" height="160"/>
+  <object id="62" x="432" y="352.667" width="48.3333" height="174.667"/>
+  <object id="63" x="480.667" y="415.667" width="78.3333" height="112.333"/>
+  <object id="64" x="559.333" y="431.667" width="245.333" height="64"/>
+  <object id="65" x="768.667" y="48.3333" width="32.6667" height="110.667"/>
+  <object id="66" x="784.333" y="0" width="17.6667" height="47"/>
+  <object id="67" x="592.333" y="0" width="95.6667" height="143.333"/>
+  <object id="68" x="560.333" y="127.667" width="31" height="32"/>
+  <object id="69" x="528.333" y="0" width="63.3333" height="127.333"/>
+  <object id="70" x="448.333" y="-4.66667" width="75" height="36.6667"/>
+  <object id="71" x="513" y="32" width="15.6667" height="14.3333"/>
+  <object id="72" x="512.667" y="96.6667" width="14" height="29.3333"/>
+  <object id="73" x="447.667" y="113" width="64" height="13.6667"/>
+  <object id="74" x="447.667" y="126.667" width="15.3333" height="49.6667"/>
+  <object id="75" x="432" y="176" width="32" height="94.6667"/>
+  <object id="76" x="304" y="176.333" width="128" height="31.3333"/>
+  <object id="77" x="160" y="160.333" width="143.667" height="47"/>
  </objectgroup>
 </map>

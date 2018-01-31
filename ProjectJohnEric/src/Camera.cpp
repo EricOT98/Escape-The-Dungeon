@@ -28,8 +28,6 @@ void Camera::update()
 	sf::Vector2f playerPos = m_player->getPosition();
 	float playerRotation = m_player->getRotation();
 
-	std::cout << playerRotation << std::endl;
-
 	playerPos.x += cos(playerRotation*acos(-1) / 180) * m_viewOffset;
 	playerPos.y += sin(playerRotation*acos(-1) / 180) * m_viewOffset;
 
