@@ -26,7 +26,7 @@ Player::Player(string name)
 	m_TESTRIGHT.setOrigin(1, 0);
 }
 
-void Player::init(LightEngine & engines)
+void Player::init(LightEngine & engine)
 {
 	m_light = new Light();
 	m_light->position = m_position;
