@@ -43,7 +43,7 @@ Game::Game() :
 	//m_debug.setRadius(5);
 	//m_debug.setOrigin(sf::Vector2f(m_debug.getRadius(), m_debug.getRadius()));
 	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
-	
+
 	m_debug.setFillColor(sf::Color(255, 0, 0, 128));
 	////TODO: Eric Lights
 	//light.radius = 60;
@@ -53,12 +53,11 @@ Game::Game() :
 	//light.position = sf::Vector2f(100, 150);
 
 	//le.Lights.push_back(light);
-	//block = new Block();
-	//block->setPosition(sf::Vector2f(100, 100));
-	//block->setSize(sf::Vector2f(16,16));
-	//block->setAllowed(true);
-	//m_lightEngine.Blocks.push_back(block);
-	
+	//block.fRect = sf::FloatRect(0, 0, 16, 16);
+	//block.setSize(sf::Vector2f(32,32));
+	//block.setAllowed(true);
+	//le.Blocks.push_back(block);
+
 	//Lights
 	m_player.init(m_lightEngine);
 	initialiseMenus();
@@ -176,7 +175,7 @@ void Game::update(sf::Time t_deltaTime)
 		}
 		for (auto & controller : m_controllers) {
 			controller.update();
-		}	
+		}
 		break;
 	default:
 		m_menuHandler.update(m_controllers.at(0));
@@ -202,7 +201,7 @@ void Game::render()
 
 		m_window.setView(m_camera.m_view);
 		m_level.render(m_window);
-		
+
 		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
 		m_player.render(m_window);
 
@@ -211,12 +210,12 @@ void Game::render()
 		m_player.renderMiniMap(m_window);
 
 		m_window.setView(m_camera.m_view);
-		
+
 		m_window.draw(m_debug);
 		//TODOD Light Testing
 		/*le.Step(m_window);*/
 		m_lightEngine.Step(m_window);
-		
+
 		break;
 	case MenuStates::PAUSE:
 		m_window.setView(m_camera.m_menuView);

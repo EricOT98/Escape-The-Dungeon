@@ -25,7 +25,7 @@ const float LightEngine::Distance(const sf::Vector2f &p1, const sf::Vector2f &p2
 
 	float b = p2.y - p1.y; //height length
 
-	float c = sqrt((a * a) + (b * b)); //Pythagorean Theorem. (c² = a² + b²). c = squareroot(a² + b²)
+	float c = sqrt((a * a) + (b * b)); //Pythagorean Theorem. (cï¿½ = aï¿½ + bï¿½). c = squareroot(aï¿½ + bï¿½)
 
 	return c;
 }
@@ -106,9 +106,9 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 			pointpos.y += sin(radians) * distance;
 
 			//By doing this, we check if the angle is in the direciton of the block.
-			
+
 			sf::FloatRect tempRect = sf::FloatRect(b.fRect.left - 2, b.fRect.top - 2, b.fRect.width + 2, b.fRect.height + 2);
-			
+
 			if (tempRect.contains(pointpos)) //If it was, than the point would be intersecting the rectangle of the block
 
 			{

@@ -26,7 +26,7 @@ Player::Player(string name)
 	m_TESTRIGHT.setOrigin(1, 0);
 }
 
-void Player::init(LightEngine & engine)
+void Player::init(LightEngine & engines)
 {
 	m_light = new Light();
 	m_light->position = m_position;
@@ -61,7 +61,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	{
 		m_viewForward = true;
 	}
-	else 
+	else
 	{
 		m_viewForward = false;
 	}

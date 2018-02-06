@@ -53,9 +53,10 @@ private:
 
 	sf::CircleShape m_debug;
 
-	//TODO: Eric Lights
+	////TODO: Eric Lights
 	LightEngine m_lightEngine;
-	Block *block;
+	//LightEngine le;
+	Block block;
 	Light light;
 };
 

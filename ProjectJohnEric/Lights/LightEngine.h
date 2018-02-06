@@ -1,5 +1,5 @@
 /// <summary>
-/// 
+///
 /// </summary>
 
 #ifndef LIGHT_ENGINE//don't allow this header to be included more than once

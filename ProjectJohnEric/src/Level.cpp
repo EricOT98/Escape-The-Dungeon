@@ -54,7 +54,7 @@ bool Level::load(std::string & filepath, Player* player, LightEngine & le)
 					std::cout << "ERROR: FAILED TO LOAD A VALID LAYER AT LAYER: " << layerNum << std::endl;
 					continue;
 			}
-			
+
 		}
 		setLightBlockingTile(le);
 		return true;
@@ -193,13 +193,13 @@ void Level::raycast()
 	//sf::Vector2f pPos = m_player->getPosition();
 	//float pRot = m_player->getRotation();
 	//
-	//sf::Vector2f 
+	//sf::Vector2f
 	//
 	//for (auto tile : m_tiles)
 	//{
 	//	if (tile->m_layer == 1)
 	//	{
-	//		
+	//
 	//	}
 	//}
 }
