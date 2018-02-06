@@ -164,7 +164,7 @@ void Game::update(sf::Time t_deltaTime)
 		//TODO: PUT THESE INTO THE LEVEL
 		m_level.update();
 		m_player.update(m_window, m_controllers.at(0));
-		m_camera.update(m_player.getPosition());
+		m_camera.update();
 
 		//TODO Lights Test
 		/*le.Blocks[0].fRect.left = m_player.m_DEBUGCIRCLE.getPosition().x - m_player.m_DEBUGCIRCLE.getRadius();

@@ -29,7 +29,6 @@ public:
 	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid,int layer);
 
 	void draw(sf::RenderWindow & window);
-	void draw(sf::RenderWindow & window, int i);
 
 	bool withinViewBounds(const sf::FloatRect & bounds);
 

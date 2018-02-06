@@ -77,7 +77,7 @@ void Level::render(sf::RenderWindow & window)
 void Level::renderMiniMap(sf::RenderWindow & window)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(window, 1);
+		tile->draw(window);
 	}
 }
 

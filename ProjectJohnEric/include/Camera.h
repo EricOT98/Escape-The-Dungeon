@@ -14,7 +14,7 @@ public:
 	Camera(Player* player);
 
 	void init();
-	void update(sf::Vector2f playerPos);
+	void update();
 	sf::View m_menuView;
 	sf::View m_view;
 	sf::View m_miniMap;

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="78">
-=======
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="26">
->>>>>>> Player light via raycasing temp
  <tileset firstgid="1" name="LevelSet" tilewidth="16" tileheight="16" tilecount="247" columns="19">
   <image source="sheet.png" width="304" height="208"/>
  </tileset>
@@ -191,7 +187,6 @@
   <object id="23" x="128" y="158" width="17.5" height="50.5"/>
   <object id="24" x="399" y="16.5" width="32.5" height="14"/>
  </objectgroup>
-<<<<<<< HEAD
  <objectgroup name="Occlusion">
   <object id="40" x="32" y="0" width="272" height="32"/>
   <object id="44" x="0" y="32" width="32" height="144"/>
@@ -225,11 +220,10 @@
   <object id="75" x="432" y="176" width="32" height="94.6667"/>
   <object id="76" x="304" y="176.333" width="128" height="31.3333"/>
   <object id="77" x="160" y="160.333" width="143.667" height="47"/>
-=======
+</objectgroup>
  <objectgroup name="Walls">
   <object id="25" x="45.3333" y="44.6667">
    <polyline points="0,0 271,1 271.333,-31 387.333,-31.3333 388.667,-1.33333 452,-1.33333 452.333,49 386.333,51.3333 387.667,116.667 273.333,117 272.667,99 100.667,99.3333 100,175.333 372.667,176.667 372.333,240 433,240.667 433,97 499.667,97.6667"/>
   </object>
->>>>>>> Player light via raycasing temp
  </objectgroup>
 </map>
