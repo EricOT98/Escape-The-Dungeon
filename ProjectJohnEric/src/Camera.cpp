@@ -2,8 +2,6 @@
 
 Camera::Camera()
 {
-	m_menuView.reset(sf::FloatRect(0, 0, 1080, 720));
-	//m_menuView.zoom(1.1);
 }
 
 Camera::Camera(Player* player)
@@ -14,6 +12,7 @@ Camera::Camera(Player* player)
 
 void Camera::init()
 {
+	m_menuView.reset(sf::FloatRect(0, 0, 1080, 720));
 	m_view.setSize(sf::Vector2f(800, 800));
 	m_view.zoom(0.3);
 
