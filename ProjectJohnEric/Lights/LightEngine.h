@@ -1,4 +1,6 @@
-//LightEngine.hpp
+/// <summary>
+/// 
+/// </summary>
 
 #ifndef LIGHT_ENGINE//don't allow this header to be included more than once
 #define LIGHT_ENGINE

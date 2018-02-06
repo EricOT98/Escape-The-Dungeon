@@ -53,10 +53,11 @@ Game::Game() :
 	//light.position = sf::Vector2f(100, 150);
 
 	//le.Lights.push_back(light);
-	//block.fRect = sf::FloatRect(0, 0, 16, 16);
-	//block.setSize(sf::Vector2f(32,32));
-	//block.setAllowed(true);
-	//le.Blocks.push_back(block);
+	//block = new Block();
+	//block->setPosition(sf::Vector2f(100, 100));
+	//block->setSize(sf::Vector2f(16,16));
+	//block->setAllowed(true);
+	//m_lightEngine.Blocks.push_back(block);
 	
 	//Lights
 	m_player.init(m_lightEngine);
@@ -212,10 +213,10 @@ void Game::render()
 		m_window.setView(m_camera.m_view);
 		
 		m_window.draw(m_debug);
-		m_lightEngine.Step(m_window);
 		//TODOD Light Testing
 		/*le.Step(m_window);*/
 		m_lightEngine.Step(m_window);
+		
 		break;
 	case MenuStates::PAUSE:
 		m_window.setView(m_camera.m_menuView);

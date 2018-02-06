@@ -12,6 +12,7 @@ public:
 	void setAllowed(bool allowed);
 	void render(sf::RenderWindow & window);
 	void setSize(sf::Vector2f size);
+	void setPosition(sf::Vector2f pos);
 	sf::FloatRect fRect; //Area that will be blocking light
 	sf::RectangleShape m_rectShape;
 	sf::Color col;

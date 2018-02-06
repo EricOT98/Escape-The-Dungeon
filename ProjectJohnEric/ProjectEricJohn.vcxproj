@@ -37,6 +37,7 @@
     <ClInclude Include="Input\PS4Controller.h" />
     <ClInclude Include="Input\Xbox360Controller.h" />
     <ClInclude Include="Lights\Block.h" />
+    <ClInclude Include="Lights\CollisionUtils.h" />
     <ClInclude Include="Lights\Light.h" />
     <ClInclude Include="Lights\LightEngine.h" />
     <ClInclude Include="Menu\DisplayOptions.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
     <ClCompile Include="Lights\Block.cpp" />
+    <ClCompile Include="Lights\CollisionUtils.cpp" />
     <ClCompile Include="Lights\LightEngine.cpp" />
     <ClCompile Include="Menu\DisplayOptions.cpp" />
     <ClCompile Include="Menu\GameOver.cpp" />

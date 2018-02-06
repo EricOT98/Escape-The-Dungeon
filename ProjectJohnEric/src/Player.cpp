@@ -30,9 +30,11 @@ void Player::init(LightEngine & engine)
 {
 	m_light = new Light();
 	m_light->position = m_position;
-	m_light->radius = 45;
-	m_light->angleSpread = 45;
+	m_light->radius = 90;
+	m_light->angleSpread = 20;
 	m_light->angle = m_rotation;
+	m_light->color = sf::Color(240, 230, 120, 128);
+	m_light->endColor = sf::Color(240, 230, 120, 255);
 	engine.Lights.push_back(m_light);
 }
 

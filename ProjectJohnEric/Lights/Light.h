@@ -10,13 +10,14 @@ class Light
 public:
 	Light()
 
-		: color(255, 255, 255), radius(0), angleSpread(0), position(0, 0), angle(0), dynamic(true)
+		: color(255, 255, 255),endColor(255,255,255,0), radius(0), angleSpread(0), position(0, 0), angle(0), dynamic(true)
 	{
 	}
 
 	sf::Vector2f position; //position of the light
 
 	sf::Color color; //light color
+	sf::Color endColor; //The endColor for the light to match
 
 	float radius; //how far the light will shine to
 

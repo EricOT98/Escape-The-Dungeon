@@ -181,6 +181,7 @@ void Level::setLightBlockingTile(LightEngine & le)
 	for (auto & tile : m_tiles) {
 		if (tile->m_layer == 1) {
 			tile->m_block.setAllowed(true);
+			le.Blocks.push_back(&tile->m_block);
 		}
 	}
 }
