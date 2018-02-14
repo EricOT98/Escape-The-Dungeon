@@ -6,6 +6,7 @@
 namespace col_utils {
 	bool lineLineCollision(float x1 , float y1, float x2,float y2, float x3, float y3, float x4, float y4 );
 	sf::Vector2f lineLineIntersectionPoints(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+	bool pointInAABB(float px, float py, float bx, float by, float bw, float bh);
 }
 
 #endif //!COLLISION_UTILS

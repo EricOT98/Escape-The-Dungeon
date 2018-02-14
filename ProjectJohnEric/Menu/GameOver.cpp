@@ -3,8 +3,8 @@
 /// <summary>
 /// Default constructor
 /// </summary>
-GameOver::GameOver() :
-	Menu(MenuStates::GAMEOVER)
+GameOver::GameOver(sf::Font & font) :
+	Menu(MenuStates::GAMEOVER, font)
 {
 	initialise();
 }
@@ -77,9 +77,9 @@ void GameOver::initialise()
 /// </summary>
 void GameOver::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_mainmenu = new Button(nullptr);
-	m_retry = new Button(nullptr);
+	m_title = new Label( m_font, nullptr);
+	m_mainmenu = new Button( m_font, nullptr);
+	m_retry = new Button( m_font, nullptr);
 	m_gui.addLabel(m_title, "Game Over", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addButton(m_mainmenu, "Return to Menu", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_retry, "Replay", sf::Vector2f(400, 600), sf::Vector2i(200, 50), sf::Color::Green);

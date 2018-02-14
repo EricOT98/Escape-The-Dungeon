@@ -4,8 +4,8 @@
 /// Default constructor for main menu which creates a menu
 /// with base state MAinMenu
 /// </summary>
-MainMenu::MainMenu(bool & _quit) :
-	Menu(MenuStates::MAIN_MENU),
+MainMenu::MainMenu(bool & _quit, sf::Font & font) :
+	Menu(MenuStates::MAIN_MENU, font),
 	exit(_quit)
 {
 	initialise();
@@ -92,10 +92,10 @@ void MainMenu::initialise()
 /// </summary>
 void MainMenu::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_play = new Button(nullptr);
-	m_options = new Button(nullptr);
-	m_quit = new Button(nullptr);
+	m_title = new Label( m_font, nullptr );
+	m_play = new Button(m_font, nullptr );
+	m_options = new Button( m_font, nullptr);
+	m_quit = new Button( m_font, nullptr);
 	m_gui.addLabel(m_title, "Escape the Dungeon", sf::Vector2f(100, 100), 80, sf::Color::Green);
 	m_gui.addButton(m_play, "Play", sf::Vector2f(100, 400), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);

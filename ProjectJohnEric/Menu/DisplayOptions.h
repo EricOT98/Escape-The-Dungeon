@@ -11,7 +11,7 @@
 class DisplayOptions : public Menu
 {
 public:
-	DisplayOptions();
+	DisplayOptions(sf::Font & font);
 	~DisplayOptions();
 
 	void update(Xbox360Controller & controller) override;

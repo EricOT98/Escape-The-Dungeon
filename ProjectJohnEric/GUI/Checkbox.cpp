@@ -4,12 +4,13 @@
 /// Checkbox constructor
 /// </summary>
 /// <param name="parent"></param>
-Checkbox::Checkbox(Widget * parent) 
+Checkbox::Checkbox( sf::Font & font, Widget * parent = nullptr) :
+	Button(font, parent)
 {
 	//std::cout << "Checkbox created" << std::endl;
 	//m_selectedColor = sf::Color::Blue; //Sets highlight colour of checkbox box
 	//m_unselectedColor = sf::Color::Black; //Sets default colour of checkbox box
-	m_label = new Label(this); //Initialise label with pointer to widget(Checkbox)
+	m_label = new Label( font, this); //Initialise label with pointer to widget(Checkbox)
 	//m_label->setColour(m_unselectedColor); //Sets colour of label text
 	m_label->setSize(30); //Sets character size of label text
 	m_on = false;

@@ -33,7 +33,7 @@ enum class MenuStates {
 class Menu
 {
 public:
-	Menu(MenuStates stateIn);
+	Menu(MenuStates stateIn, sf::Font & font);
 	~Menu();
 
 	virtual void update(Xbox360Controller & controller);
@@ -60,6 +60,7 @@ protected:
 	MenuStates m_currentState;
 	MenuStates m_nextState;
 	MenuStates m_previousMenu;
+	sf::Font & m_font;
 	bool m_active;
 };
 

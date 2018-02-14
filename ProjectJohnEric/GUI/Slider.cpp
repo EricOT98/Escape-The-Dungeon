@@ -4,10 +4,10 @@
 /// Default constructor
 /// </summary>
 /// <param name="parent"></param>
-Slider::Slider(Widget * parent)
+Slider::Slider( sf::Font & font, Widget * parent = nullptr)
 {
 	//std::cout << "Slider created" << std::endl; //Debug msg
-	m_label = new Label(this); //Initialise new label with pointer to widget(Slider)
+	m_label = new Label(font, this); //Initialise new label with pointer to widget(Slider)
 	m_label->setColour(m_unselectedColor); //Set colour of label text
 	m_label->setSize(30); //Set character size of label text
 	bar.setOutlineThickness(5);

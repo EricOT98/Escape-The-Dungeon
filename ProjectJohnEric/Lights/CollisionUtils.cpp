@@ -51,3 +51,9 @@ sf::Vector2f col_utils::lineLineIntersectionPoints(float x1, float y1, float x2,
 	}	
 	return sf::Vector2f();
 }
+
+bool col_utils::pointInAABB(float px, float py, float bx, float by, float bw, float bh)
+{
+	return !(px < bx || px > bx + bw ||
+		py < by || py > by + bh);
+}

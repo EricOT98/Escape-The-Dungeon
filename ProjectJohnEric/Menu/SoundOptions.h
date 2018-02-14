@@ -11,7 +11,7 @@
 class SoundOptions : public Menu
 {
 public:
-	SoundOptions();
+	SoundOptions(sf::Font & font);
 	~SoundOptions();
 
 	void update(Xbox360Controller & controller) override;

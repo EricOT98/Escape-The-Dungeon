@@ -3,8 +3,8 @@
 /// <summary>
 /// Default constructor
 /// </summary>
-DisplayOptions::DisplayOptions() :
-	Menu(MenuStates::DISPLAYOPTIONS)
+DisplayOptions::DisplayOptions(sf::Font & font) :
+	Menu(MenuStates::DISPLAYOPTIONS, font)
 {
 	initialise();
 }
@@ -80,10 +80,10 @@ void DisplayOptions::initialise()
 /// </summary>
 void DisplayOptions::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_shader = new Checkbox(nullptr);
-	m_shake = new Checkbox(nullptr);
-	m_back = new Button(nullptr);
+	m_title = new Label( m_font, nullptr);
+	m_shader = new Checkbox( m_font, nullptr);
+	m_shake = new Checkbox( m_font, nullptr);
+	m_back = new Button( m_font, nullptr);
 
 	m_gui.addLabel(m_title, "Display options", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addCheckbox(m_shader, "Shaders On", sf::Vector2f(100, 200), sf::Vector2i(40, 40), sf::Color::Green);

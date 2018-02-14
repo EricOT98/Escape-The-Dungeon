@@ -1,7 +1,7 @@
 #include "Pause.h"
 
-Pause::Pause() :
-	Menu(MenuStates::PAUSE)
+Pause::Pause(sf::Font & font) :
+	Menu(MenuStates::PAUSE, font)
 {
 	initialise();
 }
@@ -63,10 +63,10 @@ void Pause::initialise()
 
 void Pause::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_continue = new Button(nullptr);
-	m_options = new Button(nullptr);
-	m_back = new Button(nullptr);
+	m_title = new Label(m_font, nullptr);
+	m_continue = new Button(m_font, nullptr);
+	m_options = new Button(m_font, nullptr);
+	m_back = new Button(m_font, nullptr);
 	m_gui.addLabel(m_title, "Paused", sf::Vector2f(100, 100), 80, sf::Color::Green);
 	m_gui.addButton(m_continue, "Continue", sf::Vector2f(100, 400), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);

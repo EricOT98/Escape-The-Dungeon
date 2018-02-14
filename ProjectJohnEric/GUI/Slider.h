@@ -15,7 +15,7 @@
 class Slider : public Widget
 {
 public:
-	Slider(Widget * parent = nullptr);
+	Slider(sf::Font & font, Widget * parent);
 	~Slider();
 
 	void update();

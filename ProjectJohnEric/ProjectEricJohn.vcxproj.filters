@@ -136,6 +136,9 @@
 >>>>>>> Working pickups and door unlocking
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ResourceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Camera.h">
@@ -245,6 +248,9 @@
 =======
     <ClInclude Include="include\Interactable.h">
 >>>>>>> Working pickups and door unlocking
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

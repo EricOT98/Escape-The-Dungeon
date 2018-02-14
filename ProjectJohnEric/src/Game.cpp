@@ -6,6 +6,7 @@
 #include "../Menu/SoundOptions.h"
 #include "../Menu/DisplayOptions.h"
 #include "../Menu/Pause.h"
+#include "ResourceManager.h"
 
 #ifdef _DEBUG
 #	define debugMSG(x) x
@@ -22,8 +23,10 @@ Game::Game() :
 	m_player("test"),
 	m_camera(&m_player)
 {
-	std::string filename = "ASSETS/LEVELS/Level1.tmx";
-	m_level.load(filename, &m_player, m_lightEngine);
+	g_resourceManager.loadAssets();
+	std::string filename = "ASSETS/LEVELS/TestingLevel.tmx";
+	m_level.load(filename, m_lightEngine);
+	m_level.setPlayer(&m_player);
 	m_keyHandler = m_keyHandler->GetInstance();
 
 	if (m_testTexture.loadFromFile("ASSETS/IMAGES/testMap.png")) {
@@ -45,6 +48,9 @@ Game::Game() :
 	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
 
 	m_debug.setFillColor(sf::Color(255, 0, 0, 128));
+	debugCirc.setPosition(256, 192);
+	debugCirc.setRadius(2); debugCirc.setOrigin(2, 2);
+	debugCirc.setFillColor(sf::Color(255, 0, 0, 128));
 	////TODO: Eric Lights
 	//light.radius = 60;
 
@@ -58,7 +64,10 @@ Game::Game() :
 	//block.setAllowed(true);
 	//le.Blocks.push_back(block);
 
+	
+
 	//Lights
+	m_lightEngine.init();
 	m_player.init(m_lightEngine);
 	initialiseMenus();
 	//m_menuStates = MenuStates::MAIN_MENU;
@@ -231,6 +240,7 @@ void Game::render()
 		m_menuHandler.render(m_window);
 		break;
 	}
+	m_window.draw(debugCirc);
 	m_window.display();
 }
 
@@ -246,11 +256,11 @@ bool Game::initialiseMenus()
 	if (m_menuHandler.isEmpty())
 	{
 		std::vector<std::unique_ptr<Menu>> menus;
-		menus.push_back(std::make_unique<MainMenu>(m_exitGame));
-		menus.push_back(std::make_unique<OptionsMenu>());
-		menus.push_back(std::make_unique<SoundOptions>());
-		menus.push_back(std::make_unique<DisplayOptions>());
-		menus.push_back(std::make_unique<Pause>());
+		menus.push_back(std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<OptionsMenu>(g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<SoundOptions>(g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<DisplayOptions>(g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<Pause>(g_resourceManager.fontHolder["GameFont"]));
 		for (auto & menu : menus) {
 			m_menuHandler.addMenu(menu);
 		}

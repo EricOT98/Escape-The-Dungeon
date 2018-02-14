@@ -11,7 +11,7 @@
 class OptionsMenu : public Menu
 {
 public:
-	OptionsMenu();
+	OptionsMenu(sf::Font & font);
 	~OptionsMenu();
 
 	void update(Xbox360Controller & controller) override;

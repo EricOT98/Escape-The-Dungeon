@@ -3,8 +3,8 @@
 /// <summary>
 /// Default consrtuctor
 /// </summary>
-OptionsMenu::OptionsMenu() :
-	Menu(MenuStates::OPTIONS)
+OptionsMenu::OptionsMenu(sf::Font & font) :
+	Menu(MenuStates::OPTIONS, font)
 {
 	initialise();
 }
@@ -93,10 +93,10 @@ void OptionsMenu::initialise()
 /// </summary>
 void OptionsMenu::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_sound = new Button(nullptr);
-	m_display = new Button(nullptr);
-	m_back = new Button(nullptr);
+	m_title = new Label( m_font, nullptr);
+	m_sound = new Button( m_font, nullptr);
+	m_display = new Button( m_font, nullptr);
+	m_back = new Button( m_font, nullptr);
 	m_gui.addLabel(m_title, "Options", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addButton(m_sound, "Sound Options", sf::Vector2f(100, 200), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_display, "Display Options", sf::Vector2f(100, 300), sf::Vector2i(200, 50), sf::Color::Green);

@@ -9,27 +9,24 @@
 #include "Block.h"
 #include <vector>
 #include <SFML/Graphics/RenderTarget.hpp> //Place to draw on
-#include <SFML/Graphics/Shape.hpp> //SFML programmable Shapes
+#include <SFML/Graphics.hpp> //SFML programmable Shapes
+#include "ResourceManager.h"
 
 class LightEngine
 
 {
 
 public:
-
+	void init();
 	void Step(sf::RenderTarget &rt);
-
-
 
 	std::vector <Light*> Lights; //Container for Lights
 
 
 
 	std::vector <Block*> Blocks; //Container for Blocks
-
+	sf::ConvexShape lightShape;
 private:
-
-
 
 	void ShineLight(Light *lig, sf::RenderTarget &rt);
 

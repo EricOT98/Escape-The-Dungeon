@@ -16,7 +16,7 @@
 class MainMenu : public Menu
 {
 public:
-	MainMenu(bool & quit);
+	MainMenu(bool & quit, sf::Font & font);
 	~MainMenu();
 
 	void update(Xbox360Controller & controller) override;

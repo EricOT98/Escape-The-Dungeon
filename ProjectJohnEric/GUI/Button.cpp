@@ -3,16 +3,15 @@
 /// <summary>
 /// Button constructor
 /// </summary>
-Button::Button(Widget * parent)
+Button::Button(sf::Font & font, Widget * parent = nullptr)
 {
 	//std::cout << "Button created" << std::endl; //Debug msg
-	m_label = new Label(this); //Initialise label with pointer to widget(button)
+	m_label = new Label(font, this); //Initialise label with pointer to widget(button)
 	m_label->setColour(m_unselectedColor); //Set colour of label text
 	m_label->setSize(30); //Set character size of label text	
 	m_type = typeid(Button).name();	//Set the type of the button
 	//rect.setFillColor(m_fillColor);
 	rect.setOutlineColor(m_outlineColor);
-	
 }
 
 /// <summary>

@@ -15,7 +15,7 @@ Player::Player()
 Player::Player(string name)
 	: Character(name),
 	m_visionRange(100),
-	m_fieldOfVision(90)
+	m_fieldOfVision(45)
 {
 	m_TESTPOINTER.setSize(sf::Vector2f(0.5, m_visionRange));
 	m_TESTPOINTER.setOrigin(1, 0);
@@ -30,8 +30,8 @@ void Player::init(LightEngine & engine)
 {
 	m_light = new Light();
 	m_light->position = m_position;
-	m_light->radius = 90;
-	m_light->angleSpread = 20;
+	m_light->radius = m_visionRange;
+	m_light->angleSpread = m_fieldOfVision;
 	m_light->angle = m_rotation;
 	m_light->color = sf::Color(240, 230, 120, 128);
 	m_light->endColor = sf::Color(240, 230, 120, 255);

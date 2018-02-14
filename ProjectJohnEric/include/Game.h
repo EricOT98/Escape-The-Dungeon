@@ -18,6 +18,7 @@
 #include "../Input/Xbox360Controller.h"
 #include "../Menu/MenuHandler.h"
 #include "../Lights/LightEngine.h"
+#include "Thor\Resources.hpp"
 
 class Game
 {
@@ -49,6 +50,8 @@ private:
 	std::vector<Xbox360Controller> m_controllers;
 	MenuStates m_menuStates;
 	MenuHandler m_menuHandler;
+
+	Level m_levels[2];
 	//Menu objects if using predefined menus to be stroed in header
 
 	sf::CircleShape m_debug;
@@ -58,6 +61,7 @@ private:
 	//LightEngine le;
 	Block block;
 	Light light;
+	sf::CircleShape debugCirc;
 };
 
 #endif // !GAME

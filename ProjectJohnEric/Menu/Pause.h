@@ -6,12 +6,12 @@
 #ifndef PAUSE_H
 #define PAUSE_H
 
-#include "Menu.h";
+#include "Menu.h"
 
 class Pause : public Menu
 {
 public:
-	Pause();
+	Pause(sf::Font & font);
 	~Pause();
 
 	void update(Xbox360Controller & controller) override;

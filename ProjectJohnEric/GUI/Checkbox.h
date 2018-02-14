@@ -6,7 +6,7 @@
 class Checkbox : public Button
 {
 public:
-	Checkbox(Widget * parent = nullptr);
+	Checkbox(sf::Font & font, Widget * parent);
 	~Checkbox();
 
 	void update();

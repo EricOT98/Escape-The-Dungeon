@@ -5,11 +5,13 @@
 /// Menu constructor
 /// </summary>
 /// <param name="window"></param>
-Menu::Menu(MenuStates stateIn) :
+Menu::Menu(MenuStates stateIn, sf::Font & font) :
 	m_currentState(stateIn),
-	m_nextState(stateIn)
+	m_nextState(stateIn),
+	m_font(font)
 {
 	//std::cout << "Menu created" << std::endl; //Debug message
+
 	initialise(); //Call initialise method
 }
 

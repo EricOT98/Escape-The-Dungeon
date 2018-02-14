@@ -6,7 +6,7 @@
 class GameOver : public Menu
 {
 public:
-	GameOver();
+	GameOver(sf::Font & font);
 	~GameOver();
 
 	void update(Xbox360Controller & controller) override;

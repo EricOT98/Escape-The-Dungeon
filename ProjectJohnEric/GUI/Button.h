@@ -11,7 +11,7 @@
 class Button : public Widget
 {
 public:
-	Button(Widget * parent = nullptr);
+	Button(sf::Font & font, Widget * parent);
 	~Button();
 
 	void update();

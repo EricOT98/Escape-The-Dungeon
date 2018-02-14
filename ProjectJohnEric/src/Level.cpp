@@ -1,14 +1,14 @@
 #include "Level.h"
 #include <tmxlite\ImageLayer.hpp>
 #include <tmxlite\Tileset.hpp>
+#include "ResourceManager.h"
 
 Level::Level()
 {
 }
 
-bool Level::load(std::string & filepath, Player* player, LightEngine & le)
+bool Level::load(std::string & filepath, LightEngine & le)
 {
-	m_player = player;
 	if (m_map.load(filepath)) {
 		m_tileCount = m_map.getTileCount();
 		m_rows = m_tileCount.x;
@@ -66,6 +66,11 @@ bool Level::load(std::string & filepath, Player* player, LightEngine & le)
 		return true;
 	};
 	return false;
+}
+
+void Level::setPlayer(Player * player)
+{
+	m_player = player;
 }
 
 void Level::render(sf::RenderWindow & window)
@@ -222,6 +227,7 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int l
 	auto* object_layer = dynamic_cast<const tmx::ObjectGroup*>(layer.get());
 	auto & layer_objects = object_layer->getObjects();
 
+	std::cout << "Name: " << object_layer->getName();
 	for (auto & object : layer_objects) {
 		uint32_t object_uid = object.getUID();
 		const tmx::FloatRect object_aabb = object.getAABB();
@@ -242,6 +248,17 @@ void Level::setLightBlockingTile(LightEngine & le)
 			tile->m_block.setAllowed(true);
 			le.Blocks.push_back(&tile->m_block);
 		}
+	}
+
+	for (auto & obs : m_levelObjects) {
+
+		Block * b = new Block();
+		b->setAllowed(true);
+		b->setPosition(obs->getPosition());
+		std::cout << "Position: " << b->fRect.top << "," << b->fRect.left << std::endl;
+		b->setSize(obs->getSize());
+		std::cout << "Size: " << b->fRect.width << "," << b->fRect.height << std::endl;
+		le.Blocks.push_back(b);
 	}
 }
 

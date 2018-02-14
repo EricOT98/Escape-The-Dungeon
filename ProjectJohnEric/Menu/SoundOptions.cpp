@@ -3,8 +3,8 @@
 /// <summary>
 /// Default constructor
 /// </summary>
-SoundOptions::SoundOptions() :
-	Menu(MenuStates::SOUNDOPTIONS)
+SoundOptions::SoundOptions(sf::Font & font) :
+	Menu(MenuStates::SOUNDOPTIONS, font)
 {
 	initialise();
 }
@@ -72,9 +72,9 @@ void SoundOptions::initialise()
 /// </summary>
 void SoundOptions::initGUIObjects()
 {
-	m_title = new Label(nullptr);
-	m_back = new Button(nullptr);
-	m_volume = new Slider(nullptr);
+	m_title = new Label( m_font, nullptr);
+	m_back = new Button( m_font, nullptr);
+	m_volume = new Slider(m_font, nullptr);
 	m_gui.addLabel(m_title, "Sound Options", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addButton(m_back, "<- Back", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addSlider(m_volume, "Volume", sf::Vector2f(100, 300), sf::Vector2i(200, 50), sf::Color::Green);
