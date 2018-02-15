@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "ResourceManager.h"
 
 /// <summary>
 /// Default player constructor
@@ -36,6 +37,9 @@ void Player::init(LightEngine & engine)
 	m_light->color = sf::Color(240, 230, 120, 128);
 	m_light->endColor = sf::Color(240, 230, 120, 255);
 	engine.Lights.push_back(m_light);
+	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);
+	m_walking.setLoop(true);
+	m_soundsLoaded = true;
 }
 
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
@@ -164,4 +168,19 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	m_TESTRIGHT.setPosition(m_position);
 #pragma endregion
 
+}
+
+void Player::move()
+{
+	Character::move();
+	if (m_soundsLoaded && m_walking.getStatus() != sf::Sound::Playing) {
+		if(m_moveSpeed != 0){
+			m_walking.play();
+		}
+	}
+	else {
+		if (m_walking.getStatus() == sf::Sound::Playing && m_moveSpeed == 0) {
+			m_walking.stop();
+		}
+	}
 }

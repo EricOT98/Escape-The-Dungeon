@@ -3,6 +3,7 @@
 
 #include <Thor\Resources.hpp>
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include <iostream>
 
 /// Handles all loading and retrieval of assets
@@ -16,7 +17,7 @@ public:
 	/*void loadLevels(std::vector<Level> & levels);*/
 	thor::ResourceHolder<sf::Texture, std::string> textureHolder;
 	thor::ResourceHolder<sf::Font, std::string> fontHolder;
-	
+	thor::ResourceHolder<sf::SoundBuffer, std::string> soundHolder;
 };
 
 extern ResourceManager g_resourceManager;

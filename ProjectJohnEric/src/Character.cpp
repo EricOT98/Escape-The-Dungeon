@@ -109,8 +109,9 @@ void Character::move()
 	else if (!m_moving && m_moveSpeed > 0)
 	{
 		m_moveSpeed -= m_acceleration;
-		if (m_moveSpeed < 0)
+		if (m_moveSpeed < 0) {
 			m_moveSpeed = 0;
+		}
 	}
 
 	m_position += m_direction * m_moveSpeed;

@@ -12,6 +12,7 @@
 #define MAINMENU_H
 
 #include "Menu.h"
+#include "ResourceManager.h"
 
 class MainMenu : public Menu
 {
@@ -37,5 +38,6 @@ protected:
 	Button * m_play;
 	Button * m_options;
 	Button * m_quit;
+	sf::Music  m_backgroundMusic;
 };
 #endif //!menu

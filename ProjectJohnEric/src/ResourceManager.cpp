@@ -19,6 +19,7 @@ void ResourceManager::loadAssets()
 		}
 
 		fontHolder.acquire("GameFont", thor::Resources::fromFile<sf::Font>("ASSETS/FONTS/FarenheightPers.ttf"));
+		soundHolder.acquire("Walking", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/footstepsFadeFast.wav"));
 	}
 	catch (thor::ResourceLoadingException& e)
 	{

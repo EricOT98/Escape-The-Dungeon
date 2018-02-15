@@ -77,6 +77,7 @@ Game::Game() :
 Game::~Game()
 {
 	m_keyHandler = nullptr;
+
 	delete m_keyHandler;
 }
 

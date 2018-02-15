@@ -16,6 +16,7 @@ MainMenu::MainMenu(bool & _quit, sf::Font & font) :
 /// </summary>
 MainMenu::~MainMenu()
 {
+	m_backgroundMusic.stop();
 }
 
 /// <summary>
@@ -85,6 +86,9 @@ void MainMenu::initialise()
 	m_play->select =  std::bind(&MainMenu::play, this);
 	m_options->select = std::bind(&MainMenu::options, this);
 	m_quit->select = std::bind(&MainMenu::quit, this);
+	m_backgroundMusic.openFromFile("ASSETS/SOUNDS/darkfactory.wav");
+	m_backgroundMusic.setLoop(true);
+	m_backgroundMusic.play();
 }
 
 /// <summary>
@@ -107,6 +111,7 @@ void MainMenu::initGUIObjects()
 void MainMenu::goToMenu(MenuStates state)
 {
 	m_nextState = state;
+	m_backgroundMusic.stop();
 	reset();
 }
 
