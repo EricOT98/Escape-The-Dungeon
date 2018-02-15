@@ -91,11 +91,11 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 		/*if (count == 0) {
 			std::cout << "Line o end point: " << end.x << ", " << end.y << std::endl;
 		}*/
-		sf::Vertex line[] =
+		/*sf::Vertex line[] =
 		{
 			sf::Vertex(l->position, l->color),
 			sf::Vertex(end, l->endColor)
-		};
+		};*/
 
 		/*rt.draw(line, 2, sf::Lines);*/
 		count++;
@@ -120,25 +120,6 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 	if (b.allowBlock) //can this even block?
 
 	{
-		//sf::Vector2f wallCorners[4];
-		////TL
-		//wallCorners[0] = sf::Vector2f(b.fRect.left, b.fRect.top);
-		////TR
-		//wallCorners[1] = sf::Vector2f(b.fRect.left + b.fRect.width, b.fRect.top);
-		////BL
-		//wallCorners[2] = sf::Vector2f(b.fRect.left, b.fRect.top + b.fRect.top);
-		////BR
-		//wallCorners[3] = sf::Vector2f(b.fRect.left + b.fRect.width, b.fRect.top + b.fRect.top);
-		//
-		//
-		////Get shortest distance to wall
-		//for (int i = 0; i < 4; i++) {
-		//	float currDist = Distance(l.position, wallCorners[i]);
-		//	if (currDist < distance) {
-		//		distance = currDist;
-		//	}
-		//}
-
 		float distance = Distance(l.position, GetCenter(b.fRect));
 
 		if (l.radius >= distance) //check if it's radius is even long enough to hit a block
@@ -153,11 +134,10 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 
 			//By doing this, we check if the angle is in the direciton of the block.
 
-			sf::FloatRect tempRect = sf::FloatRect(b.fRect.left, b.fRect.top, b.fRect.width, b.fRect.height);
+			/*sf::FloatRect tempRect = sf::FloatRect(b.fRect.left, b.fRect.top, b.fRect.width, b.fRect.height);*/
 
-			if (col_utils::pointInAABB(pointpos.x, pointpos.y, b.fRect.left, b.fRect.top, b.fRect.width, b.fRect.height)) //If it was, than the point would be intersecting the rectangle of the block
+			if (b.fRect.contains(pointpos)) //If it was, than the point would be intersecting the rectangle of the block
 			{
-				std::cout << "Point in rect" << std::endl;
 				sf::Vector2f walls[4];
 				bool collided = false;
 				//TL Vect TR Vect - TOP
@@ -177,7 +157,7 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 					b.fRect.left, b.fRect.top + b.fRect.height, b.fRect.left + b.fRect.width, b.fRect.top + b.fRect.height, l.position.x, l.position.y, pointpos.x, pointpos.y);
 
 				float shortestDistance = Distance(l.position, walls[0]);
-				sf::Vector2f currentPos;
+
 				for (int i = 1; i < 4; i++) {
 					//Temp check to stop all points going back to origin
 					if (walls[i].x != 0 && walls[i].y != 0) {

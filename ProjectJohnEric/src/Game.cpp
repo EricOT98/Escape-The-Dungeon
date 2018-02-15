@@ -24,7 +24,7 @@ Game::Game() :
 	m_camera(&m_player)
 {
 	g_resourceManager.loadAssets();
-	std::string filename = "ASSETS/LEVELS/TestingLevel.tmx";
+	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename, m_lightEngine);
 	m_level.setPlayer(&m_player);
 	m_keyHandler = m_keyHandler->GetInstance();
