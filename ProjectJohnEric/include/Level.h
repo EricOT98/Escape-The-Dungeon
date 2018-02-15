@@ -5,6 +5,7 @@
 #include <tmxlite\Map.hpp>
 #include <SFML\Graphics.hpp>
 #include "Tile.h"
+#include "Interactable.h"
 #include "Object.h"
 #include "Player.h"
 #include "../Lights/LightEngine.h"
@@ -28,6 +29,10 @@ protected:
 	tmx::Vector2u m_tileCount;
 	tmx::Vector2u m_tileSize;
 	std::vector<Tile *> m_tiles;
+
+	Key m_key;
+	Door m_door;
+
 	std::vector<Object *> m_levelObjects;
 
 	int m_rows, m_cols;
@@ -38,7 +43,7 @@ protected:
 	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 	void raycast();
 	void setLightBlockingTile(LightEngine & le);
-	bool checkCollisions(Tile* t, Character* c);
+	bool checkCollisions(Tile* t, Character* c, bool push);
 };
 
 #endif //!LEVEL

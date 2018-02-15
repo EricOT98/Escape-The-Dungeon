@@ -45,6 +45,13 @@ void Tile::draw(sf::RenderWindow & window)
 	//}
 }
 
+void Tile::draw(sf::RenderWindow & window, int i)
+{
+	window.draw(rect);
+}
+
+
+
 bool Tile::withinViewBounds(const sf::FloatRect & bounds)
 {
 	return !(m_x + m_w < bounds.left ||

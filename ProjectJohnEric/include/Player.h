@@ -36,7 +36,6 @@ private:
 	float m_visionRange;
 	float m_fieldOfVision;
 	
-
 	Xbox360Controller controller;
 	Light *  m_light;
 };

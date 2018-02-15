@@ -56,9 +56,15 @@ bool Level::load(std::string & filepath, Player* player, LightEngine & le)
 			}
 
 		}
+
 		setLightBlockingTile(le);
+
+		m_door.m_centre = sf::Vector2f(
+			m_door.m_tiles.at(0)->m_x + m_door.m_tiles.at(0)->m_w,
+			m_door.m_tiles.at(0)->m_y + m_door.m_tiles.at(0)->m_h
+		);
 		return true;
-	}
+	};
 	return false;
 }
 
@@ -68,10 +74,24 @@ void Level::render(sf::RenderWindow & window)
 		tile->draw(window);
 	}
 	for (auto obj : m_levelObjects) {
-		obj->render(window);
+		//obj->render(window);
 		//std::cout << "Draw objects" << std::endl;
 	}
-	//std::cout << "render cycle " << std::endl;
+	if (m_key.m_active)
+	{
+		m_key.m_tile->draw(window);
+		for (auto tile : m_door.m_tiles) {
+			tile->draw(window);
+		}
+	}
+
+	//sf::CircleShape test;
+	//test.setRadius(m_door.m_radius);
+	//test.setOrigin(m_door.m_radius, m_door.m_radius);
+	//test.setPosition(m_door.m_centre);
+	//test.setFillColor(sf::Color(150, 0, 150, 100));
+
+	//window.draw(test);
 }
 
 void Level::renderMiniMap(sf::RenderWindow & window)
@@ -79,16 +99,22 @@ void Level::renderMiniMap(sf::RenderWindow & window)
 	for (auto tile : m_tiles) {
 		tile->draw(window);
 	}
+	if (m_key.m_active)
+	{
+		m_key.m_tile->draw(window, 1);
+	}
 }
 
 void Level::update()
 {
 	for (auto tile : m_tiles) {
-		if (tile->m_layer == 1) {
-			if (checkCollisions(tile, m_player)) {
-
-			}
+		if (tile->m_layer == 1 || tile->m_layer == 2) {
+			checkCollisions(tile, m_player, true);
+			continue;
 		}
+	}
+	if (checkCollisions(m_key.m_tile, m_player, false)) {
+		m_key.m_active = false;
 	}
 }
 
@@ -133,6 +159,9 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 			if (tset_gid == -1)
 				continue;
 			//Normalize the GID(converts it to a 1 to n range instead of an n to m range)
+			//else if (cur_gid == 189 || cur_gid == 170)
+			//	tset_gid = 53;
+
 			cur_gid -= tset_gid;
 			//@debug
 			//std::cout << "Normalised GID:" << cur_gid << std::endl;
@@ -148,12 +177,42 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 			int x_pos = x * m_tileWidth;
 			int y_pos = y * m_tileHeight;
 
-			//Finally actually adding the finished tile
-			Tile * t = new Tile(m_tilesets.at(tset_gid), x_pos, y_pos,
-				region_x, region_y, m_tileWidth, m_tileHeight, cur_gid, layerNum);
-			m_tiles.push_back(t);
-			//@debug
-			//std::cout << "added tile to the level tiles" << std::endl;
+
+			if (layerNum == 3) {
+				m_key.m_tile = new Tile(
+					m_tilesets.at(tset_gid),
+					x_pos,
+					y_pos,
+					region_x,
+					region_y,
+					m_tileWidth,
+					m_tileHeight,
+					cur_gid,
+					layerNum
+				);
+			}
+			else if (layerNum == 4) {
+				Tile * d = new Tile(
+					m_tilesets.at(tset_gid),
+					x_pos,
+					y_pos,
+					region_x,
+					region_y,
+					m_tileWidth,
+					m_tileHeight,
+					cur_gid,
+					layerNum
+				);
+				m_door.m_tiles.push_back(d);
+			}
+			else {
+				//Finally actually adding the finished tile
+				Tile * t = new Tile(m_tilesets.at(tset_gid), x_pos, y_pos,
+					region_x, region_y, m_tileWidth, m_tileHeight, cur_gid, layerNum);
+				m_tiles.push_back(t);
+				//@debug
+				//std::cout << "added tile to the level tiles" << std::endl;
+			}
 		}
 	}
 }
@@ -209,8 +268,9 @@ void Level::raycast()
 /// </summary>
 /// <param name="t">Tile, AABB</param>
 /// <param name="c">Character, circle</param>
+/// <param name="push">Push the character or not</param>
 /// <returns>Penetration Vector</returns>
-bool Level::checkCollisions(Tile* t, Character* c)
+bool Level::checkCollisions(Tile* t, Character* c, bool push)
 {
 	// P will be the point on the tile that's closest to the collision.
 	sf::Vector2f p = c->getPosition();
@@ -242,7 +302,7 @@ bool Level::checkCollisions(Tile* t, Character* c)
 	if (abs(dist) < c->getRadius())
 	{
 
-		if (t->m_layer == 1) {
+		if (push) {
 			float penDist = c->getRadius() - abs(dist);
 			float penAngle = atan2(p.y - cen.y, p.x - cen.x);
 

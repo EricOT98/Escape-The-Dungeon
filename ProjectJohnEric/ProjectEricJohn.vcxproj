@@ -28,6 +28,7 @@
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Character.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Interactable.h" />
     <ClInclude Include="include\KeyboardHandler.h" />
     <ClInclude Include="include\Level.h" />
     <ClInclude Include="include\Object.h" />
@@ -72,6 +73,7 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Interactable.cpp" />
     <ClCompile Include="src\KeyboardHandler.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
