@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include "Widget.h"
 #include "Label.h"
 #include <functional>
@@ -24,17 +25,18 @@ public:
 	void processInput(Xbox360Controller & controller) override;
 
 	void setColors(sf::Color selectedColor, sf::Color unselectedColor, sf::Color fillColor, sf::Color outlineColor) override;
-
+	void setClickSound(sf::SoundBuffer & buffer);
 	void resetPressed();
 	bool getPressed();
 	typedef std::function<void()> Callback;
 	Callback select;
 protected:
-
+	sf::Sound m_clickSound;
 private:
 	sf::RectangleShape rect;
 	bool isPressed;
 	Label * m_label;
+	
 };
 
 #endif // !BUTTON_H

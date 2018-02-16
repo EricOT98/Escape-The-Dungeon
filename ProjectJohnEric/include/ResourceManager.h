@@ -18,6 +18,7 @@ public:
 	thor::ResourceHolder<sf::Texture, std::string> textureHolder;
 	thor::ResourceHolder<sf::Font, std::string> fontHolder;
 	thor::ResourceHolder<sf::SoundBuffer, std::string> soundHolder;
+	std::map<std::string, sf::Sound> m_sounds;
 };
 
 extern ResourceManager g_resourceManager;

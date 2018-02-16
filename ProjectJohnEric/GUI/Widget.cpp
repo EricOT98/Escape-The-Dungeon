@@ -81,6 +81,18 @@ void Widget::processInput(Xbox360Controller & controller)
 	}
 }
 
+void Widget::setSwitchSound(sf::SoundBuffer & buffer)
+{
+	m_soundsActive = true;
+	m_switchSound.setBuffer(buffer);
+}
+
+void Widget::setErrorSound(sf::SoundBuffer & buffer)
+{
+	m_soundsActive = true;
+	m_errorSound.setBuffer(buffer);
+}
+
 /// <summary>
 /// Set the position of the widget
 /// </summary>
@@ -133,14 +145,17 @@ void Widget::updateShape()
 /// </summary>
 void Widget::goToNext()
 {
-	if (m_next != nullptr)
+	if (m_next != nullptr && m_next->getType() != "class Label")
 	{
+		if (m_soundsActive)
+			m_switchSound.play();
 		looseFocus();
 		m_next->getFocus();
 	}
 	else
 	{
-		//Produce error sound
+		if (m_soundsActive)
+			m_errorSound.play();
 	}
 }
 
@@ -149,13 +164,16 @@ void Widget::goToNext()
 /// </summary>
 void Widget::goToPrevious()
 {
-	if (m_previous != nullptr)
+	if (m_previous != nullptr  && m_previous->getType() != "class Label")
 	{
+		if (m_soundsActive)
+			m_switchSound.play();
 		looseFocus();
 		m_previous->getFocus();
 	}
 	else
 	{
-		//Produce error sound
+		if (m_soundsActive)
+			m_errorSound.play();
 	}
 }

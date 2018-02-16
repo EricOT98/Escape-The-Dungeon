@@ -11,6 +11,7 @@
 
 #include "Widget.h"
 #include "Label.h"
+#include <SFML\Audio.hpp>
 
 class Slider : public Widget
 {
@@ -32,6 +33,8 @@ public:
 	float getValue();
 	void setValue(float val);
 
+	void setToggleSound(sf::SoundBuffer & buffer);
+
 private:
 	sf::RectangleShape bar;
 	sf::RectangleShape tab;
@@ -41,7 +44,7 @@ private:
 	float m_value;
 	float tabPosition;
 	Label * m_label;
-
+	sf::Sound m_toggleSound;
 	void increase();
 	void decrease();
 };

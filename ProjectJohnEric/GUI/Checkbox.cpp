@@ -11,12 +11,11 @@ Checkbox::Checkbox( sf::Font & font, Widget * parent = nullptr) :
 	//m_selectedColor = sf::Color::Blue; //Sets highlight colour of checkbox box
 	//m_unselectedColor = sf::Color::Black; //Sets default colour of checkbox box
 	m_label = new Label( font, this); //Initialise label with pointer to widget(Checkbox)
-	//m_label->setColour(m_unselectedColor); //Sets colour of label text
 	m_label->setSize(30); //Sets character size of label text
 	m_on = false;
 	m_translucent = sf::Color(0, 0, 0, 0);	//Off color for the checkbox
 	m_tickRect.setFillColor(m_translucent);	//Sets the tick to be off in color
-	m_boxRect.setFillColor(m_translucent);
+	m_boxRect.setOutlineColor(m_outlineColor);
 	m_type = typeid(Checkbox).name();
 }
 
@@ -90,10 +89,14 @@ void Checkbox::processInput(Xbox360Controller & controller)
 		m_on = !m_on;
 		if (m_on) {
 			m_tickRect.setFillColor(m_fillColor);
+			if (m_soundsActive)
+				m_clickSound.play();
 			std::cout << "On" << std::endl;
 		}
 		else {
 			m_tickRect.setFillColor(m_translucent);
+			if (m_soundsActive)
+				m_clickSound.play();
 			std::cout << "Off" << std::endl;
 		}
 	}

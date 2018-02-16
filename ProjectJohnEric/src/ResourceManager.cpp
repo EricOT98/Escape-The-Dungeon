@@ -20,6 +20,10 @@ void ResourceManager::loadAssets()
 
 		fontHolder.acquire("GameFont", thor::Resources::fromFile<sf::Font>("ASSETS/FONTS/FarenheightPers.ttf"));
 		soundHolder.acquire("Walking", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/footstepsFadeFast.wav"));
+		soundHolder.acquire("ButtonClick", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/UI/switch7.wav"));
+		soundHolder.acquire("SliderToggle", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/UI/switch13.wav"));
+		soundHolder.acquire("Switch", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/UI/switch9.wav"));
+		soundHolder.acquire("Error", thor::Resources::fromFile<sf::SoundBuffer>("ASSETS/SOUNDS/UI/error.wav"));
 	}
 	catch (thor::ResourceLoadingException& e)
 	{

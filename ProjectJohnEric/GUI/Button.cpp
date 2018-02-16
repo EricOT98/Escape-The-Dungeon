@@ -80,6 +80,9 @@ void Button::processInput(Xbox360Controller & controller)
 	if ((currentState.buttonCross && !previousState.buttonCross) || KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
 	{
 		isPressed = true;
+		if (m_soundsActive) {
+			m_clickSound.play();
+		}
 		select();
 	}
 }
@@ -101,6 +104,12 @@ void Button::setColors(sf::Color selectedColor, sf::Color unselectedColor, sf::C
 	rect.setFillColor(m_fillColor);
 	rect.setOutlineColor(m_outlineColor);
 	m_label->setColors(m_selectedColor, m_unselectedColor, m_fillColor, m_outlineColor);
+}
+
+void Button::setClickSound(sf::SoundBuffer & buffer)
+{
+	m_clickSound.setBuffer(buffer);
+	m_soundsActive = true;
 }
 
 void Button::resetPressed()
@@ -131,8 +140,6 @@ void Button::update()
 		rect.setOutlineColor(m_unselectedColor);
 		m_label->setColour(m_unselectedColor);
 		//std::cout << "Button: " << m_label->getString() << ":" << m_unselectedColor << std::endl;
-
-
 	}
 }
 

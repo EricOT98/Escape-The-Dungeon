@@ -1,4 +1,5 @@
 #include "GUI.h"
+#include "ResourceManager.h"
 
 /// <summary>
 /// Default constructor
@@ -38,6 +39,11 @@ GUI::~GUI()
 /// <param name="widget"></param>
 void GUI::add(Widget * widget)
 {
+	//Slightly hackw way but reduces code duplication
+	widget->setSwitchSound(g_resourceManager.soundHolder["Switch"]);
+	widget->setErrorSound(g_resourceManager.soundHolder["Error"]);
+
+
 	widget->m_parent = this;
 	m_widgets.emplace_back(widget);
 	updateShape();
@@ -145,6 +151,7 @@ void GUI::addButton(Button * button, std::string label, sf::Vector2f pos, sf::Ve
 	button->setSize(size.x, size.y);
 	button->setColour(fillColor);
 	button->updateShape();
+	button->setClickSound(g_resourceManager.soundHolder["ButtonClick"]);
 	add(button);
 	order();
 }
@@ -185,6 +192,7 @@ void GUI::addSlider(Slider * slider, std::string label, sf::Vector2f pos, sf::Ve
 	slider->setLength(size.x - 2);
 	slider->setColour(fillColor);
 	slider->updateShape();
+	slider->setToggleSound(g_resourceManager.soundHolder["SliderToggle"]);
 	add(slider);
 	order();
 }
@@ -201,10 +209,11 @@ void GUI::addSlider(Slider * slider, std::string label, sf::Vector2f pos, sf::Ve
 void GUI::addCheckbox(Checkbox * checkbox, std::string label, sf::Vector2f pos, sf::Vector2i size, sf::Color fillColor)
 {
 	checkbox->setLabel(label);
-	checkbox->setPosition(pos);
 	checkbox->setSize(size.x, size.y);
+	checkbox->setPosition(pos);
 	checkbox->setColour(fillColor);
 	checkbox->updateShape();
+	checkbox->setClickSound(g_resourceManager.soundHolder["ButtonClick"]);
 	add(checkbox);
 	order();
 }

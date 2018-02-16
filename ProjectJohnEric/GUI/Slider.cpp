@@ -192,6 +192,12 @@ void Slider::setValue(float val)
 	m_value = val;
 }
 
+void Slider::setToggleSound(sf::SoundBuffer & buffer)
+{
+	m_toggleSound.setBuffer(buffer);
+	m_soundsActive = true;
+}
+
 void Slider::increase()
 {
 	if (m_value < 100)
@@ -199,6 +205,8 @@ void Slider::increase()
 		tabPosition += m_increment;
 		//std::cout << "pos" << tabPosition << std::endl;
 		m_value++;
+		if (m_soundsActive && m_toggleSound.getStatus() != sf::Sound::Playing)
+			m_toggleSound.play();
 	}
 }
 
@@ -208,5 +216,7 @@ void Slider::decrease()
 	{
 		tabPosition -= m_increment;
 		m_value--;
+		if(m_soundsActive && m_toggleSound.getStatus() != sf::Sound::Playing)
+			m_toggleSound.play();
 	}
 }

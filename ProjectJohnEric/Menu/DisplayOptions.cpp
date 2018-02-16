@@ -87,7 +87,7 @@ void DisplayOptions::initGUIObjects()
 
 	m_gui.addLabel(m_title, "Display options", sf::Vector2f(100, 0), 80, sf::Color::Green);
 	m_gui.addCheckbox(m_shader, "Shaders On", sf::Vector2f(100, 200), sf::Vector2i(40, 40), sf::Color::Green);
-	m_gui.addCheckbox(m_shader, "Camera Shake On", sf::Vector2f(100, 400), sf::Vector2i(40, 40), sf::Color::Green);
+	m_gui.addCheckbox(m_shake, "Camera Shake On", sf::Vector2f(100, 400), sf::Vector2i(40, 40), sf::Color::Green);
 	m_gui.addButton(m_back, "<- Back", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	//selected, unselected, fill ,outline
 	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);

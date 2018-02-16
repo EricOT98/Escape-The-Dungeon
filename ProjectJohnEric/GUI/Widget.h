@@ -9,6 +9,7 @@
 #include <SFML\Graphics.hpp>
 #include "../Input/Xbox360Controller.h"
 #include "../include/KeyboardHandler.h"
+#include "SFML\Audio.hpp"
 
 using namespace std;
 
@@ -27,6 +28,8 @@ public:
 	virtual void setPosition(sf::Vector2f pos);
 	virtual const sf::Vector2f getPosition() const;
 	virtual void processInput(Xbox360Controller & controller);
+	void setSwitchSound(sf::SoundBuffer & buffer);
+	void setErrorSound(sf::SoundBuffer & buffer);
 	Widget * m_parent;
 	Widget * m_next;
 	Widget * m_previous;
@@ -46,6 +49,9 @@ protected:
 
 	virtual void goToNext();
 	virtual void goToPrevious();
+	bool m_soundsActive = false;
+	sf::Sound m_switchSound;
+	sf::Sound m_errorSound;
 };
 
 #endif
