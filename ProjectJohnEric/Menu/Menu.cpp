@@ -134,6 +134,10 @@ void Menu::setPreviousMenu(MenuStates state)
 	m_previousMenu = state;
 }
 
+void Menu::stopMusic()
+{
+}
+
 /// <summary>
 /// Set the menus next state to be the corresponding menu
 /// This allows the update to change the menu state

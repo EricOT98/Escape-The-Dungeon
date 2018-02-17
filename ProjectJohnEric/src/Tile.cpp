@@ -35,19 +35,19 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 	}
 }
 
-void Tile::draw(sf::RenderWindow & window)
+void Tile::draw(sf::RenderTarget & targ)
 {
 	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
 
-		window.draw(m_sprite);
+	targ.draw(m_sprite);
 		//window.draw(rect);
 		//std::cout << m_gid << std::endl;
 	//}
 }
 
-void Tile::draw(sf::RenderWindow & window, int i)
+void Tile::draw(sf::RenderTarget & targ, int i)
 {
-	window.draw(rect);
+	targ.draw(rect);
 }
 
 

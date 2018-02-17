@@ -48,7 +48,7 @@ public:
 
 	MenuStates & getPreviousMenu();
 	void setPreviousMenu(MenuStates state);
-
+	virtual void stopMusic();
 
 	virtual void goToMenu(MenuStates state);
 protected:

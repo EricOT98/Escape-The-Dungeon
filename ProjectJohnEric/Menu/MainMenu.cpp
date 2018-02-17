@@ -77,6 +77,11 @@ void MainMenu::quit()
 	m_quitPressed = true;
 }
 
+void MainMenu::stopMusic()
+{
+	m_backgroundMusic.stop();
+}
+
 /// <summary>
 /// Default initilaiser for the main menu
 /// </summary>

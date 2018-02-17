@@ -108,7 +108,7 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 	for (int i = 0; i < points; i++) {
 		lightShape.setPoint(i, shapePoints.at(i));
 	}
-	lightShape.setFillColor(sf::Color(174, 146, 9, 128));
+	lightShape.setFillColor(sf::Color(174, 146, 9, 200));
 	
 	rt.draw(lightShape);
 }

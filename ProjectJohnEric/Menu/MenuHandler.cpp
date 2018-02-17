@@ -130,6 +130,13 @@ void MenuHandler::goToGame(MenuStates & game_state)
 	game_state = MenuStates::GAME;
 }
 
+void MenuHandler::stopAllMusic()
+{
+	for (auto & menu : m_menus) {
+		menu->stopMusic();
+	}
+}
+
 /// <summary>
 /// Returns the menu handlers state
 /// </summary>

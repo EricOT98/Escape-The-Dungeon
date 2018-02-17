@@ -28,8 +28,8 @@ public:
 	sf::Vector2f size;
 	Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h,int gid,int layer);
 
-	void draw(sf::RenderWindow & window);
-	void draw(sf::RenderWindow & window, int i);
+	void draw(sf::RenderTarget & targ);
+	void draw(sf::RenderTarget & targ, int i);
 
 	bool withinViewBounds(const sf::FloatRect & bounds);
 };

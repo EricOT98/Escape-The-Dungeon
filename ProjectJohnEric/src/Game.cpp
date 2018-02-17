@@ -24,9 +24,19 @@ Game::Game() :
 	m_camera(&m_player)
 {
 	g_resourceManager.loadAssets();
+	m_backgroundMusic.openFromFile("ASSETS/SOUNDS/dark_ambient.wav");
+	m_backgroundMusic.setLoop(true);
+
+	
+
+
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename, m_lightEngine);
 	m_level.setPlayer(&m_player);
+
+	lightMapTexture.create(m_level.getBounds().x, m_level.getBounds().y);
+	lightmap.setTexture(lightMapTexture.getTexture());
+
 	m_keyHandler = m_keyHandler->GetInstance();
 
 	if (m_testTexture.loadFromFile("ASSETS/IMAGES/testMap.png")) {
@@ -42,29 +52,14 @@ Game::Game() :
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
+	brightness = sf::Color(1, 1, 1);
 
 	//m_debug.setRadius(5);
 	//m_debug.setOrigin(sf::Vector2f(m_debug.getRadius(), m_debug.getRadius()));
 	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
 
-	m_debug.setFillColor(sf::Color(255, 0, 0, 128));
-	debugCirc.setPosition(256, 192);
-	debugCirc.setRadius(2); debugCirc.setOrigin(2, 2);
-	debugCirc.setFillColor(sf::Color(255, 0, 0, 128));
-	////TODO: Eric Lights
-	//light.radius = 60;
-
-	//light.angleSpread = 50;
-
-	//light.position = sf::Vector2f(100, 150);
-
-	//le.Lights.push_back(light);
-	//block.fRect = sf::FloatRect(0, 0, 16, 16);
-	//block.setSize(sf::Vector2f(32,32));
-	//block.setAllowed(true);
-	//le.Blocks.push_back(block);
-
-	
+	debugRect.setPosition(0, 0);
+	debugRect.setSize(sf::Vector2f(1080, 720));
 
 	//Lights
 	m_lightEngine.init();
@@ -136,11 +131,6 @@ void Game::processEvents()
 /// <param name="event">A reference to the current event being processed</param>
 void Game::processGameEvents(sf::Event& event)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		m_window.close();
-	}
-
 	if (event.key.code >= 0 && event.key.code < sf::Keyboard::Key::KeyCount)
 	{
 		if (event.type == event.KeyPressed)
@@ -170,9 +160,13 @@ void Game::update(sf::Time t_deltaTime)
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
+		if (m_backgroundMusic.getStatus() != sf::Music::Playing) {
+			m_backgroundMusic.play();
+		}
 		m_controllers.at(0).update();
 		//TODO: PUT THESE INTO THE LEVEL
 		m_level.update();
+		m_window.setView(m_camera.m_view);
 		m_player.update(m_window, m_controllers.at(0));
 		m_camera.update();
 
@@ -184,6 +178,15 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			m_menuHandler.goToMenu(MenuStates::PAUSE);
 		}
+		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Add))
+		{
+			brightness += sf::Color(1, 1, 1);
+		}
+		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Subtract))
+		{
+			brightness -= sf::Color(1, 1, 1);
+		}
+		
 		for (auto & controller : m_controllers) {
 			controller.update();
 		}
@@ -195,6 +198,9 @@ void Game::update(sf::Time t_deltaTime)
 
 	if (m_exitGame)
 	{
+		//We must not c
+		m_menuHandler.stopAllMusic();
+		m_backgroundMusic.stop();
 		m_window.close();
 	}
 }
@@ -209,24 +215,25 @@ void Game::render()
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
-
+		//Lighting
 		m_window.setView(m_camera.m_view);
+		lightMapTexture.clear(brightness);
+		//USe for rendering visible tiles
+		//m_level.render(lightMapTexture);
+		m_lightEngine.Step(lightMapTexture);
+		m_player.render(lightMapTexture);
+		lightMapTexture.display();
+
+		lightmap.setPosition(0,0);
+		
+		//m_window.draw(debugRect);
 		m_level.render(m_window);
-
-		m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
-		m_player.render(m_window);
-
+		m_window.draw(lightmap, sf::RenderStates(sf::BlendMultiply));
+	
 		m_window.setView(m_camera.m_miniMap);
 		m_level.renderMiniMap(m_window);
+
 		m_player.renderMiniMap(m_window);
-
-		m_window.setView(m_camera.m_view);
-
-		m_window.draw(m_debug);
-		//TODOD Light Testing
-		/*le.Step(m_window);*/
-		m_lightEngine.Step(m_window);
-
 		break;
 	case MenuStates::PAUSE:
 		m_window.setView(m_camera.m_menuView);
@@ -242,7 +249,6 @@ void Game::render()
 		m_menuHandler.render(m_window);
 		break;
 	}
-	m_window.draw(debugCirc);
 	m_window.display();
 }
 

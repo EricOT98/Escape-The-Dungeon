@@ -26,8 +26,8 @@ public:
 	virtual string getName();
 	virtual float getRadius();
 
-	virtual void render(sf::RenderWindow &window);
-	virtual void renderMiniMap(sf::RenderWindow &window);
+	virtual void render(sf::RenderTarget &targ);
+	virtual void renderMiniMap(sf::RenderTarget & target);
 	virtual void update();
 	virtual void init();
 

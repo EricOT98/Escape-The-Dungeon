@@ -25,6 +25,7 @@ public:
 	void play();
 	void options();
 	void quit();
+	void stopMusic() override;
 	bool m_playPressed;
 	bool m_optionsPressed;
 	bool m_quitPressed;

@@ -61,7 +61,12 @@ private:
 	//LightEngine le;
 	Block block;
 	Light light;
-	sf::CircleShape debugCirc;
+	sf::RectangleShape debugRect;
+	sf::Music m_backgroundMusic;
+
+	sf::RenderTexture lightMapTexture;
+	sf::Sprite lightmap;
+	sf::Color brightness;
 };
 
 #endif // !GAME

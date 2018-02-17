@@ -17,6 +17,7 @@ public:
 
 	bool isEmpty();
 	void goToGame(MenuStates & game_state);
+	void stopAllMusic();
 	MenuStates getMenuState();
 	std::unique_ptr<Menu> getMenuFromState(MenuStates state);
 protected:

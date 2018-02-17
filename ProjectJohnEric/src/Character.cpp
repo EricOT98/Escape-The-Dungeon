@@ -35,7 +35,7 @@ float Character::getRadius()
 	return m_collisionRadius;
 }
 
-void Character::render(sf::RenderWindow &window)
+void Character::render(sf::RenderTarget &targ)
 {
 	m_rect.setPosition(m_position);
 	m_rect.setRotation(m_rotation);
@@ -45,22 +45,22 @@ void Character::render(sf::RenderWindow &window)
 	m_DEBUGCIRCLE.setPosition(m_position);
 	if (m_collisionRadius < 0)
 	{
-		m_DEBUGCIRCLE.setFillColor(sf::Color(255, 0, 0, 150));
+		m_DEBUGCIRCLE.setFillColor(sf::Color(255, 0, 0, 255));
 	}
 	else
-		m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 150));
+		m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 255));
 
-	window.draw(m_rect);
-	window.draw(m_DEBUGCIRCLE);
-	window.draw(m_TESTPOINTER);
-	window.draw(m_TESTLEFT);
-	window.draw(m_TESTRIGHT);
+	//targ.draw(m_rect);
+	targ.draw(m_DEBUGCIRCLE);
+	/*targ.draw(m_TESTPOINTER);
+	targ.draw(m_TESTLEFT);
+	targ.draw(m_TESTRIGHT);*/
 }
 
-void Character::renderMiniMap(sf::RenderWindow & window)
+void Character::renderMiniMap(sf::RenderTarget & target)
 {
-	m_minimapIcon.setPosition(m_position);
-	window.draw(m_minimapIcon);
+	m_minimapIcon.setPosition(m_rect.getPosition());
+	target.draw(m_minimapIcon);
 }
 
 void Character::update()

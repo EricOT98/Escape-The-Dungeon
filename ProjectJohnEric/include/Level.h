@@ -15,9 +15,10 @@ public:
 	Level();
 	bool load(std::string & filepath,  LightEngine & le);
 	void setPlayer(Player * player);
-	void render(sf::RenderWindow & window);
-	void renderMiniMap(sf::RenderWindow & window);
+	void render(sf::RenderTarget & targ);
+	void renderMiniMap(sf::RenderTarget & targ);
 	void update();
+	sf::Vector2f getBounds();
 
 protected:
 	Player * m_player;

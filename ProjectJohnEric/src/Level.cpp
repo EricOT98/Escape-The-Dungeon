@@ -73,10 +73,10 @@ void Level::setPlayer(Player * player)
 	m_player = player;
 }
 
-void Level::render(sf::RenderWindow & window)
+void Level::render(sf::RenderTarget & targ)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(window);
+		tile->draw(targ);
 	}
 	for (auto obj : m_levelObjects) {
 		//obj->render(window);
@@ -84,9 +84,9 @@ void Level::render(sf::RenderWindow & window)
 	}
 	if (m_key.m_active)
 	{
-		m_key.m_tile->draw(window);
+		m_key.m_tile->draw(targ);
 		for (auto tile : m_door.m_tiles) {
-			tile->draw(window);
+			tile->draw(targ);
 		}
 	}
 
@@ -99,14 +99,14 @@ void Level::render(sf::RenderWindow & window)
 	//window.draw(test);
 }
 
-void Level::renderMiniMap(sf::RenderWindow & window)
+void Level::renderMiniMap(sf::RenderTarget & targ)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(window);
+		tile->draw(targ);
 	}
 	if (m_key.m_active)
 	{
-		m_key.m_tile->draw(window, 1);
+		m_key.m_tile->draw(targ, 1);
 	}
 }
 
@@ -121,6 +121,11 @@ void Level::update()
 	if (checkCollisions(m_key.m_tile, m_player, false)) {
 		m_key.m_active = false;
 	}
+}
+
+sf::Vector2f Level::getBounds()
+{
+	return sf::Vector2f(m_tileCount.x * m_tileSize.x, m_tileCount.y * m_tileSize.y);
 }
 
 void Level::parseTMXMap(tmx::Map & map)
@@ -152,7 +157,8 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 			if (cur_gid == 0)
 				continue;
 
-			int tset_gid = -1;
+			//Probabaly won't be a lot of tilsets
+			short tset_gid = -1;
 			//if a valid tileset is found break
 			for (auto & ts : m_tilesets) {
 				if (ts.first <= cur_gid) {
