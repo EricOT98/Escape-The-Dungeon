@@ -76,7 +76,10 @@ void Level::setPlayer(Player * player)
 void Level::render(sf::RenderTarget & targ)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(targ);
+		if (!tile->m_seen)
+			tile->draw(targ);
+		else
+			tile->draw(targ, 1);
 	}
 	for (auto obj : m_levelObjects) {
 		//obj->render(window);
@@ -102,11 +105,21 @@ void Level::render(sf::RenderTarget & targ)
 void Level::renderMiniMap(sf::RenderTarget & targ)
 {
 	for (auto tile : m_tiles) {
-		tile->draw(targ);
+		if(tile->m_seen)
+			tile->draw(targ);
 	}
 	if (m_key.m_active)
 	{
 		m_key.m_tile->draw(targ, 1);
+	}
+}
+
+void Level::renderSeenTiles(sf::RenderTarget & targ)
+{
+	for (auto & tile : m_tiles) {
+		if (tile->m_seen) {
+			tile->draw(targ);
+		}
 	}
 }
 
@@ -121,6 +134,7 @@ void Level::update()
 	if (checkCollisions(m_key.m_tile, m_player, false)) {
 		m_key.m_active = false;
 	}
+	setSeenTiles(m_player);
 }
 
 sf::Vector2f Level::getBounds()
@@ -344,4 +358,21 @@ bool Level::checkCollisions(Tile* t, Character* c, bool push)
 	}
 
 	return false;
+}
+
+void Level::setSeenTiles(Player * player)
+{
+	if (m_player->getRotation() != NULL) {
+		std::cout << "Player rotation: " << player->getRotation() << std::endl;
+	}
+	for (auto & tile : m_tiles) {
+		if (!tile->m_seen) {
+			sf::Vector2f tileSize(tile->m_sprite.getGlobalBounds().width, tile->m_sprite.getGlobalBounds().height);
+			sf::Vector2f tileCenter = tile->m_sprite.getPosition() + (tileSize / 2.0f);
+			if (col_utils::pointInSector(tileCenter.x, tileCenter.y, player->getPosition().x, player->getPosition().y, player->getRotation() - player->m_fieldOfVision / 2, player->getRotation() + player->m_fieldOfVision / 2, player->m_visionRange)) {
+				tile->m_seen = true;
+				std::cout << "Seent tile" << tile->m_gid << std::endl;
+			}
+		}
+	}
 }

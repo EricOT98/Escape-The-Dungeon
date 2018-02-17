@@ -30,6 +30,8 @@ public:
 		return m_viewForward;
 	}
 	void move() override;
+	float m_visionRange;
+	float m_fieldOfVision;
 protected:
 	bool m_usingMouse;
 	bool m_viewForward;
@@ -37,8 +39,7 @@ protected:
 private:
 	KeyboardHandler * m_keyHandler;
 
-	float m_visionRange;
-	float m_fieldOfVision;
+	
 	
 	Xbox360Controller controller;
 	Light *  m_light;

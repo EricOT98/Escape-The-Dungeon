@@ -59,6 +59,7 @@ Game::Game() :
 	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
 
 	debugRect.setPosition(0, 0);
+	debugRect.setFillColor(sf::Color(128, 128, 128));
 	debugRect.setSize(sf::Vector2f(1080, 720));
 
 	//Lights
@@ -111,6 +112,9 @@ void Game::processEvents()
 	{
 		if ( sf::Event::Closed == event.type) // window message
 		{
+			m_menuHandler.stopAllMusic();
+			m_backgroundMusic.stop();
+
 			m_window.close();
 		}
 		if (sf::Event::KeyPressed == event.type) //user key press
@@ -186,7 +190,6 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			brightness -= sf::Color(1, 1, 1);
 		}
-		
 		for (auto & controller : m_controllers) {
 			controller.update();
 		}
@@ -219,9 +222,10 @@ void Game::render()
 		m_window.setView(m_camera.m_view);
 		lightMapTexture.clear(brightness);
 		//USe for rendering visible tiles
-		//m_level.render(lightMapTexture);
-		m_lightEngine.Step(lightMapTexture);
+		m_level.renderSeenTiles(lightMapTexture);
 		m_player.render(lightMapTexture);
+		m_lightEngine.Step(lightMapTexture);
+		
 		lightMapTexture.display();
 
 		lightmap.setPosition(0,0);

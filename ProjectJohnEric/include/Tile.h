@@ -20,6 +20,7 @@ public:
 
 	//Used for controlled culling of the tiles
 	bool m_onScreen;
+	bool m_seen;
 	
 	Block m_block;
 	sf::Texture * m_texture;

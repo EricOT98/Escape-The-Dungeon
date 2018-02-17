@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Player.h"
 #include "../Lights/LightEngine.h"
+#include "../Lights/CollisionUtils.h"
 
 class Level {
 public:
@@ -17,6 +18,7 @@ public:
 	void setPlayer(Player * player);
 	void render(sf::RenderTarget & targ);
 	void renderMiniMap(sf::RenderTarget & targ);
+	void renderSeenTiles(sf::RenderTarget & targ);
 	void update();
 	sf::Vector2f getBounds();
 
@@ -45,6 +47,8 @@ protected:
 	void raycast();
 	void setLightBlockingTile(LightEngine & le);
 	bool checkCollisions(Tile* t, Character* c, bool push);
+	void setSeenTiles(Player * player);
+
 };
 
 #endif //!LEVEL

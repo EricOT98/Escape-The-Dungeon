@@ -34,7 +34,7 @@ void Player::init(LightEngine & engine)
 	m_light->radius = m_visionRange;
 	m_light->angleSpread = m_fieldOfVision;
 	m_light->angle = m_rotation;
-	m_light->color = sf::Color(240, 230, 120, 128);
+	m_light->color = sf::Color(120, 110, 60, 128);
 	m_light->endColor = sf::Color(240, 230, 120, 255);
 	engine.Lights.push_back(m_light);
 	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);

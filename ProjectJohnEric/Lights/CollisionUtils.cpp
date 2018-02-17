@@ -57,3 +57,11 @@ bool col_utils::pointInAABB(float px, float py, float bx, float by, float bw, fl
 	return !(px < bx || px > bx + bw ||
 		py < by || py > by + bh);
 }
+
+bool col_utils::pointInSector(float px, float py, float centerX, float centerY, float startAngle, float endAngle, float radius)
+{
+	float angle = atan2( py - centerY, px - centerX ) * (180 / acos(-1));
+	float distSqr = (((px - centerX) * (px - centerX)) + ((py - centerY) * (py - centerY)));
+	
+	return (distSqr < radius * radius && distSqr > 0 &&  angle > startAngle && angle < endAngle);
+}

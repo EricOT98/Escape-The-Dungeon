@@ -18,13 +18,13 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 	rect.setOutlineColor(sf::Color::Yellow);
 
 	if (m_layer == 0){
-		rect.setFillColor(sf::Color(0, 0, 0));
+		rect.setFillColor(sf::Color(255, 255, 255));
 	}
 	else if (m_layer == 1) {
-		rect.setFillColor(sf::Color(100, 100, 100));
+		rect.setFillColor(sf::Color(255, 255, 255));
 	}
 	else if (m_layer == 2) {
-		rect.setFillColor(sf::Color(200, 200, 200));
+		rect.setFillColor(sf::Color(255, 255, 255));
 	}
 	m_block.fRect.left = m_x;
 	m_block.fRect.top = m_y;
@@ -33,6 +33,7 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 	if (m_layer == 1) {
 		m_block.setAllowed(true);
 	}
+	m_seen = false;
 }
 
 void Tile::draw(sf::RenderTarget & targ)
