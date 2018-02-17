@@ -32,6 +32,13 @@ public:
 	void move() override;
 	float m_visionRange;
 	float m_fieldOfVision;
+	float m_viewPercent;// no greater than 1
+	float m_viewStep; // 0-1
+
+	float m_rangeMin, m_rangeMax;
+	float m_fovMin, m_fovMax;
+
+	float lerp(float start, float end, float percentage);
 protected:
 	bool m_usingMouse;
 	bool m_viewForward;

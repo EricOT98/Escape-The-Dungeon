@@ -15,8 +15,8 @@ Player::Player()
 /// <param name="name">Name of the character for testing</param>
 Player::Player(string name)
 	: Character(name),
-	m_visionRange(100),
-	m_fieldOfVision(45)
+	m_visionRange(50),
+	m_fieldOfVision(22.5)
 {
 	m_TESTPOINTER.setSize(sf::Vector2f(0.5, m_visionRange));
 	m_TESTPOINTER.setOrigin(1, 0);
@@ -40,6 +40,12 @@ void Player::init(LightEngine & engine)
 	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);
 	m_walking.setLoop(true);
 	m_soundsLoaded = true;
+	m_viewPercent = 0;
+	m_viewStep = 0.01;
+	m_fovMin = 22.5;
+	m_fovMax = 45;
+	m_rangeMin = 50;
+	m_rangeMax = 150;
 }
 
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
@@ -68,6 +74,23 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	else
 	{
 		m_viewForward = false;
+	}
+	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::R)) {
+		if(m_viewPercent < 1)
+			m_viewPercent += m_viewStep;
+
+		m_visionRange = lerp(m_rangeMin, m_rangeMax, m_viewPercent);
+		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
+		m_light->radius = m_visionRange;
+		m_light->angleSpread = m_fieldOfVision;
+	}
+	else if(m_visionRange > 50){
+		if (m_viewPercent > 0)
+			m_viewPercent -= m_viewStep;
+		m_visionRange = lerp(m_rangeMin, m_rangeMax, m_viewPercent);
+		m_fieldOfVision = lerp(m_fovMax, m_fovMin, 1 - m_viewPercent);
+		m_light->radius = m_visionRange;
+		m_light->angleSpread = m_fieldOfVision;
 	}
 
 
@@ -183,4 +206,9 @@ void Player::move()
 			m_walking.stop();
 		}
 	}
+}
+
+float Player::lerp(float start, float end, float percent)
+{
+	return (start + percent * (end - start));
 }
