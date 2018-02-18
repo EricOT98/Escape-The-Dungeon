@@ -6,6 +6,7 @@
 #include "../Menu/SoundOptions.h"
 #include "../Menu/DisplayOptions.h"
 #include "../Menu/Pause.h"
+#include "../Menu/GameOver.h"
 #include "ResourceManager.h"
 
 #ifdef _DEBUG
@@ -28,12 +29,19 @@ Game::Game() :
 	m_backgroundMusic.openFromFile("ASSETS/SOUNDS/dark_ambient.wav");
 	m_backgroundMusic.setLoop(true);
 
-	std::string filename = "ASSETS/LEVELS/Level1.tmx";
-	m_level.load(filename, m_lightEngine);
-	m_level.setPlayer(&m_player);
+	std::vector<std::string> levelPaths;
+	levelPaths.push_back("ASSETS/LEVELS/Level1.tmx");
+	levelPaths.push_back("ASSETS/LEVELS/Level2.tmx");
 
-	
-
+	for (int i = 0; i < levelPaths.size(); i++) {
+		Level * level = new Level();
+		level->load(levelPaths[i], m_lightEngine);
+		level->setPlayer(&m_player);
+		m_levels.push_back(level);
+	}
+	m_currLevel = 0;
+	m_levels.at(m_currLevel)->startLevel();
+	m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
 	//Input
 	m_keyHandler = m_keyHandler->GetInstance();
 	m_controllers.push_back(Xbox360Controller());
@@ -46,10 +54,10 @@ Game::Game() :
 
 	
 	//Lights
-	lightMapTexture.create(m_level.getBounds().x, m_level.getBounds().y);
+	lightMapTexture.create(m_levels.at(m_currLevel)->getBounds().x, m_levels.at(m_currLevel)->getBounds().y);
 	lightMapTexture.setSmooth(true);
 	lightmap.setTexture(lightMapTexture.getTexture());
-	brightness = sf::Color(1, 1, 1);
+	brightness = sf::Color(1, 1, 1, 100);
 
 	m_lightEngine.init();
 	m_player.init(m_lightEngine);
@@ -146,6 +154,7 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+
 	m_menuStates = m_menuHandler.getMenuState();
 	//Using a switch statement allows us to specify certain conditions for certain menus
 	switch (m_menuStates)
@@ -156,7 +165,30 @@ void Game::update(sf::Time t_deltaTime)
 		}
 		m_controllers.at(0).update();
 		//TODO: PUT THESE INTO THE LEVEL
-		m_level.update();
+		if (m_levels.at(m_currLevel)->m_complete) {
+			m_currLevel++;
+			if (m_currLevel < m_levels.size()) {
+				m_lightEngine.Lights.clear();
+				m_lightEngine.Blocks.clear();
+				m_lightEngine.Lights.push_back(m_player.getLight());
+				m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
+				m_levels.at(m_currLevel)->startLevel();
+			}
+			else {
+				m_currLevel = 0;
+				m_lightEngine.Lights.clear();
+				m_lightEngine.Blocks.clear();
+				m_lightEngine.Lights.push_back(m_player.getLight());
+				m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
+				m_menuHandler.goToMenu(MenuStates::GAMEOVER);
+				
+				for (auto & level : m_levels) {
+					level->reset();
+				}
+				break;
+			}
+		}
+		m_levels.at(m_currLevel)->update();
 		m_window.setView(m_camera.m_view);
 		m_player.update(m_window, m_controllers.at(0));
 		m_camera.update();
@@ -167,11 +199,11 @@ void Game::update(sf::Time t_deltaTime)
 		}
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Add))
 		{
-			brightness += sf::Color(1, 1, 1);
+			brightness += sf::Color(1, 1, 1, 100);
 		}
 		if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::Subtract))
 		{
-			brightness -= sf::Color(1, 1, 1);
+			brightness -= sf::Color(1, 1, 1, 100);
 		}
 		for (auto & controller : m_controllers) {
 			controller.update();
@@ -212,13 +244,13 @@ void Game::render()
 		lightmap.setPosition(0,0);
 		
 		//Shadowed Enitites
-		m_level.render(m_window);
+		m_levels.at(m_currLevel)->render(m_window);
 		m_window.draw(lightmap, sf::RenderStates(sf::BlendMultiply));
 		
 		//Minimap
 		m_window.setView(m_camera.m_miniMap);
 		//TODO: Outline around Minimap
-		m_level.renderMiniMap(m_window);
+		m_levels.at(m_currLevel)->renderMiniMap(m_window);
 
 		m_player.renderMiniMap(m_window);
 
@@ -236,7 +268,8 @@ void Game::render()
 		lightmap.setPosition(0, 0);
 
 		//Shadowed entities
-		m_level.render(m_window);
+		m_levels.at(m_currLevel)->render(m_window);
+		
 		//Draw visible entities over shadowed ones
 		m_window.draw(lightmap, sf::RenderStates(sf::BlendMultiply));
 
@@ -263,12 +296,18 @@ bool Game::initialiseMenus()
 	if (m_menuHandler.isEmpty())
 	{
 		std::vector<std::unique_ptr<Menu>> menus;
+
+		//std::unique_ptr<MainMenu> mainMenu = std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]);
+		//mainMenu->startGame = std::bind(&Game::startGame, this);
+		//menus.push_back(std::move(mainMenu));
 		menus.push_back(std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<OptionsMenu>(g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<SoundOptions>(g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<DisplayOptions>(g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<Pause>(g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<GameOver>(g_resourceManager.fontHolder["GameFont"]));
 		for (auto & menu : menus) {
+			
 			m_menuHandler.addMenu(menu);
 		}
 		if (m_menuHandler.setActive(MenuStates::MAIN_MENU))
@@ -288,4 +327,13 @@ bool Game::initialiseMenus()
 		return true;
 	}
 	return false;
+}
+
+void Game::startGame()
+{
+	m_lightEngine.Lights.clear();
+	m_lightEngine.Blocks.clear();
+	m_lightEngine.Lights.push_back(m_player.getLight());
+	m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
+	m_levels.at(m_currLevel)->startLevel();
 }

@@ -11,7 +11,7 @@ struct Key {
 
 struct Door {
 	std::vector<Tile*> m_tiles;
-	float m_radius = 16;
+	float m_radius = 30;
 	sf::Vector2f m_centre;
 };
 

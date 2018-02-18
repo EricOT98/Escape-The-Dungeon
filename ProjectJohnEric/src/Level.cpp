@@ -5,6 +5,7 @@
 
 Level::Level()
 {
+	m_complete = false;
 }
 
 bool Level::load(std::string & filepath, LightEngine & le)
@@ -57,12 +58,13 @@ bool Level::load(std::string & filepath, LightEngine & le)
 
 		}
 
-		setLightBlockingTile(le);
-
-		m_door.m_centre = sf::Vector2f(
-			m_door.m_tiles.at(0)->m_x + m_door.m_tiles.at(0)->m_w,
-			m_door.m_tiles.at(0)->m_y + m_door.m_tiles.at(0)->m_h
-		);
+		/*setLightBlockingTile(le);*/
+		if (m_door.m_tiles.size() != 0) {
+			m_door.m_centre = sf::Vector2f(
+				m_door.m_tiles.at(0)->m_x + m_door.m_tiles.at(0)->m_w,
+				m_door.m_tiles.at(0)->m_y + m_door.m_tiles.at(0)->m_h
+			);
+		}
 		return true;
 	};
 	return false;
@@ -94,13 +96,13 @@ void Level::render(sf::RenderTarget & targ)
 		}
 	}
 
-	//sf::CircleShape test;
-	//test.setRadius(m_door.m_radius);
-	//test.setOrigin(m_door.m_radius, m_door.m_radius);
-	//test.setPosition(m_door.m_centre);
-	//test.setFillColor(sf::Color(150, 0, 150, 100));
+	sf::CircleShape test;
+	test.setRadius(m_door.m_radius);
+	test.setOrigin(m_door.m_radius, m_door.m_radius);
+	test.setPosition(m_door.m_centre);
+	test.setFillColor(sf::Color(150, 0, 150, 255));
 
-	//window.draw(test);
+	targ.draw(test);
 }
 
 void Level::renderMiniMap(sf::RenderTarget & targ)
@@ -127,7 +129,7 @@ void Level::renderSeenTiles(sf::RenderTarget & targ)
 void Level::update()
 {
 	for (auto tile : m_tiles) {
-		if (tile->m_layer == 1 || tile->m_layer == 2) {
+		if (tile->m_collidable) {
 			checkCollisions(tile, m_player, true);
 			continue;
 		}
@@ -135,12 +137,32 @@ void Level::update()
 	if (checkCollisions(m_key.m_tile, m_player, false)) {
 		m_key.m_active = false;
 	}
+	if (!m_key.m_active && col_utils::pointInCircle(m_player->getPosition().x, m_player->getPosition().y, 
+		m_door.m_centre.x, m_door.m_centre.y, m_door.m_radius)) 
+	{
+		m_complete = true;
+	}
+	
 	setSeenTiles(m_player);
 }
 
 sf::Vector2f Level::getBounds()
 {
 	return sf::Vector2f(m_tileCount.x * m_tileSize.x, m_tileCount.y * m_tileSize.y);
+}
+
+void Level::startLevel()
+{
+	m_player->setPosition(m_startPos);
+}
+
+void Level::reset()
+{
+	for (auto & tile : m_tiles) {
+		tile->m_seen = false;
+	}
+	m_complete = false;
+	m_key.m_active = true;
 }
 
 void Level::parseTMXMap(tmx::Map & map)
@@ -202,7 +224,7 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 			int y_pos = y * m_tileHeight;
 
 
-			if (layerNum == 3) {
+			if (tile_layer->getName() == "Key") {
 				m_key.m_tile = new Tile(
 					m_tilesets.at(tset_gid),
 					x_pos,
@@ -215,7 +237,7 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 					layerNum
 				);
 			}
-			else if (layerNum == 4) {
+			else if (tile_layer->getName() == "Door") {
 				Tile * d = new Tile(
 					m_tilesets.at(tset_gid),
 					x_pos,

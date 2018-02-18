@@ -21,6 +21,10 @@ public:
 	void renderSeenTiles(sf::RenderTarget & targ);
 	void update();
 	sf::Vector2f getBounds();
+	void startLevel();
+	bool m_complete;
+	void reset();
+	void setLightBlockingTile(LightEngine & le);
 
 protected:
 	Player * m_player;
@@ -40,15 +44,14 @@ protected:
 
 	int m_rows, m_cols;
 	int m_tileWidth, m_tileHeight;
-
+	
 	void parseTMXMap(tmx::Map & map);
 	void parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 	void parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int layerNum);
 	void raycast();
-	void setLightBlockingTile(LightEngine & le);
+	
 	bool checkCollisions(Tile* t, Character* c, bool push);
 	void setSeenTiles(Player * player);
-
 };
 
 #endif //!LEVEL

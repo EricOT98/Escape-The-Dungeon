@@ -31,6 +31,7 @@ void MenuHandler::update(Xbox360Controller & controller)
 			}
 			else
 			{
+				m_previousMenu = m_menuState;
 				m_menuState = m_nextState;
 				m_menus.at(m_currentMenu)->resetNextGameState();
 			}

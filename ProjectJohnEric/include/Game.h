@@ -18,7 +18,6 @@
 #include "../Input/Xbox360Controller.h"
 #include "../Menu/MenuHandler.h"
 #include "../Lights/LightEngine.h"
-#include "Thor\Resources.hpp"
 
 class Game
 {
@@ -39,7 +38,7 @@ private:
 
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
-
+	void startGame();
 	Player m_player;
 
 	KeyboardHandler * m_keyHandler;
@@ -63,7 +62,8 @@ private:
 	sf::RenderTexture lightMapTexture;
 	sf::Sprite lightmap;
 	sf::Color brightness;
-	std::map<std::string, Level> m_levels;
+	std::vector<Level *> m_levels;
+	int m_currLevel;
 };
 
 #endif // !GAME
