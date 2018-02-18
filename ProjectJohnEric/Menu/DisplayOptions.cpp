@@ -26,15 +26,6 @@ void DisplayOptions::update(Xbox360Controller & controller)
 		goToMenu(m_previousMenu);
 		reset();
 	}
-
-	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Space))
-	{
-		std::cout << "Widgets:" << std::endl;
-		for (auto widget : m_gui.m_widgets)
-		{
-			std::cout << "Widget: " << widget->getType() << std::endl;
-		}
-	}
 	m_gui.update();
 }
 

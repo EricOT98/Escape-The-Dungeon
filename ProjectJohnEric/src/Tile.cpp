@@ -17,38 +17,30 @@ Tile::Tile(sf::Texture * tex, int x, int y, int tx, int ty, int w, int h, int gi
 	//rect.setFillColor(sf::Color(255,0,0,50));
 	rect.setOutlineColor(sf::Color::Yellow);
 
-	if (m_layer == 0){
-		rect.setFillColor(sf::Color(255, 255, 255));
-	}
-	else if (m_layer == 1) {
-		rect.setFillColor(sf::Color(255, 255, 255));
-	}
-	else if (m_layer == 2) {
-		rect.setFillColor(sf::Color(255, 255, 255));
-	}
+	//Needs to be white for lighting to work properly(can be grey too i think)
+	rect.setFillColor(sf::Color(255, 255, 255));
+
 	m_block.fRect.left = m_x;
 	m_block.fRect.top = m_y;
 
 	m_block.setSize(rect.getSize());
-	if (m_layer == 1) {
-		m_block.setAllowed(true);
-	}
+
 	m_seen = false;
 }
 
 void Tile::draw(sf::RenderTarget & targ)
 {
-	//if (withinViewBounds(sf::FloatRect(0, 000, 200, 200))) {
-
 	targ.draw(m_sprite);
-		//window.draw(rect);
-		//std::cout << m_gid << std::endl;
-	//}
 }
 
 void Tile::draw(sf::RenderTarget & targ, int i)
 {
 	targ.draw(rect);
+}
+
+void Tile::setOccluding(bool occluding = false)
+{
+	m_block.allowBlock = occluding;
 }
 
 

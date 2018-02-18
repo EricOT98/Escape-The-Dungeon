@@ -91,13 +91,11 @@ void Checkbox::processInput(Xbox360Controller & controller)
 			m_tickRect.setFillColor(m_fillColor);
 			if (m_soundsActive)
 				m_clickSound.play();
-			std::cout << "On" << std::endl;
 		}
 		else {
 			m_tickRect.setFillColor(m_translucent);
 			if (m_soundsActive)
 				m_clickSound.play();
-			std::cout << "Off" << std::endl;
 		}
 	}
 }

@@ -71,15 +71,16 @@ bool Level::load(std::string & filepath, LightEngine & le)
 void Level::setPlayer(Player * player)
 {
 	m_player = player;
+	m_player->setPosition(m_startPos);
 }
 
 void Level::render(sf::RenderTarget & targ)
 {
 	for (auto tile : m_tiles) {
-		if (!tile->m_seen)
+		//if (!tile->m_seen)
 			tile->draw(targ);
-		else
-			tile->draw(targ, 1);
+		//else
+		//	tile->draw(targ, 1);
 	}
 	for (auto obj : m_levelObjects) {
 		//obj->render(window);
@@ -184,8 +185,6 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 			if (tset_gid == -1)
 				continue;
 			//Normalize the GID(converts it to a 1 to n range instead of an n to m range)
-			//else if (cur_gid == 189 || cur_gid == 170)
-			//	tset_gid = 53;
 
 			cur_gid -= tset_gid;
 			//@debug
@@ -231,9 +230,17 @@ void Level::parseTMXTileLayer(const std::unique_ptr<tmx::Layer> & layer, int lay
 				m_door.m_tiles.push_back(d);
 			}
 			else {
+				
 				//Finally actually adding the finished tile
 				Tile * t = new Tile(m_tilesets.at(tset_gid), x_pos, y_pos,
 					region_x, region_y, m_tileWidth, m_tileHeight, cur_gid, layerNum);
+				if (tile_layer->getName() == "Occlusion") {
+					t->setOccluding(true);
+				}
+				else if (tile_layer->getName() == "Wall") {
+					t->m_collidable = true;
+				}
+				
 				m_tiles.push_back(t);
 				//@debug
 				//std::cout << "added tile to the level tiles" << std::endl;
@@ -249,37 +256,41 @@ void Level::parseTMXObjectLayer(const std::unique_ptr<tmx::Layer> & layer, int l
 
 	std::cout << "Name: " << object_layer->getName();
 	for (auto & object : layer_objects) {
-		uint32_t object_uid = object.getUID();
-		const tmx::FloatRect object_aabb = object.getAABB();
+		if (object.getName() != "StartPoint") {
+			uint32_t object_uid = object.getUID();
+			const tmx::FloatRect object_aabb = object.getAABB();
 
-		sf::Vector2f pos = sf::Vector2f(object.getPosition().x, object.getPosition().y);
-		sf::FloatRect rect = sf::FloatRect(object_aabb.left, object_aabb.top, object_aabb.width, object_aabb.height);
-		bool trigger = false;
-		if (object.getType() == "Trigger") { trigger = true; }
-		Object * o = new Object(pos, rect, true, trigger);
-		m_levelObjects.push_back(o);
+			sf::Vector2f pos = sf::Vector2f(object.getPosition().x, object.getPosition().y);
+			sf::FloatRect rect = sf::FloatRect(object_aabb.left, object_aabb.top, object_aabb.width, object_aabb.height);
+			bool trigger = false;
+			if (object.getType() == "Trigger") { trigger = true; }
+			Object * o = new Object(pos, rect, true, trigger);
+			m_levelObjects.push_back(o);
+		}
+		else {
+			m_startPos = sf::Vector2f(object.getPosition().x, object.getPosition().y);
+		}
 	}
 }
 
 void Level::setLightBlockingTile(LightEngine & le)
 {
 	for (auto & tile : m_tiles) {
-		if (tile->m_layer == 1) {
-			tile->m_block.setAllowed(true);
+		if (tile->m_block.allowBlock){
 			le.Blocks.push_back(&tile->m_block);
 		}
 	}
 
-	for (auto & obs : m_levelObjects) {
+	//for (auto & obs : m_levelObjects) {
 
-		Block * b = new Block();
-		b->setAllowed(true);
-		b->setPosition(obs->getPosition());
-		std::cout << "Position: " << b->fRect.top << "," << b->fRect.left << std::endl;
-		b->setSize(obs->getSize());
-		std::cout << "Size: " << b->fRect.width << "," << b->fRect.height << std::endl;
-		le.Blocks.push_back(b);
-	}
+	//	Block * b = new Block();
+	//	b->setAllowed(true);
+	//	b->setPosition(obs->getPosition());
+	//	std::cout << "Position: " << b->fRect.top << "," << b->fRect.left << std::endl;
+	//	b->setSize(obs->getSize());
+	//	std::cout << "Size: " << b->fRect.width << "," << b->fRect.height << std::endl;
+	//	le.Blocks.push_back(b);
+	//}
 }
 
 
@@ -334,18 +345,18 @@ bool Level::checkCollisions(Tile* t, Character* c, bool push)
 	}
 
 	// Distance between the circle's centre and the point of collision.
-	float dist = sqrt((p.x - cen.x)*(p.x - cen.x) + (p.y - cen.y)*(p.y - cen.y));
-
-	if (abs(dist) < c->getRadius())
+	float distSqr = (p.x - cen.x)*(p.x - cen.x) + (p.y - cen.y)*(p.y - cen.y); //Will always be positive
+	float radius = c->getRadius();
+	if (distSqr < radius * radius)
 	{
 
 		if (push) {
-			float penDist = c->getRadius() - abs(dist);
+			float penDist = radius - sqrt(distSqr);
 			float penAngle = atan2(p.y - cen.y, p.x - cen.x);
 
 			sf::Vector2f edge;
-			edge.x = cen.x + c->getRadius() * cos(penAngle);
-			edge.y = cen.y + c->getRadius() * sin(penAngle);
+			edge.x = cen.x + radius * cos(penAngle);
+			edge.y = cen.y + radius * sin(penAngle);
 
 			sf::Vector2f penVec;
 			penVec.x = edge.x + penDist * cos(penAngle);
@@ -362,16 +373,13 @@ bool Level::checkCollisions(Tile* t, Character* c, bool push)
 
 void Level::setSeenTiles(Player * player)
 {
-	if (m_player->getRotation() != NULL) {
-		std::cout << "Player rotation: " << player->getRotation() << std::endl;
-	}
 	for (auto & tile : m_tiles) {
 		if (!tile->m_seen) {
 			sf::Vector2f tileSize(tile->m_sprite.getGlobalBounds().width, tile->m_sprite.getGlobalBounds().height);
 			sf::Vector2f tileCenter = tile->m_sprite.getPosition() + (tileSize / 2.0f);
 			if (col_utils::pointInSector(tileCenter.x, tileCenter.y, player->getPosition().x, player->getPosition().y, player->getRotation() - player->m_fieldOfVision / 2, player->getRotation() + player->m_fieldOfVision / 2, player->m_visionRange)) {
 				tile->m_seen = true;
-				std::cout << "Seent tile" << tile->m_gid << std::endl;
+				//std::cout << "Seen tile" << tile->m_gid << std::endl;
 			}
 		}
 	}

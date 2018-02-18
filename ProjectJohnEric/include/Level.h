@@ -24,7 +24,7 @@ public:
 
 protected:
 	Player * m_player;
-
+	sf::Vector2f m_startPos;
 	tmx::Map m_map;
 	std::map<uint32_t, sf::Texture *> m_tilesets;
 	std::vector<sf::Texture *> m_tileset_textures;

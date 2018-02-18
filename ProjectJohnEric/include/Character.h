@@ -22,7 +22,7 @@ public:
 
 	Character();
 	Character(string name);
-
+	
 	virtual string getName();
 	virtual float getRadius();
 
@@ -33,6 +33,7 @@ public:
 
 	virtual void applyForce(sf::Vector2f direction);
 	virtual void move();
+	void setPosition(sf::Vector2f pos);
 
 	sf::Vector2f getPosition(){
 		return m_position;

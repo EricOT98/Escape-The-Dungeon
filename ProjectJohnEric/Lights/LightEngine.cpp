@@ -18,6 +18,18 @@ const sf::Vector2f LightEngine::GetCenter(const sf::FloatRect &fr)
 
 
 
+const float LightEngine::DistanceSqr(const sf::Vector2f &p1, const sf::Vector2f &p2)
+
+{
+	float a = p2.x - p1.x;  //width length
+
+	float b = p2.y - p1.y; //height length
+
+	float c = ((a * a) + (b * b));//Return squared dist for efficency
+
+	return c;
+}
+
 const float LightEngine::Distance(const sf::Vector2f &p1, const sf::Vector2f &p2)
 
 {
@@ -25,7 +37,7 @@ const float LightEngine::Distance(const sf::Vector2f &p1, const sf::Vector2f &p2
 
 	float b = p2.y - p1.y; //height length
 
-	float c = sqrt((a * a) + (b * b)); //Pythagorean Theorem. (c� = a� + b�). c = squareroot(a� + b�)
+	float c = sqrt((a * a) + (b * b));
 
 	return c;
 }
@@ -34,6 +46,7 @@ const float LightEngine::Distance(const sf::Vector2f &p1, const sf::Vector2f &p2
 
 void LightEngine::init()
 {
+	g_resourceManager.textureHolder["Light"].setSmooth(true);
 	lightShape.setTexture(&g_resourceManager.textureHolder["Light"]);
 }
 
@@ -54,13 +67,11 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 	float dyn_len = l->radius; //dynamic length of the light. This will be changed in the function LightHitsBlock()
 
 	float addto = 1.f / l->radius;
-
-	//TODO: ERIC better version of this maybe using triangels??
 	
 	uint16_t points = 1;
 	std::vector<sf::Vector2f> shapePoints;
 	shapePoints.push_back(l->position);
-	int count = 0;
+
 	for (current_angle; current_angle < l->angle + (l->angleSpread / 2); current_angle += addto * (180.f / 3.14f)) //we need to add to the current angle, until it reaches the end of the arc. we divide 1.f by radius for a more solid shape. Otherwize you could see lines seperating
 
 	{
@@ -70,7 +81,7 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 
 		findDis.shortest = 0; //Reset the shortest.
 
-		if (l->dynamic) //can this change?
+		if (l->dynamic)
 
 		{
 			for (unsigned i = 0; i < Blocks.size(); i++)
@@ -79,7 +90,7 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 			}
 
 		}
-		float radians = current_angle * (3.14f / 180); //Convert to radians for trig functions
+		float radians = current_angle * (3.14f / 180); //Convert to radians
 
 
 
@@ -98,8 +109,6 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 		};*/
 
 		/*rt.draw(line, 2, sf::Lines);*/
-		count++;
-		//TODO: ERIC better version of this maybe using triangels??
 		shapePoints.push_back(end);
 		points++;
 	}
@@ -108,7 +117,8 @@ void LightEngine::ShineLight(Light *l, sf::RenderTarget &rt)
 	for (int i = 0; i < points; i++) {
 		lightShape.setPoint(i, shapePoints.at(i));
 	}
-	lightShape.setFillColor(sf::Color(174, 146, 9, 200));
+	//lightShape.setTexture(m_tex);
+	lightShape.setFillColor(sf::Color(255, 255, 255, 100));
 	
 	rt.draw(lightShape);
 }
@@ -117,27 +127,27 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 
 {
 
-	if (b.allowBlock) //can this even block?
+	if (b.allowBlock)//light blocking tile
 
 	{
-		float distance = Distance(l.position, GetCenter(b.fRect));
+		float distanceSqr = DistanceSqr(l.position, GetCenter(b.fRect));
 
-		if (l.radius >= distance) //check if it's radius is even long enough to hit a block
+		if (l.radius * l.radius >= distanceSqr) //check if it's radius is even long enough to hit a block
 		{
 
-			float radians = cur_ang * (3.14f / 180); //convert cur_ang to radians for trig functions
+			float radians = cur_ang * (3.14f / 180); //convert to radians
 			sf::Vector2f pointpos = l.position;
-
+			float distance = sqrt(distanceSqr);
 			pointpos.x += cos(radians) * distance;
 
 			pointpos.y += sin(radians) * distance;
 
 			//By doing this, we check if the angle is in the direciton of the block.
 
-			/*sf::FloatRect tempRect = sf::FloatRect(b.fRect.left, b.fRect.top, b.fRect.width, b.fRect.height);*/
 
 			if (b.fRect.contains(pointpos)) //If it was, than the point would be intersecting the rectangle of the block
 			{
+				//Get the closest wall it collided with
 				sf::Vector2f walls[4];
 				bool collided = false;
 				//TL Vect TR Vect - TOP
@@ -156,24 +166,24 @@ bool LightEngine::FindDistance::LightHitsBlock(Light &l, Block &b, float cur_ang
 				walls[3] = col_utils::lineLineIntersectionPoints(
 					b.fRect.left, b.fRect.top + b.fRect.height, b.fRect.left + b.fRect.width, b.fRect.top + b.fRect.height, l.position.x, l.position.y, pointpos.x, pointpos.y);
 
-				float shortestDistance = Distance(l.position, walls[0]);
+				float shortestDistanceSqr = DistanceSqr(l.position, walls[0]);
 
 				for (int i = 1; i < 4; i++) {
 					//Temp check to stop all points going back to origin
 					if (walls[i].x != 0 && walls[i].y != 0) {
-						float currDistance = Distance(l.position, walls[i]);
-						if (currDistance < shortestDistance) {
-							shortestDistance = currDistance;
+						float currDistanceSqr = DistanceSqr(l.position, walls[i]);
+						if (currDistanceSqr < shortestDistanceSqr) {
+							shortestDistanceSqr = currDistanceSqr;
 						}
 					}
 				}
-				distance = shortestDistance;
+				distance = sqrt(shortestDistanceSqr);
 				//std::cout << "Point in square" << std::endl;
-				if (start || distance < shortest) //If this is the first block, or it has a shorter distance
+				if (start || distance < shortest)
 				{
-					start = false; //definately not the start so other blocks can't automatically set the distance
-					shortest = distance; //shortest is set to this
-					refleng = shortest; //This is where the dynamic comes in, it changes the length of the reference towhere it's going to stop after it hits the distance from the point to the block
+					start = false; 
+					shortest = distance; 
+					refleng = shortest; //Stops line after colliding with wall
 				}
 				return true;
 			}

@@ -14,9 +14,7 @@ Player::Player()
 /// </summary>
 /// <param name="name">Name of the character for testing</param>
 Player::Player(string name)
-	: Character(name),
-	m_visionRange(50),
-	m_fieldOfVision(22.5)
+	: Character(name)
 {
 	m_TESTPOINTER.setSize(sf::Vector2f(0.5, m_visionRange));
 	m_TESTPOINTER.setOrigin(1, 0);
@@ -29,6 +27,18 @@ Player::Player(string name)
 
 void Player::init(LightEngine & engine)
 {
+	Character::init();
+	//Torch
+	m_viewPercent = 0;
+	m_viewStep = 0.01;
+	m_fovMin = 22.5;
+	m_fovMax = 77.5;
+	m_rangeMin = 100;
+	m_rangeMax = 150;
+	
+	m_visionRange = m_rangeMin;
+	m_fieldOfVision = m_fovMax;
+	//Lighting
 	m_light = new Light();
 	m_light->position = m_position;
 	m_light->radius = m_visionRange;
@@ -37,15 +47,12 @@ void Player::init(LightEngine & engine)
 	m_light->color = sf::Color(120, 110, 60, 128);
 	m_light->endColor = sf::Color(240, 230, 120, 255);
 	engine.Lights.push_back(m_light);
+
+
 	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);
 	m_walking.setLoop(true);
 	m_soundsLoaded = true;
-	m_viewPercent = 0;
-	m_viewStep = 0.01;
-	m_fovMin = 22.5;
-	m_fovMax = 45;
-	m_rangeMin = 50;
-	m_rangeMax = 150;
+	
 }
 
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
@@ -75,23 +82,28 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 	{
 		m_viewForward = false;
 	}
+
+#pragma region TORCH_LOGIC
 	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::R)) {
 		if(m_viewPercent < 1)
 			m_viewPercent += m_viewStep;
 
 		m_visionRange = lerp(m_rangeMin, m_rangeMax, m_viewPercent);
 		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
+		std::cout << "FOV:" << m_fieldOfVision << std::endl;
 		m_light->radius = m_visionRange;
 		m_light->angleSpread = m_fieldOfVision;
 	}
-	else if(m_visionRange > 50){
+	else {
 		if (m_viewPercent > 0)
 			m_viewPercent -= m_viewStep;
 		m_visionRange = lerp(m_rangeMin, m_rangeMax, m_viewPercent);
-		m_fieldOfVision = lerp(m_fovMax, m_fovMin, 1 - m_viewPercent);
+		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
 		m_light->radius = m_visionRange;
 		m_light->angleSpread = m_fieldOfVision;
 	}
+
+#pragma endregion
 
 
 #pragma region MOVEMENT_LOGIC

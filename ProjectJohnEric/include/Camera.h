@@ -21,12 +21,12 @@ public:
 
 	void render(sf::RenderWindow &window);
 	void pauseTransition();
-
+	float m_zoom;
 private:
 	KeyboardHandler* m_keyHandler;
 	Player* m_player;
 
-	float m_zoom;
+	
 
 	sf::Vector2f m_position;
 	sf::Vector2f m_outputCentre;

@@ -7,14 +7,6 @@
 Label::Label( sf::Font & font, Widget * parent = nullptr) :
 	m_font(font)
 {
-	//std::cout << "Label created" << std::endl;
-
-	//if (!m_font->loadFromFile("ASSETS/FONTS/ariblk.TTF"))
-	//{
-	//	std::string s("Error loading font <ariblk.TTF>");
-	//	//throw std::exception(s.c_str());
-	//}
-	
 	m_text.setFont(m_font);
 	m_text.setFillColor(m_unselectedColor);
 	m_type = typeid(Label).name();

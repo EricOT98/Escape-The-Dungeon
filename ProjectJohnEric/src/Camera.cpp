@@ -13,11 +13,12 @@ Camera::Camera(Player* player)
 void Camera::init()
 {
 	m_menuView.reset(sf::FloatRect(0, 0, 1080, 720));
-	m_view.setSize(sf::Vector2f(800, 800));
-	m_view.zoom(0.3);
+	m_view.setSize(sf::Vector2f(1080, 720));
+	m_zoom = 0.3;
+	m_view.zoom(m_zoom);
+	
 
 	m_miniMap.setViewport(sf::FloatRect(0.1, 0.7, 0.3, 0.3));
-
 	m_weight = 0.1;
 	m_shake = 0.1;
 	m_maxAngle = 0.5;

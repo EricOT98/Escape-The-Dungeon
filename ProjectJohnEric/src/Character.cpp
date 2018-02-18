@@ -50,7 +50,7 @@ void Character::render(sf::RenderTarget &targ)
 	else
 		m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 255));
 
-	//targ.draw(m_rect);
+	targ.draw(m_rect);
 	targ.draw(m_DEBUGCIRCLE);
 	/*targ.draw(m_TESTPOINTER);
 	targ.draw(m_TESTLEFT);
@@ -78,7 +78,7 @@ void Character::init()
 	}
 	m_rect.setSize(sf::Vector2f(16, 16));
 	m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
-	m_rect.setFillColor(sf::Color::Black);
+	m_rect.setFillColor(sf::Color::Red);
 	m_rect.setPosition(m_position);
 
 	m_minimapIcon.setRadius(m_collisionRadius*1.5);
@@ -115,6 +115,11 @@ void Character::move()
 	}
 
 	m_position += m_direction * m_moveSpeed;
+}
+
+void Character::setPosition(sf::Vector2f pos)
+{
+	m_position = pos;
 }
 
 

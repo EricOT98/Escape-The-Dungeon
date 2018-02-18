@@ -24,8 +24,7 @@ public:
 	Player(string name);
 	void init(LightEngine & engine);
 	void update(sf::RenderWindow &window, Xbox360Controller & controller);
-	
-	void processInput(Xbox360Controller & controller);
+
 	bool getViewForward() {
 		return m_viewForward;
 	}
@@ -37,19 +36,14 @@ public:
 
 	float m_rangeMin, m_rangeMax;
 	float m_fovMin, m_fovMax;
-
 	float lerp(float start, float end, float percentage);
 protected:
 	bool m_usingMouse;
 	bool m_viewForward;
 
 private:
-	KeyboardHandler * m_keyHandler;
-
-	
-	
 	Xbox360Controller controller;
-	Light *  m_light;
+	Light * m_light;
 	sf::Sound m_walking;
 	bool m_soundsLoaded;
 };

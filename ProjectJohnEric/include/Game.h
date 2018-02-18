@@ -50,8 +50,6 @@ private:
 	std::vector<Xbox360Controller> m_controllers;
 	MenuStates m_menuStates;
 	MenuHandler m_menuHandler;
-
-	Level m_levels[2];
 	//Menu objects if using predefined menus to be stroed in header
 
 	sf::CircleShape m_debug;
@@ -59,14 +57,13 @@ private:
 	////TODO: Eric Lights
 	LightEngine m_lightEngine;
 	//LightEngine le;
-	Block block;
-	Light light;
 	sf::RectangleShape debugRect;
 	sf::Music m_backgroundMusic;
 
 	sf::RenderTexture lightMapTexture;
 	sf::Sprite lightmap;
 	sf::Color brightness;
+	std::map<std::string, Level> m_levels;
 };
 
 #endif // !GAME

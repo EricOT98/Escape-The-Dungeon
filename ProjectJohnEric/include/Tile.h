@@ -21,7 +21,8 @@ public:
 	//Used for controlled culling of the tiles
 	bool m_onScreen;
 	bool m_seen;
-	
+
+	bool m_collidable;
 	Block m_block;
 	sf::Texture * m_texture;
 	sf::Sprite  m_sprite;
@@ -31,7 +32,7 @@ public:
 
 	void draw(sf::RenderTarget & targ);
 	void draw(sf::RenderTarget & targ, int i);
-
+	void setOccluding(bool occluding);
 	bool withinViewBounds(const sf::FloatRect & bounds);
 };
 

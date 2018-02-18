@@ -20,16 +20,10 @@ void MenuHandler::addMenu(std::unique_ptr<Menu> &m)
 /// <param name="controller">The current connected controller</param>
 void MenuHandler::update(Xbox360Controller & controller)
 {
-	//@debug
-	//std::cout << "Menu HAndler Update" << std::endl;
 	for (m_currentMenu = 0; m_currentMenu < m_menus.size(); ++m_currentMenu)
 	{
 		if (m_menus.at(m_currentMenu)->getMenuState() == m_menuState)	//Check if the current menu is to be updated
 		{
-			/*if (m_menuChanged) {
-				m_menus.at(m_currentMenu)->setPreviousMenu(m_previousMenu);
-				m_menuChanged = false;
-			}*/
 			m_menus.at(m_currentMenu)->update(controller); //update current menu
 			if (m_nextState == m_menuState)
 			{
@@ -37,11 +31,8 @@ void MenuHandler::update(Xbox360Controller & controller)
 			}
 			else
 			{
-				//m_menus.at(m_currentMenu)->setPreviousMenu(m_menuState);
-				//m_previousMenu = m_menuState;
 				m_menuState = m_nextState;
 				m_menus.at(m_currentMenu)->resetNextGameState();
-				/*m_menuChanged = true;*/
 			}
 			break;
 		}

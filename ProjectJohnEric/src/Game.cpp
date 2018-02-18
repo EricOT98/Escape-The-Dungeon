@@ -23,58 +23,45 @@ Game::Game() :
 	m_player("test"),
 	m_camera(&m_player)
 {
+	//Load Levels
 	g_resourceManager.loadAssets();
 	m_backgroundMusic.openFromFile("ASSETS/SOUNDS/dark_ambient.wav");
 	m_backgroundMusic.setLoop(true);
-
-	
-
 
 	std::string filename = "ASSETS/LEVELS/Level1.tmx";
 	m_level.load(filename, m_lightEngine);
 	m_level.setPlayer(&m_player);
 
-	lightMapTexture.create(m_level.getBounds().x, m_level.getBounds().y);
-	lightmap.setTexture(lightMapTexture.getTexture());
+	
 
+	//Input
 	m_keyHandler = m_keyHandler->GetInstance();
-
-	if (m_testTexture.loadFromFile("ASSETS/IMAGES/testMap.png")) {
-		m_testSprite.setTexture(m_testTexture);
-	}
-	else {
-		std::cout << "ERROR: LOADING FILENAME: " << __FILE__ << std::endl;
-	}
-
 	m_controllers.push_back(Xbox360Controller());
+
 	for (auto & controller : m_controllers) {
 		if (controller.isConnected()) {
 			std::cout << "Controller Connected" << std::endl;
 		}
 	}
+
+	
+	//Lights
+	lightMapTexture.create(m_level.getBounds().x, m_level.getBounds().y);
+	lightMapTexture.setSmooth(true);
+	lightmap.setTexture(lightMapTexture.getTexture());
 	brightness = sf::Color(1, 1, 1);
 
-	//m_debug.setRadius(5);
-	//m_debug.setOrigin(sf::Vector2f(m_debug.getRadius(), m_debug.getRadius()));
-	//m_debug.setPosition(sf::Vector2f(light->getAABB().left, light->getAABB().width));
-
-	debugRect.setPosition(0, 0);
-	debugRect.setFillColor(sf::Color(128, 128, 128));
-	debugRect.setSize(sf::Vector2f(1080, 720));
-
-	//Lights
 	m_lightEngine.init();
 	m_player.init(m_lightEngine);
+
+	//Menus
 	initialiseMenus();
-	//m_menuStates = MenuStates::MAIN_MENU;
 }
 
 
 Game::~Game()
 {
 	m_keyHandler = nullptr;
-	
-
 	delete m_keyHandler;
 }
 
@@ -174,10 +161,6 @@ void Game::update(sf::Time t_deltaTime)
 		m_player.update(m_window, m_controllers.at(0));
 		m_camera.update();
 
-		//TODO Lights Test
-		/*le.Blocks[0].fRect.left = m_player.m_DEBUGCIRCLE.getPosition().x - m_player.m_DEBUGCIRCLE.getRadius();
-		le.Blocks[0].fRect.top = m_player.m_DEBUGCIRCLE.getPosition().y - m_player.m_DEBUGCIRCLE.getRadius();
-		*/
 		if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
 		{
 			m_menuHandler.goToMenu(MenuStates::PAUSE);
@@ -201,7 +184,6 @@ void Game::update(sf::Time t_deltaTime)
 
 	if (m_exitGame)
 	{
-		//We must not c
 		m_menuHandler.stopAllMusic();
 		m_backgroundMusic.stop();
 		m_window.close();
@@ -218,37 +200,50 @@ void Game::render()
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
-		//Lighting
 		m_window.setView(m_camera.m_view);
+		//Lighting
 		lightMapTexture.clear(brightness);
-		//USe for rendering visible tiles
-		m_level.renderSeenTiles(lightMapTexture);
+		//m_level.renderSeenTiles(lightMapTexture);
 		m_player.render(lightMapTexture);
 		m_lightEngine.Step(lightMapTexture);
 		
+		
 		lightMapTexture.display();
-
 		lightmap.setPosition(0,0);
 		
-		//m_window.draw(debugRect);
+		//Shadowed Enitites
 		m_level.render(m_window);
 		m_window.draw(lightmap, sf::RenderStates(sf::BlendMultiply));
-	
+		
+		//Minimap
 		m_window.setView(m_camera.m_miniMap);
+		//TODO: Outline around Minimap
 		m_level.renderMiniMap(m_window);
 
 		m_player.renderMiniMap(m_window);
+
+		m_window.setView(m_camera.m_menuView);
+		//Draw Ui here
+
 		break;
 	case MenuStates::PAUSE:
-		m_window.setView(m_camera.m_menuView);
+		m_window.setView(m_camera.m_view);
+		//Bright Visible entities
+		lightMapTexture.clear(brightness);
+		m_player.render(lightMapTexture);
+		m_lightEngine.Step(lightMapTexture);
+		lightMapTexture.display();
+		lightmap.setPosition(0, 0);
+
+		//Shadowed entities
 		m_level.render(m_window);
-		//m_camera.render(m_window);         // TODO: JUST FOR TESTING!!
-										   //m_window.draw(m_testSprite);
-		m_player.render(m_window);
+		//Draw visible entities over shadowed ones
+		m_window.draw(lightmap, sf::RenderStates(sf::BlendMultiply));
+
+		m_window.setView(m_camera.m_menuView);
 		m_menuHandler.render(m_window);
 		break;
 	default:
-		//m_camera.resetView();
 		m_window.setView(m_camera.m_menuView);
 		m_menuHandler.render(m_window);
 		break;

@@ -117,7 +117,6 @@
     <ClCompile Include="src\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Menu\DisplayOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -131,9 +130,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Lights\CollisionUtils.cpp">
-=======
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Interactable.cpp">
->>>>>>> Working pickups and door unlocking
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ResourceManager.cpp">
@@ -228,7 +227,6 @@
     <ClInclude Include="Menu\OptionsMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="Menu\DisplayOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -245,9 +243,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Lights\CollisionUtils.h">
-=======
+     <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Interactable.h">
->>>>>>> Working pickups and door unlocking
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ResourceManager.h">

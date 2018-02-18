@@ -203,7 +203,6 @@ void Slider::increase()
 	if (m_value < 100)
 	{
 		tabPosition += m_increment;
-		//std::cout << "pos" << tabPosition << std::endl;
 		m_value++;
 		if (m_soundsActive && m_toggleSound.getStatus() != sf::Sound::Playing)
 			m_toggleSound.play();
