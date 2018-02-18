@@ -19,7 +19,6 @@ class MainMenu : public Menu
 public:
 	MainMenu(bool & quit, sf::Font & font);
 	~MainMenu();
-
 	void update(Xbox360Controller & controller) override;
 	void render(sf::RenderWindow & window) override;
 	void play();
@@ -30,6 +29,9 @@ public:
 	bool m_optionsPressed;
 	bool m_quitPressed;
 	bool & exit;
+
+	typedef std::function<void()> Callback;
+	Callback startGame;
 protected:
 	void initialise() override;
 	void initGUIObjects() override;

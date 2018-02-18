@@ -29,6 +29,7 @@ void MainMenu::update(Xbox360Controller & controller)
 	//Menu functionality for a button press
 	if (m_playPressed)
 	{
+		//startGame();
 		goToMenu(MenuStates::GAME);
 	}
 	if (m_optionsPressed)
@@ -85,6 +86,9 @@ void MainMenu::stopMusic()
 /// </summary>
 void MainMenu::initialise()
 {
+	m_playPressed = false;
+	m_optionsPressed = false;
+	m_quitPressed = false;
 	initGUIObjects();
 	m_play->select =  std::bind(&MainMenu::play, this);
 	m_options->select = std::bind(&MainMenu::options, this);

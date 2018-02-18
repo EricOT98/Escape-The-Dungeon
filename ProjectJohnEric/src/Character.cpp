@@ -87,7 +87,7 @@ void Character::init()
 
 	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
 	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
-	m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 150));
+	m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 255));
 }
 
 void Character::applyForce(sf::Vector2f direction)

@@ -224,3 +224,8 @@ float Player::lerp(float start, float end, float percent)
 {
 	return (start + percent * (end - start));
 }
+
+Light * Player::getLight()
+{
+	return m_light;
+}

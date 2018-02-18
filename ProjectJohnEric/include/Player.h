@@ -37,6 +37,7 @@ public:
 	float m_rangeMin, m_rangeMax;
 	float m_fovMin, m_fovMax;
 	float lerp(float start, float end, float percentage);
+	Light * getLight();
 protected:
 	bool m_usingMouse;
 	bool m_viewForward;

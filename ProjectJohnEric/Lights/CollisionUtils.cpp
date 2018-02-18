@@ -65,3 +65,8 @@ bool col_utils::pointInSector(float px, float py, float centerX, float centerY, 
 	
 	return (distSqr < radius * radius && distSqr > 0 &&  angle > startAngle && angle < endAngle);
 }
+
+bool col_utils::pointInCircle(float px, float py, float cx, float cy, float radius)
+{
+	return ((px - cx) * (px - cx ) + (py - cy) * (py -cy)) < radius * radius;
+}

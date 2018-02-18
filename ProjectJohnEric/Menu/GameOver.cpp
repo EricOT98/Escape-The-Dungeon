@@ -81,8 +81,8 @@ void GameOver::initGUIObjects()
 	m_mainmenu = new Button( m_font, nullptr);
 	m_retry = new Button( m_font, nullptr);
 	m_gui.addLabel(m_title, "Game Over", sf::Vector2f(100, 0), 80, sf::Color::Green);
-	m_gui.addButton(m_mainmenu, "Return to Menu", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
-	m_gui.addButton(m_retry, "Replay", sf::Vector2f(400, 600), sf::Vector2i(200, 50), sf::Color::Green);
+	m_gui.addButton(m_mainmenu, "Return to Menu", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);
+	m_gui.addButton(m_retry, "Replay", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 
 	//selected, unselected, fill ,outline
 	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
