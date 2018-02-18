@@ -9,8 +9,15 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-
 using namespace std;
+
+struct Battery {
+	float m_remaining = 1;
+	sf::RectangleShape m_outline;
+	sf::RectangleShape m_filling;
+	sf::Color m_fillColour;
+	sf::Color m_outlineColour;
+};
 
 class Character
 {
@@ -43,6 +50,8 @@ public:
 	}
 
 protected:
+	Battery m_battery;
+
 	string m_name;
 	sf::RectangleShape m_rect;
 	sf::Texture m_texture;

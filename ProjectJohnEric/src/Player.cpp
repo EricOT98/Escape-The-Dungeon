@@ -58,7 +58,9 @@ void Player::init(LightEngine & engine)
 void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 {
 	controller.update();
-
+	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::L)) {
+		m_battery.m_remaining -= 0.05;
+	}
 	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Space))
 	{
 		if (m_usingMouse)

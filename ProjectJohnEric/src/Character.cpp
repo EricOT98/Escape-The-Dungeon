@@ -19,6 +19,7 @@ Character::Character(string name)
 	m_collisionRadius(8),
 	m_position(50,50)
 {
+
 }
 
 /// <summary>
@@ -52,6 +53,22 @@ void Character::render(sf::RenderTarget &targ)
 
 	targ.draw(m_rect);
 	targ.draw(m_DEBUGCIRCLE);
+	
+	sf::Vector2f batteryPos = m_position;
+	batteryPos.x -= cos(m_rotation*acos(-1) / 180) * 30;
+	batteryPos.y -= sin(m_rotation*acos(-1) / 180) * 30;
+
+	m_battery.m_outline.setPosition(batteryPos);
+	m_battery.m_outline.setRotation(m_rotation);
+	m_battery.m_filling.setPosition(batteryPos);
+	m_battery.m_filling.setRotation(m_rotation);
+
+	m_battery.m_fillColour.a = 255 * m_battery.m_remaining;
+	m_battery.m_outlineColour.a = m_battery.m_fillColour.a;
+	m_battery.m_filling.setFillColor(m_battery.m_fillColour);
+	m_battery.m_outline.setFillColor(m_battery.m_outlineColour);
+	targ.draw(m_battery.m_outline);
+	targ.draw(m_battery.m_filling);
 	/*targ.draw(m_TESTPOINTER);
 	targ.draw(m_TESTLEFT);
 	targ.draw(m_TESTRIGHT);*/
@@ -80,6 +97,18 @@ void Character::init()
 	m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
 	m_rect.setFillColor(sf::Color::Red);
 	m_rect.setPosition(m_position);
+
+	m_battery.m_outlineColour = sf::Color(0, 100, 0);
+	m_battery.m_outline.setSize(sf::Vector2f(30, 20));
+	m_battery.m_outline.setOrigin(15, 10);
+	m_battery.m_outline.setFillColor(m_battery.m_outlineColour);
+	m_battery.m_outline.setPosition(m_position);
+
+	m_battery.m_fillColour = sf::Color(0, 255, 30);
+	m_battery.m_filling.setSize(sf::Vector2f(25, 15));
+	m_battery.m_filling.setOrigin(12.5, 7.5);
+	m_battery.m_filling.setFillColor(m_battery.m_fillColour);
+	m_battery.m_filling.setPosition(m_position);
 
 	m_minimapIcon.setRadius(m_collisionRadius*1.5);
 	m_minimapIcon.setOrigin(m_collisionRadius*1.5, m_collisionRadius*1.5);
