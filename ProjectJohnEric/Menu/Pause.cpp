@@ -72,7 +72,7 @@ void Pause::initGUIObjects()
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_back, "Back to Main Menu", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::White, sf::Color::Black);
 }
 
 void Pause::reset()

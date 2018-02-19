@@ -11,7 +11,7 @@
 class OptionsMenu : public Menu
 {
 public:
-	OptionsMenu(sf::Font & font);
+	OptionsMenu(sf::Font & font, MenuStates & prev);
 	~OptionsMenu();
 
 	void update(Xbox360Controller & controller) override;
@@ -35,7 +35,7 @@ protected:
 	Button * m_sound;
 	Button * m_display;
 	Button * m_back;
-	MenuStates m_previousMenu;
+	MenuStates & m_previousMenu;
 };
 
 #endif //!OPTIONS_MENU

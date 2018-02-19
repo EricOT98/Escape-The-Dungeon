@@ -52,11 +52,39 @@ void Player::init(LightEngine & engine)
 	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);
 	m_walking.setLoop(true);
 	m_soundsLoaded = true;
-	
+	m_batteryLifespan = 30.0f; //seconds
+	m_batteryDecrement = m_battery.m_remaining / m_batteryLifespan;
+	m_alive = true;
+	m_sprite.setTexture(g_resourceManager.textureHolder["Player"]);
+	m_walkingAnimation = new Animation("Walking", m_sprite);
+	m_walkingAnimation->segmentTexture(1, 3);
+	m_walkingAnimation->loop(true);
+	m_walkingAnimation->play();
+	m_sprite.setTextureRect(sf::IntRect(0, 0, 140, 195));
+	m_sprite.setOrigin(sf::Vector2f(70.0f, 97.5f));
+	m_sprite.setScale(sf::Vector2f(0.2, 0.2));
+	m_walkingAnimation->play();
 }
 
-void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
+void Player::update(sf::RenderWindow &window, Xbox360Controller & controller, float dt)
 {
+	m_decrementTimer += dt;
+	m_sprite.setPosition(m_position);
+	m_sprite.setRotation(m_rotation +90);
+	if (m_moving) {
+		m_walkingAnimation->play();
+	}
+	else {
+		m_walkingAnimation->pause();
+	}
+	m_walkingAnimation->update(dt);
+	if (m_decrementTimer > 1) {
+		m_battery.m_remaining -= m_batteryDecrement;
+		m_decrementTimer = 0;
+	}
+	if (m_battery.m_remaining <= 0) {
+		m_alive = false;
+	}
 	controller.update();
 	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::L)) {
 		m_battery.m_remaining -= 0.05;
@@ -92,7 +120,6 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 		m_visionRange = lerp(m_rangeMin, m_rangeMax, m_viewPercent);
 		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
-		std::cout << "FOV:" << m_fieldOfVision << std::endl;
 		m_light->radius = m_visionRange;
 		m_light->angleSpread = m_fieldOfVision;
 	}
@@ -191,20 +218,15 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller)
 
 
 #pragma endregion
-
-#pragma region
+	
 	m_light->position = m_position;
 	m_light->angle = m_rotation;
+}
 
-#pragma region UPDATE_DEBUG
-	m_TESTPOINTER.setRotation(m_rotation - 90);
-	m_TESTPOINTER.setPosition(m_position);
-	m_TESTLEFT.setRotation(m_rotation - m_fieldOfVision/2 -90);
-	m_TESTLEFT.setPosition(m_position);
-	m_TESTRIGHT.setRotation(m_rotation + m_fieldOfVision / 2 - 90);
-	m_TESTRIGHT.setPosition(m_position);
-#pragma endregion
-
+void Player::render(sf::RenderTarget & targ)
+{
+	Character::render(targ);
+	m_walkingAnimation->render(targ);
 }
 
 void Player::move()
@@ -220,6 +242,12 @@ void Player::move()
 			m_walking.stop();
 		}
 	}
+}
+
+void Player::respawn()
+{
+	m_alive = true;
+	m_battery.m_remaining = 1;
 }
 
 float Player::lerp(float start, float end, float percent)

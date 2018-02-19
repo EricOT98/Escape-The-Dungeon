@@ -95,14 +95,6 @@ void Level::render(sf::RenderTarget & targ)
 			tile->draw(targ);
 		}
 	}
-
-	sf::CircleShape test;
-	test.setRadius(m_door.m_radius);
-	test.setOrigin(m_door.m_radius, m_door.m_radius);
-	test.setPosition(m_door.m_centre);
-	test.setFillColor(sf::Color(150, 0, 150, 255));
-
-	targ.draw(test);
 }
 
 void Level::renderMiniMap(sf::RenderTarget & targ)

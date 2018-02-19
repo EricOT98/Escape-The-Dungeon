@@ -30,8 +30,10 @@ Game::Game() :
 	m_backgroundMusic.setLoop(true);
 
 	std::vector<std::string> levelPaths;
+	levelPaths.push_back("ASSETS/LEVELS/Tutorial.tmx");
 	levelPaths.push_back("ASSETS/LEVELS/Level1.tmx");
 	levelPaths.push_back("ASSETS/LEVELS/Level2.tmx");
+	levelPaths.push_back("ASSETS/LEVELS/Level3.tmx");
 
 	for (int i = 0; i < levelPaths.size(); i++) {
 		Level * level = new Level();
@@ -61,7 +63,7 @@ Game::Game() :
 
 	m_lightEngine.init();
 	m_player.init(m_lightEngine);
-
+	m_hud.init();
 	//Menus
 	initialiseMenus();
 }
@@ -154,12 +156,14 @@ void Game::processGameEvents(sf::Event& event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-
+	float dt = t_deltaTime.asSeconds();
 	m_menuStates = m_menuHandler.getMenuState();
 	//Using a switch statement allows us to specify certain conditions for certain menus
 	switch (m_menuStates)
 	{
 	case MenuStates::GAME:
+		m_elapsedTime += dt;
+		
 		if (m_backgroundMusic.getStatus() != sf::Music::Playing) {
 			m_backgroundMusic.play();
 		}
@@ -190,7 +194,16 @@ void Game::update(sf::Time t_deltaTime)
 		}
 		m_levels.at(m_currLevel)->update();
 		m_window.setView(m_camera.m_view);
-		m_player.update(m_window, m_controllers.at(0));
+		m_player.update(m_window, m_controllers.at(0), dt);
+		m_hud.update(dt);
+		if (!m_player.m_alive) {
+			m_currLevel = 0;
+			m_lightEngine.Lights.clear();
+			m_lightEngine.Blocks.clear();
+			m_lightEngine.Lights.push_back(m_player.getLight());
+			m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
+			m_menuHandler.goToMenu(MenuStates::GAMEOVER);
+		}
 		m_camera.update();
 
 		if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Return))
@@ -256,7 +269,7 @@ void Game::render()
 
 		m_window.setView(m_camera.m_menuView);
 		//Draw Ui here
-
+		m_hud.render(m_window);
 		break;
 	case MenuStates::PAUSE:
 		m_window.setView(m_camera.m_view);
@@ -297,15 +310,18 @@ bool Game::initialiseMenus()
 	{
 		std::vector<std::unique_ptr<Menu>> menus;
 
-		//std::unique_ptr<MainMenu> mainMenu = std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]);
-		//mainMenu->startGame = std::bind(&Game::startGame, this);
-		//menus.push_back(std::move(mainMenu));
-		menus.push_back(std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]));
-		menus.push_back(std::make_unique<OptionsMenu>(g_resourceManager.fontHolder["GameFont"]));
+		std::unique_ptr<MainMenu> mainMenu = std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]);
+		mainMenu->startGame = std::bind(&Game::startGame, this);
+		menus.push_back(std::move(mainMenu));
+		std::unique_ptr<GameOver> gameOver = std::make_unique<GameOver>(g_resourceManager.fontHolder["GameFont"], m_player.m_alive, m_hud.m_time);
+		gameOver->retryGame = std::bind(&Game::startGame, this);
+
+		//menus.push_back(std::make_unique<MainMenu>(m_exitGame, g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::make_unique<OptionsMenu>(g_resourceManager.fontHolder["GameFont"], m_menuHandler.m_previousMenu));
 		menus.push_back(std::make_unique<SoundOptions>(g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<DisplayOptions>(g_resourceManager.fontHolder["GameFont"]));
 		menus.push_back(std::make_unique<Pause>(g_resourceManager.fontHolder["GameFont"]));
-		menus.push_back(std::make_unique<GameOver>(g_resourceManager.fontHolder["GameFont"]));
+		menus.push_back(std::move(gameOver));
 		for (auto & menu : menus) {
 			
 			m_menuHandler.addMenu(menu);
@@ -331,9 +347,13 @@ bool Game::initialiseMenus()
 
 void Game::startGame()
 {
+	m_currLevel = 0;
 	m_lightEngine.Lights.clear();
 	m_lightEngine.Blocks.clear();
 	m_lightEngine.Lights.push_back(m_player.getLight());
 	m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
 	m_levels.at(m_currLevel)->startLevel();
+	m_levels.at(m_currLevel)->reset();
+	m_player.respawn();
+	m_hud.reset();
 }

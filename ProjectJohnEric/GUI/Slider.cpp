@@ -1,4 +1,5 @@
 #include "Slider.h"
+#include "ResourceManager.h"
 
 /// <summary>
 /// Default constructor
@@ -13,6 +14,8 @@ Slider::Slider( sf::Font & font, Widget * parent = nullptr)
 	bar.setOutlineThickness(5);
 	bar.setOutlineColor(m_outlineColor);
 	bar.setFillColor(m_fillColor);
+	bar.setTexture(&g_resourceManager.textureHolder["Sliderbar"]);
+	tab.setTexture(&g_resourceManager.textureHolder["Slidertab"]);
 	tab.setFillColor(m_outlineColor);
 	m_length = 0;
 	m_increment = 0;

@@ -25,6 +25,7 @@
     <ClInclude Include="GUI\Label.h" />
     <ClInclude Include="GUI\Slider.h" />
     <ClInclude Include="GUI\Widget.h" />
+    <ClInclude Include="include\Animation.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Character.h" />
     <ClInclude Include="include\Game.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\Tile.h" />
+    <ClInclude Include="include\UI.h" />
     <ClInclude Include="include\Xbox360Controller.h" />
     <ClInclude Include="Input\PS4Controller.h" />
     <ClInclude Include="Input\Xbox360Controller.h" />
@@ -58,6 +60,7 @@
     <ClCompile Include="GUI\Label.cpp" />
     <ClCompile Include="GUI\Slider.cpp" />
     <ClCompile Include="GUI\Widget.cpp" />
+    <ClCompile Include="include\UI.cpp" />
     <ClCompile Include="Input\PS4Controller.cpp" />
     <ClCompile Include="Input\Xbox360Controller.cpp" />
     <ClCompile Include="Lights\Block.cpp" />
@@ -71,6 +74,7 @@
     <ClCompile Include="Menu\OptionsMenu.cpp" />
     <ClCompile Include="Menu\Pause.cpp" />
     <ClCompile Include="Menu\SoundOptions.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Game.cpp" />

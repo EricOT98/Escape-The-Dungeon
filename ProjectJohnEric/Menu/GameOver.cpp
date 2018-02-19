@@ -1,11 +1,18 @@
 #include "GameOver.h"
-
+#include <iomanip> // setprecision
+#include <sstream> // stringstream
 /// <summary>
 /// Default constructor
 /// </summary>
-GameOver::GameOver(sf::Font & font) :
-	Menu(MenuStates::GAMEOVER, font)
+GameOver::GameOver(sf::Font & font, bool & gameOutcome, float & time) :
+	Menu(MenuStates::GAMEOVER, font),
+	m_gameOutcome(gameOutcome),
+	m_time(time)
 {
+	m_message.setFont(g_resourceManager.fontHolder["UIFont"]);
+	m_message.setPosition(sf::Vector2f(200, 200));
+	m_message.setCharacterSize(40);
+	m_message.setFillColor(sf::Color::White);
 	initialise();
 }
 
@@ -23,6 +30,12 @@ GameOver::~GameOver()
 void GameOver::update(Xbox360Controller & controller)
 {
 	m_gui.processInput(controller);
+	if (m_gameOutcome) {
+		setEndTime(m_time);
+	}
+	else {
+		setFail();
+	}
 	//Menu functionality for a button press
 	if (m_mainmenuPressed)
 	{
@@ -31,6 +44,7 @@ void GameOver::update(Xbox360Controller & controller)
 	}
 	if (m_retryPressed)
 	{
+		retryGame();
 		goToMenu(MenuStates::GAME);
 		reset();
 	}
@@ -44,6 +58,7 @@ void GameOver::update(Xbox360Controller & controller)
 void GameOver::render(sf::RenderWindow & window)
 {
 	window.draw(m_gui); //Draw gui components
+	window.draw(m_message);
 }
 
 /// <summary>
@@ -60,6 +75,19 @@ void GameOver::mainmenu()
 void GameOver::retry()
 {
 	m_retryPressed = true;
+}
+
+void GameOver::setEndTime(float time)
+{
+	stringstream stream;
+	stream << fixed << setprecision(2) << time;
+	string s = stream.str();
+	m_message.setString("You finished in: " + s + " seconds");
+}
+
+void GameOver::setFail()
+{
+	m_message.setString("You have failed to escape.");
 }
 
 /// <summary>
@@ -85,7 +113,7 @@ void GameOver::initGUIObjects()
 	m_gui.addButton(m_retry, "Replay", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::Black, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::White, sf::Color::Black);
 	m_title->setColour(sf::Color::White);
 }
 

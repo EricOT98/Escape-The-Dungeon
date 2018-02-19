@@ -60,6 +60,7 @@ protected:
 	MenuStates m_currentState;
 	MenuStates m_nextState;
 	MenuStates m_previousMenu;
+	sf::RectangleShape m_background;
 	sf::Font & m_font;
 	bool m_active;
 };

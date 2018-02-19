@@ -79,7 +79,7 @@ void SoundOptions::initGUIObjects()
 	m_gui.addButton(m_back, "<- Back", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addSlider(m_volume, "Volume", sf::Vector2f(100, 300), sf::Vector2i(200, 50), sf::Color::Green);
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::White, sf::Color::Black);
 	m_title->setColour(sf::Color::White);
 }
 

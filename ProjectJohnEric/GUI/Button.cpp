@@ -11,6 +11,7 @@ Button::Button(sf::Font & font, Widget * parent = nullptr)
 	m_label->setSize(30); //Set character size of label text	
 	m_type = typeid(Button).name();	//Set the type of the button
 	//rect.setFillColor(m_fillColor);
+	rect.setTexture(&g_resourceManager.textureHolder["Button"]);
 	rect.setOutlineColor(m_outlineColor);
 }
 
@@ -43,7 +44,7 @@ void Button::setSize(int width, int height)
 void Button::setPosition(sf::Vector2f pos)
 {
 	rect.setPosition(pos); //Set x/y position of rectangle
-	m_label->setPosition(sf::Vector2f(pos.x, pos.y)); //Sets label position to rectangle position
+	m_label->setPosition(sf::Vector2f(pos.x + 30, pos.y + 10)); //Sets label position to rectangle position
 }
 
 /// <summary>

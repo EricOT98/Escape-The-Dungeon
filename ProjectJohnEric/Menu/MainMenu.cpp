@@ -8,6 +8,9 @@ MainMenu::MainMenu(bool & _quit, sf::Font & font) :
 	Menu(MenuStates::MAIN_MENU, font),
 	exit(_quit)
 {
+	m_background.setPosition(0, 0);
+	m_background.setTexture(&g_resourceManager.textureHolder["MainMenu"]);
+	m_background.setSize(sf::Vector2f(1080, 720));
 	initialise();
 }
 
@@ -49,6 +52,9 @@ void MainMenu::update(Xbox360Controller & controller)
 /// <param name="window">The current render window</param>
 void MainMenu::render(sf::RenderWindow & window)
 {
+	//m_background.setSize(sf::Vector2f(window.getSize()));
+	m_background.setPosition(0, 0);
+	window.draw(m_background);
 	window.draw(m_gui); //Draw gui components
 }
 
@@ -112,7 +118,7 @@ void MainMenu::initGUIObjects()
 	m_gui.addButton(m_options, "Options", sf::Vector2f(100, 500), sf::Vector2i(200, 50), sf::Color::Green);
 	m_gui.addButton(m_quit, "Quit", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::White, sf::Color::Black);
 }
 
 void MainMenu::goToMenu(MenuStates state)

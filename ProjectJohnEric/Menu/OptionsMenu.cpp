@@ -3,8 +3,9 @@
 /// <summary>
 /// Default consrtuctor
 /// </summary>
-OptionsMenu::OptionsMenu(sf::Font & font) :
-	Menu(MenuStates::OPTIONS, font)
+OptionsMenu::OptionsMenu(sf::Font & font, MenuStates & prev) :
+	Menu(MenuStates::OPTIONS, font),
+	m_previousMenu(prev)
 {
 	initialise();
 }
@@ -103,7 +104,7 @@ void OptionsMenu::initGUIObjects()
 	m_gui.addButton(m_back, "<- Back", sf::Vector2f(100, 600), sf::Vector2i(200, 50), sf::Color::Green);
 
 	//selected, unselected, fill ,outline
-	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::Green, sf::Color::Black);
+	m_gui.setColorScheme(sf::Color::Blue, sf::Color::White, sf::Color::White, sf::Color::Black);
 }
 
 /// <summary>

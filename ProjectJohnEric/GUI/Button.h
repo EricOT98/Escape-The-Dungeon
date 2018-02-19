@@ -8,6 +8,7 @@
 #include "Widget.h"
 #include "Label.h"
 #include <functional>
+#include "ResourceManager.h"
 
 class Button : public Widget
 {

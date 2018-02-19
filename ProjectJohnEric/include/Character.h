@@ -24,8 +24,6 @@ class Character
 public:
 	sf::RectangleShape m_TESTPOINTER;
 	sf::RectangleShape m_TESTLEFT, m_TESTRIGHT;
-	
-	sf::CircleShape m_DEBUGCIRCLE;
 
 	Character();
 	Character(string name);

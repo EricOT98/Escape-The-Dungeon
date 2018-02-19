@@ -18,6 +18,7 @@
 #include "../Input/Xbox360Controller.h"
 #include "../Menu/MenuHandler.h"
 #include "../Lights/LightEngine.h"
+#include "UI.h"
 
 class Game
 {
@@ -51,7 +52,7 @@ private:
 	MenuHandler m_menuHandler;
 	//Menu objects if using predefined menus to be stroed in header
 
-	sf::CircleShape m_debug;
+	UI m_hud;
 
 	////TODO: Eric Lights
 	LightEngine m_lightEngine;
@@ -64,6 +65,8 @@ private:
 	sf::Color brightness;
 	std::vector<Level *> m_levels;
 	int m_currLevel;
+
+	float m_elapsedTime;
 };
 
 #endif // !GAME

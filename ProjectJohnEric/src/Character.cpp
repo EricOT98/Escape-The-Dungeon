@@ -39,21 +39,6 @@ float Character::getRadius()
 void Character::render(sf::RenderTarget &targ)
 {
 	m_rect.setPosition(m_position);
-	m_rect.setRotation(m_rotation);
-
-	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
-	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
-	m_DEBUGCIRCLE.setPosition(m_position);
-	if (m_collisionRadius < 0)
-	{
-		m_DEBUGCIRCLE.setFillColor(sf::Color(255, 0, 0, 255));
-	}
-	else
-		m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 255));
-
-	targ.draw(m_rect);
-	targ.draw(m_DEBUGCIRCLE);
-	
 	sf::Vector2f batteryPos = m_position;
 	batteryPos.x -= cos(m_rotation*acos(-1) / 180) * 30;
 	batteryPos.y -= sin(m_rotation*acos(-1) / 180) * 30;
@@ -113,10 +98,6 @@ void Character::init()
 	m_minimapIcon.setRadius(m_collisionRadius*1.5);
 	m_minimapIcon.setOrigin(m_collisionRadius*1.5, m_collisionRadius*1.5);
 	m_minimapIcon.setFillColor(sf::Color(255, 255, 255));
-
-	m_DEBUGCIRCLE.setRadius(m_collisionRadius);
-	m_DEBUGCIRCLE.setOrigin(m_collisionRadius, m_collisionRadius);
-	m_DEBUGCIRCLE.setFillColor(sf::Color(0, 0, 255, 255));
 }
 
 void Character::applyForce(sf::Vector2f direction)
