@@ -145,6 +145,7 @@ sf::Vector2f Level::getBounds()
 
 void Level::startLevel()
 {
+	m_player->respawn();
 	m_player->setPosition(m_startPos);
 }
 

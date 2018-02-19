@@ -52,7 +52,7 @@ void Player::init(LightEngine & engine)
 	m_walking.setBuffer(g_resourceManager.soundHolder["Walking"]);
 	m_walking.setLoop(true);
 	m_soundsLoaded = true;
-	m_batteryLifespan = 30.0f; //seconds
+	m_batteryLifespan = 30; //seconds
 	m_batteryDecrement = m_battery.m_remaining / m_batteryLifespan;
 	m_alive = true;
 	m_sprite.setTexture(g_resourceManager.textureHolder["Player"]);
@@ -86,9 +86,6 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller, fl
 		m_alive = false;
 	}
 	controller.update();
-	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::L)) {
-		m_battery.m_remaining -= 0.05;
-	}
 	if (KeyboardHandler::GetInstance()->KeyPressed(sf::Keyboard::Space))
 	{
 		if (m_usingMouse)
@@ -110,11 +107,11 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller, fl
 	}
 	else
 	{
-		m_viewForward = false;
+		
 	}
 
 #pragma region TORCH_LOGIC
-	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::R)) {
+	if (KeyboardHandler::GetInstance()->KeyDown(sf::Keyboard::R) || controller.m_currentState.bumperRight) {
 		if(m_viewPercent < 1)
 			m_viewPercent += m_viewStep;
 
@@ -122,6 +119,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller, fl
 		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
 		m_light->radius = m_visionRange;
 		m_light->angleSpread = m_fieldOfVision;
+		m_viewForward = true;
 	}
 	else {
 		if (m_viewPercent > 0)
@@ -130,6 +128,7 @@ void Player::update(sf::RenderWindow &window, Xbox360Controller & controller, fl
 		m_fieldOfVision = lerp(m_fovMax, m_fovMin, m_viewPercent);
 		m_light->radius = m_visionRange;
 		m_light->angleSpread = m_fieldOfVision;
+		m_viewForward = false;
 	}
 
 #pragma endregion
@@ -247,6 +246,7 @@ void Player::move()
 void Player::respawn()
 {
 	m_alive = true;
+	m_decrementTimer = 0;
 	m_battery.m_remaining = 1;
 }
 

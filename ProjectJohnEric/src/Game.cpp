@@ -177,6 +177,7 @@ void Game::update(sf::Time t_deltaTime)
 				m_lightEngine.Lights.push_back(m_player.getLight());
 				m_levels.at(m_currLevel)->setLightBlockingTile(m_lightEngine);
 				m_levels.at(m_currLevel)->startLevel();
+				/*m_hud.m_time = 0;*/
 			}
 			else {
 				m_currLevel = 0;
